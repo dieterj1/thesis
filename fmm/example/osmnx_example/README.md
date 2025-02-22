@@ -6,11 +6,11 @@ Check the download_network.ipynb.
 
 ```bash
 # Run precomputation
-ubodt_gen --network stockholm/edges.shp --network_id fid --source u --target v --output stockholm/ubodt.txt --delta 0.03 --use_omp
+ubodt_gen --network beijing/edges.shp --network_id fid --source u --target v --output beijing/ubodt.txt --delta 0.03 --use_omp
 # Run fmm
-fmm --ubodt stockholm/ubodt.txt --network stockholm/edges.shp --network_id fid --source u --target v --gps stockholm/trips.csv -k 8 -r 0.003 -e 0.0005 --output stockholm/mr.txt --use_omp
+fmm --ubodt beijing/ubodt.txt --network beijing/edges.shp --network_id fid --source u --target v --gps beijing/trips.csv -k 8 -r 0.003 -e 0.0005 --output beijing/mr.txt --use_omp
 # Run stmatch
-stmatch --network stockholm/edges.shp --network_id fid --source u --target v --gps stockholm/trips.csv -k 8 -r 0.003 -e 0.0005 --output stockholm/mr.txt --use_omp --output_fields opath,cpath,mgeom
+stmatch --network beijing/edges.shp --network_id fid --source u --target v --gps beijing/trips.csv -k 8 -r 0.003 -e 0.0005 --output beijing/mr.txt --use_omp --output_fields opath,cpath,mgeom
 ```
 
 ### Run map matching in jupyter notebook
