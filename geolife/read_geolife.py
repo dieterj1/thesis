@@ -47,24 +47,37 @@ def all_data_to_csv():
         folder_path = os.path.join(base_folder, folder_name, "Trajectory")
         
         if not os.path.exists(folder_path):
-            print(f"User {user_id} folder not found, skipping.")
+            print(f"folder {user_id} not found")
             continue
 
-        data = read_all_of_user(user_id)
+        data = read_all_of_user(user_id)  
 
         if not data:
-            print(f"No data found for user {user_id}, skipping.")
+            print(f"No data for folder {user_id}")
             continue 
 
-        df = pd.concat(data, ignore_index=True)
-        df["id"] = user_id  
-        df = df.rename(columns={"Longitude": "x", "Latitude": "y", "Datetime": "timestamp"})
-        df['timestamp'] = (df['timestamp'] - pd.Timestamp("1970-01-01")) // pd.Timedelta('1s')
-        df = df.sort_values(by=["id", "timestamp"])
-        df = df[["id", "x", "y", "timestamp"]]
+        trajectories = []  
+
+        for idx, df in enumerate(data, start=1):  # Unique ID per trajectory
+            if df.empty:
+                continue
+
+            coords = list(zip(df["Longitude"], df["Latitude"]))
+            linestring = f"LINESTRING({', '.join(f'{x} {y}' for x, y in coords)})"
+            trajectories.append(f"{idx};{linestring}")
+
+        if not trajectories:
+            print(f"No valid trajectories for user {user_id}, skipping.")
+            continue
 
         output_dir = f"/mnt/c/Users/diete/Documents/GeolifeCSV/{folder_name}/"
         os.makedirs(output_dir, exist_ok=True)  
-        output_file = os.path.join(output_dir, "trajectory.csv")        
-        df.to_csv(output_file, sep=";", index=False)
+        output_file = os.path.join(output_dir, "trajectories.csv")
+
+        with open(output_file, "w") as f:
+            f.write("id;geom\n")
+            f.write("\n".join(trajectories))
+
         print(f"CSV saved for user {user_id}")
+
+all_data_to_csv()
