@@ -79,5 +79,3 @@ def all_data_to_csv():
             f.write("\n".join(trajectories))
 
         print(f"CSV saved for user {user_id}")
-
-all_data_to_csv()
