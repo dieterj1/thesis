@@ -2,3 +2,6 @@ trace_obfuscate/taxidata/taxi_february.txt
 poi_extraction/taxidata/taxi_february.txt
 fmm/example/osmnx_example/beijing/edges.dbf
 fmm/example/osmnx_example/beijing/ubodt.txt
+fmm/example/osmnx_example/cache
+
+
