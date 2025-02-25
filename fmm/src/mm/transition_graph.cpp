@@ -36,8 +36,16 @@ double TransitionGraph::calc_tp(double sp_dist,double eu_dist){
 }
 
 double TransitionGraph::calc_ep(double dist,double error){
-  double a = dist / error;
-  return exp(-0.5 * a * a);
+  double p;
+  if(dist > std::abs(error)) {
+    p = 0;
+  } 
+  else {
+    p = (error - std::abs(dist))/(error * error);
+  }
+  return p ;
+  /* double a = dist / error;
+  return exp(-0.5 * a * a); */
 }
 
 // Reset the properties of a candidate set
