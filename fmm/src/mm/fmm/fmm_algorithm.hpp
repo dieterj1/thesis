@@ -36,14 +36,15 @@ struct FastMapMatchConfig{
    * @param r_arg the search radius, in map unit, which is the same as
    * GPS data and network data.
    * @param gps_error the gps error, in map unit
-   *
+   * @param  obfuscation Indicating if there is obfuscation applied on the GPS data
    */
   FastMapMatchConfig(int k_arg = 8, double r_arg = 300, double gps_error = 50,
-    double reverse_tolerance = 0.0);
+    double reverse_tolerance = 0.0, bool obfuscation=false);
   int k; /**< Number of candidates */
   double radius; /**< Search radius*/
   double gps_error; /**< GPS error */
   double reverse_tolerance;
+  bool obfuscation;
   /**
    * Check if the configuration is valid or not
    * @return true if valid

@@ -15,7 +15,7 @@ using namespace FMM::PYTHON;
 
 STMATCHConfig::STMATCHConfig(
   int k_arg, double r_arg, double gps_error_arg,
-  double vmax_arg, double factor_arg, double reverse_tolerance_arg):
+  double vmax_arg, double factor_arg, double reverse_tolerance_arg, bool obfuscation):
   k(k_arg), radius(r_arg), gps_error(gps_error_arg),
   vmax(vmax_arg), factor(factor_arg),
   reverse_tolerance(reverse_tolerance_arg) {
@@ -136,7 +136,7 @@ MatchResult STMATCH::match_traj(const Trajectory &traj,
   SPDLOG_DEBUG("Generate composite_graph");
   CompositeGraph cg(graph_, dg);
   SPDLOG_DEBUG("Generate composite_graph");
-  TransitionGraph tg(tc, config.gps_error);
+  TransitionGraph tg(tc, config.gps_error, config.obfuscation);
   SPDLOG_DEBUG("Update cost in transition graph");
   // The network will be used internally to update transition graph
   update_tg(&tg, cg, traj, config);

@@ -43,7 +43,7 @@ struct STMATCHConfig {
    */
   STMATCHConfig(int k_arg = 8, double r_arg = 300, double gps_error_arg = 50,
                 double vmax_arg = 30, double factor_arg = 1.5,
-                double reverse_tolerance_arg = 0.0);
+                double reverse_tolerance_arg = 0.0, bool obfuscation = false);
   int k; /**< number of candidates */
   double radius; /**< search radius for candidates, unit is map_unit*/
   double gps_error; /**< GPS error, unit is map_unit */
@@ -51,6 +51,7 @@ struct STMATCHConfig {
   double factor; /**< factor multiplied to vmax*deltaT to
                       limit the search of shortest path */
   double reverse_tolerance;
+  bool obfuscation;
   /**
    * Check the validity of the configuration
    */

@@ -16,11 +16,11 @@ using namespace FMM::CORE;
 using namespace FMM::NETWORK;
 using namespace FMM::MM;
 
-TransitionGraph::TransitionGraph(const Traj_Candidates &tc, double gps_error){
+TransitionGraph::TransitionGraph(const Traj_Candidates &tc, double gps_error, bool obfuscation){
   for (auto cs = tc.begin(); cs!=tc.end(); ++cs) {
     TGLayer layer;
     for (auto iter = cs->begin(); iter!=cs->end(); ++iter) {
-      double ep = calc_ep(iter->dist,gps_error);
+      double ep = calc_ep(iter->dist,gps_error,obfuscation);
       layer.push_back(TGNode{&(*iter),nullptr,ep,0,
         -std::numeric_limits<double>::infinity(),0});
     }
@@ -35,17 +35,21 @@ double TransitionGraph::calc_tp(double sp_dist,double eu_dist){
   return eu_dist>=sp_dist ? 1.0 : eu_dist/sp_dist;
 }
 
-double TransitionGraph::calc_ep(double dist,double error){
-  double p;
-  if(dist > std::abs(error)) {
-    p = 0;
-  } 
-  else {
-    p = (error - std::abs(dist))/(error * error);
+double TransitionGraph::calc_ep(double dist,double error,bool obfuscation) {
+  if (obfuscation) {
+      double p;
+    if(dist > std::abs(error)) {
+      p = 0.00001;
+    } 
+    else {
+      p = (error - std::abs(dist))/(error * error);
+    }
+    return p;
   }
-  return p ;
-  /* double a = dist / error;
-  return exp(-0.5 * a * a); */
+  else {
+    double a = dist / error;
+    return exp(-0.5 * a * a); 
+  } 
 }
 
 // Reset the properties of a candidate set
