@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_00cdf0f1105289de8dc3a0b3d385705f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_00cdf0f1105289de8dc3a0b3d385705f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_00cdf0f1105289de8dc3a0b3d385705f = L.map(
+                "map_00cdf0f1105289de8dc3a0b3d385705f",
+                {
+                    center: [41.9028, 12.4964],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a5c07165cc6fcd291a2b83e62eab9abe = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_a5c07165cc6fcd291a2b83e62eab9abe.addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var marker_b6147acb3a49541c1694db6ae0a79786 = L.marker(
+                [41.90198258783526, 12.480738733110096],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_24c879f8a11ad49b04ab4c505f09c2f8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b6147acb3a49541c1694db6ae0a79786.setIcon(icon_24c879f8a11ad49b04ab4c505f09c2f8);
+        
+    
+        var popup_b7aadd8fd2df6f786a1391f228b6c693 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_973cf795d49bac94304ab008b4d84a6b = $(`<div id="html_973cf795d49bac94304ab008b4d84a6b" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-03 13:50:03<br>Last Seen: 2014-02-03 21:32:15<br>Total Duration: 0 days 07:42:12.356393<br>GPS Points: 420<br><hr><br><b>Sub-Cluster 2:</b><br>First Seen: 2014-02-04 13:50:53<br>Last Seen: 2014-02-04 21:43:16<br>Total Duration: 0 days 07:52:23.010017<br>GPS Points: 1073<br><hr><br><b>Sub-Cluster 3:</b><br>First Seen: 2014-02-05 13:52:03<br>Last Seen: 2014-02-05 21:45:39<br>Total Duration: 0 days 07:53:36.025914<br>GPS Points: 641<br><hr><br><b>Sub-Cluster 4:</b><br>First Seen: 2014-02-06 14:08:59<br>Last Seen: 2014-02-06 21:44:29<br>Total Duration: 0 days 07:35:30.010569<br>GPS Points: 778<br><hr><br><b>Sub-Cluster 5:</b><br>First Seen: 2014-02-07 13:55:13<br>Last Seen: 2014-02-07 21:19:15<br>Total Duration: 0 days 07:24:01.618627<br>GPS Points: 941<br><hr><br><b>Sub-Cluster 6:</b><br>First Seen: 2014-02-08 13:43:53<br>Last Seen: 2014-02-08 21:09:10<br>Total Duration: 0 days 07:25:16.420023<br>GPS Points: 429<br><hr><br><b>Sub-Cluster 7:</b><br>First Seen: 2014-02-09 17:20:16<br>Last Seen: 2014-02-09 17:42:07<br>Total Duration: 0 days 00:21:51.039490<br>GPS Points: 136<br><hr><br><b>Sub-Cluster 8:</b><br>First Seen: 2014-02-10 14:41:09<br>Last Seen: 2014-02-10 19:22:55<br>Total Duration: 0 days 04:41:45.830949<br>GPS Points: 457<br><hr><br><b>Sub-Cluster 9:</b><br>First Seen: 2014-02-11 12:56:55<br>Last Seen: 2014-02-11 20:10:15<br>Total Duration: 0 days 07:13:19.049035<br>GPS Points: 713<br><hr><br><b>Sub-Cluster 10:</b><br>First Seen: 2014-02-12 15:28:36<br>Last Seen: 2014-02-12 20:02:00<br>Total Duration: 0 days 04:33:24.204976<br>GPS Points: 177<br><hr><br><b>Sub-Cluster 11:</b><br>First Seen: 2014-02-13 12:52:53<br>Last Seen: 2014-02-13 19:59:19<br>Total Duration: 0 days 07:06:25.869895<br>GPS Points: 553<br><hr><br><b>Sub-Cluster 12:</b><br>First Seen: 2014-02-14 14:13:04<br>Last Seen: 2014-02-14 20:51:40<br>Total Duration: 0 days 06:38:35.505524<br>GPS Points: 903<br><hr><br><b>Sub-Cluster 13:</b><br>First Seen: 2014-02-17 14:20:55<br>Last Seen: 2014-02-17 20:52:25<br>Total Duration: 0 days 06:31:30.333467<br>GPS Points: 1140<br><hr><br><b>Sub-Cluster 14:</b><br>First Seen: 2014-02-18 14:53:28<br>Last Seen: 2014-02-18 21:36:09<br>Total Duration: 0 days 06:42:40.426672<br>GPS Points: 466<br><hr><br><b>Sub-Cluster 15:</b><br>First Seen: 2014-02-19 15:26:04<br>Last Seen: 2014-02-19 21:25:31<br>Total Duration: 0 days 05:59:26.926694<br>GPS Points: 866<br><hr><br><b>Sub-Cluster 16:</b><br>First Seen: 2014-02-20 13:28:17<br>Last Seen: 2014-02-20 21:49:01<br>Total Duration: 0 days 08:20:44.185105<br>GPS Points: 711<br><hr><br><b>Sub-Cluster 17:</b><br>First Seen: 2014-02-21 13:52:25<br>Last Seen: 2014-02-21 22:00:37<br>Total Duration: 0 days 08:08:12.146920<br>GPS Points: 1912<br><hr><br><b>Sub-Cluster 18:</b><br>First Seen: 2014-02-22 14:44:59<br>Last Seen: 2014-02-22 16:28:46<br>Total Duration: 0 days 01:43:46.701961<br>GPS Points: 450<br><hr><br><b>Sub-Cluster 19:</b><br>First Seen: 2014-02-22 19:44:50<br>Last Seen: 2014-02-22 22:19:30<br>Total Duration: 0 days 02:34:40.200421<br>GPS Points: 408<br><hr><br><b>Sub-Cluster 20:</b><br>First Seen: 2014-02-23 14:51:51<br>Last Seen: 2014-02-23 14:58:51<br>Total Duration: 0 days 00:07:00.191625<br>GPS Points: 63<br><hr><br><b>Sub-Cluster 21:</b><br>First Seen: 2014-02-23 18:26:23<br>Last Seen: 2014-02-23 19:24:45<br>Total Duration: 0 days 00:58:21.162378<br>GPS Points: 116<br><hr><br><b>Sub-Cluster 22:</b><br>First Seen: 2014-02-24 12:56:16<br>Last Seen: 2014-02-24 20:38:37<br>Total Duration: 0 days 07:42:20.748431<br>GPS Points: 1408<br><hr><br><b>Sub-Cluster 23:</b><br>First Seen: 2014-02-26 15:04:44<br>Last Seen: 2014-02-26 20:08:15<br>Total Duration: 0 days 05:03:31.184391<br>GPS Points: 554<br><hr><br><b>Sub-Cluster 24:</b><br>First Seen: 2014-02-27 12:42:43<br>Last Seen: 2014-02-27 20:42:09<br>Total Duration: 0 days 07:59:26.574920<br>GPS Points: 1122<br><hr><br><b>Sub-Cluster 25:</b><br>First Seen: 2014-02-28 12:46:54<br>Last Seen: 2014-02-28 13:42:27<br>Total Duration: 0 days 00:55:32.913471<br>GPS Points: 121<br><hr><br><b>Sub-Cluster 26:</b><br>First Seen: 2014-02-28 17:25:23<br>Last Seen: 2014-02-28 18:03:34<br>Total Duration: 0 days 00:38:10.151301<br>GPS Points: 323<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_b7aadd8fd2df6f786a1391f228b6c693.setContent(html_973cf795d49bac94304ab008b4d84a6b);
+            
+        
+
+        marker_b6147acb3a49541c1694db6ae0a79786.bindPopup(popup_b7aadd8fd2df6f786a1391f228b6c693)
+        ;
+
+        
+    
+    
+            var marker_2107fdafddefb3032b2ee39ab1538e96 = L.marker(
+                [41.91090479542429, 12.498396112528262],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_2786b81fcd524ea8d80cd10e957b5b58 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_2107fdafddefb3032b2ee39ab1538e96.setIcon(icon_2786b81fcd524ea8d80cd10e957b5b58);
+        
+    
+        var popup_f1eb35d61bfa39fa7b883bd6813d4a66 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_c0967f405b5bedbca6cadde2d03a04fd = $(`<div id="html_c0967f405b5bedbca6cadde2d03a04fd" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-03 14:26:58<br>Last Seen: 2014-02-03 17:14:32<br>Total Duration: 0 days 02:47:33.574067<br>GPS Points: 101<br><hr><br><b>Sub-Cluster 2:</b><br>First Seen: 2014-02-04 15:04:22<br>Last Seen: 2014-02-04 15:12:42<br>Total Duration: 0 days 00:08:19.749630<br>GPS Points: 51<br><hr><br><b>Sub-Cluster 3:</b><br>First Seen: 2014-02-04 18:48:48<br>Last Seen: 2014-02-04 18:53:45<br>Total Duration: 0 days 00:04:57.051964<br>GPS Points: 32<br><hr><br><b>Sub-Cluster 4:</b><br>First Seen: 2014-02-07 17:32:17<br>Last Seen: 2014-02-07 18:05:32<br>Total Duration: 0 days 00:33:15.756424<br>GPS Points: 60<br><hr><br><b>Sub-Cluster 5:</b><br>First Seen: 2014-02-08 15:05:19<br>Last Seen: 2014-02-08 15:07:20<br>Total Duration: 0 days 00:02:00.734919<br>GPS Points: 15<br><hr><br><b>Sub-Cluster 6:</b><br>First Seen: 2014-02-10 13:52:33<br>Last Seen: 2014-02-10 17:55:21<br>Total Duration: 0 days 04:02:48.267609<br>GPS Points: 568<br><hr><br><b>Sub-Cluster 7:</b><br>First Seen: 2014-02-11 15:42:03<br>Last Seen: 2014-02-11 17:02:17<br>Total Duration: 0 days 01:20:13.380842<br>GPS Points: 248<br><hr><br><b>Sub-Cluster 8:</b><br>First Seen: 2014-02-12 13:35:13<br>Last Seen: 2014-02-12 13:56:43<br>Total Duration: 0 days 00:21:29.688251<br>GPS Points: 109<br><hr><br><b>Sub-Cluster 9:</b><br>First Seen: 2014-02-14 20:02:33<br>Last Seen: 2014-02-14 20:29:03<br>Total Duration: 0 days 00:26:29.478388<br>GPS Points: 23<br><hr><br><b>Sub-Cluster 10:</b><br>First Seen: 2014-02-17 14:53:00<br>Last Seen: 2014-02-17 17:20:44<br>Total Duration: 0 days 02:27:44.159393<br>GPS Points: 382<br><hr><br><b>Sub-Cluster 11:</b><br>First Seen: 2014-02-19 17:04:22<br>Last Seen: 2014-02-19 17:34:53<br>Total Duration: 0 days 00:30:30.675321<br>GPS Points: 197<br><hr><br><b>Sub-Cluster 12:</b><br>First Seen: 2014-02-20 16:51:36<br>Last Seen: 2014-02-20 18:03:31<br>Total Duration: 0 days 01:11:54.808932<br>GPS Points: 288<br><hr><br><b>Sub-Cluster 13:</b><br>First Seen: 2014-02-21 16:59:02<br>Last Seen: 2014-02-21 17:14:47<br>Total Duration: 0 days 00:15:44.951083<br>GPS Points: 137<br><hr><br><b>Sub-Cluster 14:</b><br>First Seen: 2014-02-24 15:20:05<br>Last Seen: 2014-02-24 17:48:17<br>Total Duration: 0 days 02:28:11.444780<br>GPS Points: 477<br><hr><br><b>Sub-Cluster 15:</b><br>First Seen: 2014-02-26 18:40:00<br>Last Seen: 2014-02-26 18:43:03<br>Total Duration: 0 days 00:03:02.782699<br>GPS Points: 23<br><hr><br><b>Sub-Cluster 16:</b><br>First Seen: 2014-02-27 14:20:56<br>Last Seen: 2014-02-27 14:27:05<br>Total Duration: 0 days 00:06:08.417745<br>GPS Points: 56<br><hr><br><b>Sub-Cluster 17:</b><br>First Seen: 2014-02-28 13:16:00<br>Last Seen: 2014-02-28 13:22:32<br>Total Duration: 0 days 00:06:32.519736<br>GPS Points: 57<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_f1eb35d61bfa39fa7b883bd6813d4a66.setContent(html_c0967f405b5bedbca6cadde2d03a04fd);
+            
+        
+
+        marker_2107fdafddefb3032b2ee39ab1538e96.bindPopup(popup_f1eb35d61bfa39fa7b883bd6813d4a66)
+        ;
+
+        
+    
+    
+            var marker_65836674e835abe7e44428d434cecaae = L.marker(
+                [41.91107967376019, 12.498859187156999],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_954e03a93fa92aa7d6ceb7ebb8625684 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_65836674e835abe7e44428d434cecaae.setIcon(icon_954e03a93fa92aa7d6ceb7ebb8625684);
+        
+    
+        var popup_af6efaf9ad81ba942a8dfac7e0be1073 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_fac1bb67259d29d1a3159088612009f4 = $(`<div id="html_fac1bb67259d29d1a3159088612009f4" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-13 19:07:29<br>Last Seen: 2014-02-13 19:08:30<br>Total Duration: 0 days 00:01:01.007589<br>GPS Points: 7<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_af6efaf9ad81ba942a8dfac7e0be1073.setContent(html_fac1bb67259d29d1a3159088612009f4);
+            
+        
+
+        marker_65836674e835abe7e44428d434cecaae.bindPopup(popup_af6efaf9ad81ba942a8dfac7e0be1073)
+        ;
+
+        
+    
+    
+            var marker_a38a55b0e8b0487939e44b4bedf15563 = L.marker(
+                [41.911358986426485, 12.498535902976442],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_8316bd301107648a77bd0153f887122c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a38a55b0e8b0487939e44b4bedf15563.setIcon(icon_8316bd301107648a77bd0153f887122c);
+        
+    
+        var popup_4cadba01f03f839525e569ddd968ca03 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_11676812c6cafb7b102454445bec72a4 = $(`<div id="html_11676812c6cafb7b102454445bec72a4" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-18 14:21:59<br>Last Seen: 2014-02-18 17:35:29<br>Total Duration: 0 days 03:13:29.093646<br>GPS Points: 214<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1<br>ice_cream: 1</div>`)[0];
+                popup_4cadba01f03f839525e569ddd968ca03.setContent(html_11676812c6cafb7b102454445bec72a4);
+            
+        
+
+        marker_a38a55b0e8b0487939e44b4bedf15563.bindPopup(popup_4cadba01f03f839525e569ddd968ca03)
+        ;
+
+        
+    
+    
+            var marker_59d321874ccf56bb15ff20ccbc9ce265 = L.marker(
+                [41.91041568943379, 12.497892149111758],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_4725663cda1356c852011eb9ef36ba48 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_59d321874ccf56bb15ff20ccbc9ce265.setIcon(icon_4725663cda1356c852011eb9ef36ba48);
+        
+    
+        var popup_0daf0b9bd7b05baecdc4daa6bc3bf3de = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_c03058baf90b377640ba0d614b145d66 = $(`<div id="html_c03058baf90b377640ba0d614b145d66" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-21 13:38:22<br>Last Seen: 2014-02-21 13:43:09<br>Total Duration: 0 days 00:04:47.340759<br>GPS Points: 25<br><hr><br><b>Restaurant:</b><br>- Al Forno della Soffitta<br>- Chinappi<br>- Mok<br><b>Cafe:</b><br>- Faro</div>`)[0];
+                popup_0daf0b9bd7b05baecdc4daa6bc3bf3de.setContent(html_c03058baf90b377640ba0d614b145d66);
+            
+        
+
+        marker_59d321874ccf56bb15ff20ccbc9ce265.bindPopup(popup_0daf0b9bd7b05baecdc4daa6bc3bf3de)
+        ;
+
+        
+    
+    
+            var marker_ebf25c194a3791036fb2fe79eb6e0d2e = L.marker(
+                [41.903116373149, 12.486559999575983],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_9b8b63802058bb44ddd26a58b921f0ec = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ebf25c194a3791036fb2fe79eb6e0d2e.setIcon(icon_9b8b63802058bb44ddd26a58b921f0ec);
+        
+    
+        var popup_8cadd534597d619d54f7997f91a57284 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_d16eafffbbadf23f60f1fa3bac57cb57 = $(`<div id="html_d16eafffbbadf23f60f1fa3bac57cb57" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-03 18:27:11<br>Last Seen: 2014-02-03 18:32:55<br>Total Duration: 0 days 00:05:43.628757<br>GPS Points: 24<br><hr><br><b>Sub-Cluster 2:</b><br>First Seen: 2014-02-04 17:51:14<br>Last Seen: 2014-02-04 17:55:54<br>Total Duration: 0 days 00:04:40.728810<br>GPS Points: 29<br><hr><br><b>Sub-Cluster 3:</b><br>First Seen: 2014-02-04 21:26:16<br>Last Seen: 2014-02-04 21:30:56<br>Total Duration: 0 days 00:04:39.562262<br>GPS Points: 29<br><hr><br><b>Sub-Cluster 4:</b><br>First Seen: 2014-02-05 18:38:12<br>Last Seen: 2014-02-05 18:45:42<br>Total Duration: 0 days 00:07:29.987842<br>GPS Points: 46<br><hr><br><b>Sub-Cluster 5:</b><br>First Seen: 2014-02-06 21:01:49<br>Last Seen: 2014-02-06 21:08:00<br>Total Duration: 0 days 00:06:10.830597<br>GPS Points: 38<br><hr><br><b>Sub-Cluster 6:</b><br>First Seen: 2014-02-08 18:54:04<br>Last Seen: 2014-02-08 18:58:54<br>Total Duration: 0 days 00:04:50.715881<br>GPS Points: 30<br><hr><br><b>Sub-Cluster 7:</b><br>First Seen: 2014-02-11 17:42:47<br>Last Seen: 2014-02-11 17:50:49<br>Total Duration: 0 days 00:08:02.477316<br>GPS Points: 51<br><hr><br><b>Sub-Cluster 8:</b><br>First Seen: 2014-02-14 14:39:05<br>Last Seen: 2014-02-14 14:43:11<br>Total Duration: 0 days 00:04:05.413748<br>GPS Points: 36<br><hr><br><b>Sub-Cluster 9:</b><br>First Seen: 2014-02-20 22:02:19<br>Last Seen: 2014-02-20 22:05:07<br>Total Duration: 0 days 00:02:47.623502<br>GPS Points: 25<br><hr><br><b>Sub-Cluster 10:</b><br>First Seen: 2014-02-21 22:02:45<br>Last Seen: 2014-02-21 22:06:55<br>Total Duration: 0 days 00:04:09.413569<br>GPS Points: 38<br><hr><br><b>Sub-Cluster 11:</b><br>First Seen: 2014-02-22 20:06:28<br>Last Seen: 2014-02-22 20:13:59<br>Total Duration: 0 days 00:07:31.240270<br>GPS Points: 64<br><hr><br><b>Sub-Cluster 12:</b><br>First Seen: 2014-02-26 18:15:38<br>Last Seen: 2014-02-26 18:21:34<br>Total Duration: 0 days 00:05:56.695830<br>GPS Points: 52<br><hr><br><b>Sub-Cluster 13:</b><br>First Seen: 2014-02-27 16:03:23<br>Last Seen: 2014-02-27 18:35:34<br>Total Duration: 0 days 02:32:11.213736<br>GPS Points: 113<br><hr><br><b>Restaurant:</b><br>- Colline Emiliane<br>- II Giardino. Antica Osteria 1909<br>- Il Corsaro Barberini<br><b>Bar:</b><br>- Hotel87<br>- Zinzilla<br><b>Cafe:</b><br>- The One<br>- White Cafè<br><b>Fast_Food:</b><br>- Luna Caprese<br><b>Other Amenities:</b><br>ice_cream: 1<br>taxi: 1</div>`)[0];
+                popup_8cadd534597d619d54f7997f91a57284.setContent(html_d16eafffbbadf23f60f1fa3bac57cb57);
+            
+        
+
+        marker_ebf25c194a3791036fb2fe79eb6e0d2e.bindPopup(popup_8cadd534597d619d54f7997f91a57284)
+        ;
+
+        
+    
+    
+            var marker_e8c0b15ad2f3d64343182c7dd57c78fd = L.marker(
+                [41.90357283253031, 12.487709923942562],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_ca700f86e8eef408d1412d5e3444cc2c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e8c0b15ad2f3d64343182c7dd57c78fd.setIcon(icon_ca700f86e8eef408d1412d5e3444cc2c);
+        
+    
+        var popup_cbda4efd90603351b6a79643d1925387 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_95d4377a5d51027f476856feb35d42c9 = $(`<div id="html_95d4377a5d51027f476856feb35d42c9" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-22 15:28:01<br>Last Seen: 2014-02-22 15:29:11<br>Total Duration: 0 days 00:01:09.827255<br>GPS Points: 11<br><hr><br><b>Restaurant:</b><br>- Artesfizio Ristorante<br>- Chicken Hut Gelateria<br>- Colline Emiliane<br><b>Cafe:</b><br>- Bernini Gusto<br>- Pepy's bar<br>- White Cafè<br><b>Fast_Food:</b><br>- The Good Burger<br><b>Bar:</b><br>- Al Sipario Bar<br><b>Other Amenities:</b><br>nightclub: 2<br>pharmacy: 1<br>theatre: 1<br>bureau_de_change: 1</div>`)[0];
+                popup_cbda4efd90603351b6a79643d1925387.setContent(html_95d4377a5d51027f476856feb35d42c9);
+            
+        
+
+        marker_e8c0b15ad2f3d64343182c7dd57c78fd.bindPopup(popup_cbda4efd90603351b6a79643d1925387)
+        ;
+
+        
+    
+    
+            var marker_9f286de86604cb4fa39356b1c401837d = L.marker(
+                [41.90139421139349, 12.501017680019721],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_f0061096f4ec543ef7fbba7023759cf1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9f286de86604cb4fa39356b1c401837d.setIcon(icon_f0061096f4ec543ef7fbba7023759cf1);
+        
+    
+        var popup_5dbbbdf0f1d337a9fbcdcfb28d677ae2 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_ae91c2e09dc9f1742752386997e1e025 = $(`<div id="html_ae91c2e09dc9f1742752386997e1e025" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-04 14:57:14<br>Last Seen: 2014-02-04 14:58:55<br>Total Duration: 0 days 00:01:41.256406<br>GPS Points: 11<br><hr><br><b>Sub-Cluster 2:</b><br>First Seen: 2014-02-07 15:54:39<br>Last Seen: 2014-02-07 18:24:08<br>Total Duration: 0 days 02:29:28.191598<br>GPS Points: 60<br><hr><br><b>Sub-Cluster 3:</b><br>First Seen: 2014-02-08 17:26:30<br>Last Seen: 2014-02-08 17:27:32<br>Total Duration: 0 days 00:01:02.064304<br>GPS Points: 7<br><hr><br><b>Sub-Cluster 4:</b><br>First Seen: 2014-02-11 16:33:46<br>Last Seen: 2014-02-11 17:37:58<br>Total Duration: 0 days 01:04:12.051855<br>GPS Points: 24<br><hr><br><b>Sub-Cluster 5:</b><br>First Seen: 2014-02-12 16:05:39<br>Last Seen: 2014-02-12 20:46:08<br>Total Duration: 0 days 04:40:29.083334<br>GPS Points: 53<br><hr><br><b>Sub-Cluster 6:</b><br>First Seen: 2014-02-14 17:35:19<br>Last Seen: 2014-02-14 18:37:09<br>Total Duration: 0 days 01:01:50.457516<br>GPS Points: 48<br><hr><br><b>Sub-Cluster 7:</b><br>First Seen: 2014-02-20 16:13:23<br>Last Seen: 2014-02-20 16:20:38<br>Total Duration: 0 days 00:07:14.661574<br>GPS Points: 49<br><hr><br><b>Sub-Cluster 8:</b><br>First Seen: 2014-02-21 17:31:39<br>Last Seen: 2014-02-21 17:36:46<br>Total Duration: 0 days 00:05:06.798283<br>GPS Points: 30<br><hr><br><b>Sub-Cluster 9:</b><br>First Seen: 2014-02-22 16:09:43<br>Last Seen: 2014-02-22 16:11:08<br>Total Duration: 0 days 00:01:24.900747<br>GPS Points: 13<br><hr><br><b>Sub-Cluster 10:</b><br>First Seen: 2014-02-23 15:11:04<br>Last Seen: 2014-02-23 15:12:22<br>Total Duration: 0 days 00:01:17.567586<br>GPS Points: 12<br><hr><br><b>Sub-Cluster 11:</b><br>First Seen: 2014-02-26 16:24:43<br>Last Seen: 2014-02-26 18:09:45<br>Total Duration: 0 days 01:45:01.774375<br>GPS Points: 47<br><hr><br><b>Sub-Cluster 12:</b><br>First Seen: 2014-02-27 13:04:14<br>Last Seen: 2014-02-27 20:10:24<br>Total Duration: 0 days 07:06:10.472930<br>GPS Points: 80<br><hr><br><b>Fast_Food:</b><br>- Alice<br>- La Piadineria<br>- McDonald's<br><b>Cafe:</b><br>- Bar Snack<br>- Buffet Roma Termini<br>- Chef Express<br><b>Restaurant:</b><br>- Waikiki Poké<br><b>Other Amenities:</b><br>vending_machine: 1<br>police: 1</div>`)[0];
+                popup_5dbbbdf0f1d337a9fbcdcfb28d677ae2.setContent(html_ae91c2e09dc9f1742752386997e1e025);
+            
+        
+
+        marker_9f286de86604cb4fa39356b1c401837d.bindPopup(popup_5dbbbdf0f1d337a9fbcdcfb28d677ae2)
+        ;
+
+        
+    
+    
+            var marker_d0ff1493473caefd48f3ed5ea31ad269 = L.marker(
+                [41.900758796112854, 12.499681282475027],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_bb3f76d8c5e8bcb0000e602874af8ef7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_d0ff1493473caefd48f3ed5ea31ad269.setIcon(icon_bb3f76d8c5e8bcb0000e602874af8ef7);
+        
+    
+        var popup_d8ac712b8a4d6320f263ac099d82fab2 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_5925a91e52fc867d37da9ad8fd11e9e6 = $(`<div id="html_5925a91e52fc867d37da9ad8fd11e9e6" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-05 18:00:51<br>Last Seen: 2014-02-05 18:33:52<br>Total Duration: 0 days 00:33:01.379651<br>GPS Points: 19<br><hr><br><b>Fast_Food:</b><br>- Pizzeria Cleopatra<br>- Pizzeria Kebab-Grill<br>- Tavola Calda<br><b>Cafe:</b><br>- Bar tabacchi<br>- Da Matilde<br><b>Restaurant:</b><br>- Antico ristorante<br>- Il Bersagliere<br>- Massimo D'Azeglio<br><b>Other Amenities:</b><br>money_transfer: 2<br>pharmacy: 1</div>`)[0];
+                popup_d8ac712b8a4d6320f263ac099d82fab2.setContent(html_5925a91e52fc867d37da9ad8fd11e9e6);
+            
+        
+
+        marker_d0ff1493473caefd48f3ed5ea31ad269.bindPopup(popup_d8ac712b8a4d6320f263ac099d82fab2)
+        ;
+
+        
+    
+    
+            var marker_a4c16cffbb6d01ddb62640da0963aee0 = L.marker(
+                [41.90202407930195, 12.501257331900218],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_7c81dda6d13806aee4a71939acacf950 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a4c16cffbb6d01ddb62640da0963aee0.setIcon(icon_7c81dda6d13806aee4a71939acacf950);
+        
+    
+        var popup_1ad647421d2e76d7e6a8699de6a1553b = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_01b324d3f81f3ae7d8a34ac678b104bb = $(`<div id="html_01b324d3f81f3ae7d8a34ac678b104bb" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-06 16:55:24<br>Last Seen: 2014-02-06 16:58:24<br>Total Duration: 0 days 00:03:00.445871<br>GPS Points: 19<br><hr><br><b>Fast_Food:</b><br>- Alice<br>- La Piadineria<br>- McDonald's<br><b>Other Amenities:</b><br>bus_station: 1<br>vending_machine: 1<br>bureau_de_change: 1</div>`)[0];
+                popup_1ad647421d2e76d7e6a8699de6a1553b.setContent(html_01b324d3f81f3ae7d8a34ac678b104bb);
+            
+        
+
+        marker_a4c16cffbb6d01ddb62640da0963aee0.bindPopup(popup_1ad647421d2e76d7e6a8699de6a1553b)
+        ;
+
+        
+    
+    
+            var marker_fc5061b6ce42665ae978ac10a24c1488 = L.marker(
+                [41.90267701029358, 12.50079905816416],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_00eecbb31e1be8e119b3a2afafe17d28 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_fc5061b6ce42665ae978ac10a24c1488.setIcon(icon_00eecbb31e1be8e119b3a2afafe17d28);
+        
+    
+        var popup_a34c73424e747c6cf227ac430594f6e5 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_dd8eb75ac7fcd437085b8d75f8c987dd = $(`<div id="html_dd8eb75ac7fcd437085b8d75f8c987dd" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-10 18:09:06<br>Last Seen: 2014-02-10 18:10:06<br>Total Duration: 0 days 00:01:00.190133<br>GPS Points: 7<br><hr><br><b>Other Amenities:</b><br>car_sharing: 1<br>bus_station: 1<br>parking_entrance: 1<br>bank: 1<br>atm: 1</div>`)[0];
+                popup_a34c73424e747c6cf227ac430594f6e5.setContent(html_dd8eb75ac7fcd437085b8d75f8c987dd);
+            
+        
+
+        marker_fc5061b6ce42665ae978ac10a24c1488.bindPopup(popup_a34c73424e747c6cf227ac430594f6e5)
+        ;
+
+        
+    
+    
+            var marker_6bd58d0079c475c2d4016c78d79acaf4 = L.marker(
+                [41.901671191313305, 12.500993714706786],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_68b9199eba71673c562d8d6cd0b99163 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6bd58d0079c475c2d4016c78d79acaf4.setIcon(icon_68b9199eba71673c562d8d6cd0b99163);
+        
+    
+        var popup_d32353d5b4c3e1e134aca644c44f5eab = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_113a6b14014e0d2282c4fe5ce1f229af = $(`<div id="html_113a6b14014e0d2282c4fe5ce1f229af" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-19 15:44:06<br>Last Seen: 2014-02-19 18:44:44<br>Total Duration: 0 days 03:00:38.682564<br>GPS Points: 50<br><hr><br><b>Fast_Food:</b><br>- Alice<br>- La Piadineria<br>- McDonald's<br><b>Restaurant:</b><br>- Waikiki Poké<br><b>Other Amenities:</b><br>vending_machine: 1</div>`)[0];
+                popup_d32353d5b4c3e1e134aca644c44f5eab.setContent(html_113a6b14014e0d2282c4fe5ce1f229af);
+            
+        
+
+        marker_6bd58d0079c475c2d4016c78d79acaf4.bindPopup(popup_d32353d5b4c3e1e134aca644c44f5eab)
+        ;
+
+        
+    
+    
+            var marker_fc2a2f84d731a1efd3d714e11dc9ae86 = L.marker(
+                [41.90065497670912, 12.498727637639583],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_51c2a038621f0f4e7992166156b2abc1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_fc2a2f84d731a1efd3d714e11dc9ae86.setIcon(icon_51c2a038621f0f4e7992166156b2abc1);
+        
+    
+        var popup_3350ee0f34f70e9816de59b87f53b5f7 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_5bee09e7a7c68dc0133c77d00e926822 = $(`<div id="html_5bee09e7a7c68dc0133c77d00e926822" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-20 21:36:25<br>Last Seen: 2014-02-20 21:38:59<br>Total Duration: 0 days 00:02:34.065798<br>GPS Points: 21<br><hr><br><b>Restaurant:</b><br>- Amedeo<br>- Amodei<br>- Il Bersagliere<br><b>Cafe:</b><br>- Al Massimo<br>- Apotheke Cocktail Bar<br>- Best<br><b>Fast_Food:</b><br>- Pizzeria Kebab-Grill<br><b>Other Amenities:</b><br>pharmacy: 1<br>money_transfer: 1</div>`)[0];
+                popup_3350ee0f34f70e9816de59b87f53b5f7.setContent(html_5bee09e7a7c68dc0133c77d00e926822);
+            
+        
+
+        marker_fc2a2f84d731a1efd3d714e11dc9ae86.bindPopup(popup_3350ee0f34f70e9816de59b87f53b5f7)
+        ;
+
+        
+    
+    
+            var marker_118c27aab8901ae5fbff6e00c40b2b26 = L.marker(
+                [41.90060095484709, 12.500300600316955],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_3168ac127738cfb741a044766a15edf6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_118c27aab8901ae5fbff6e00c40b2b26.setIcon(icon_3168ac127738cfb741a044766a15edf6);
+        
+    
+        var popup_e8f7aeff20b765474d5c87309d8e9bfe = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_28dcc12ea88a814947e1cf9827907d50 = $(`<div id="html_28dcc12ea88a814947e1cf9827907d50" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-23 19:33:23<br>Last Seen: 2014-02-23 19:34:47<br>Total Duration: 0 days 00:01:24.465725<br>GPS Points: 13<br><hr><br><b>Fast_Food:</b><br>- Broast<br>- Garden Pizza<br>- Halal Indian Restaurant<br><b>Cafe:</b><br>- Bar tabacchi<br>- Da Matilde<br>- Juice bar<br><b>Restaurant:</b><br>- Antico ristorante<br>- Il Bersagliere<br>- Massimo D'Azeglio<br><b>Other Amenities:</b><br>money_transfer: 2<br>pharmacy: 1<br>ice_cream: 1</div>`)[0];
+                popup_e8f7aeff20b765474d5c87309d8e9bfe.setContent(html_28dcc12ea88a814947e1cf9827907d50);
+            
+        
+
+        marker_118c27aab8901ae5fbff6e00c40b2b26.bindPopup(popup_e8f7aeff20b765474d5c87309d8e9bfe)
+        ;
+
+        
+    
+    
+            var marker_f76dab0acfd936fa9043b53281476031 = L.marker(
+                [41.88835631268165, 12.481325840940478],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_eac9306484bc0b4dbdd16f935681cde1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_f76dab0acfd936fa9043b53281476031.setIcon(icon_eac9306484bc0b4dbdd16f935681cde1);
+        
+    
+        var popup_d38b78d4ce6b59730cf69aa764dd2b47 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_6ee6db8a6ee013535b26084195c2b468 = $(`<div id="html_6ee6db8a6ee013535b26084195c2b468" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-04 20:24:08<br>Last Seen: 2014-02-04 20:27:16<br>Total Duration: 0 days 00:03:08.688141<br>GPS Points: 19<br><hr><br><b>Sub-Cluster 2:</b><br>First Seen: 2014-02-10 20:39:35<br>Last Seen: 2014-02-10 20:40:55<br>Total Duration: 0 days 00:01:20.946977<br>GPS Points: 9<br><hr><br><b>Sub-Cluster 3:</b><br>First Seen: 2014-02-12 16:28:25<br>Last Seen: 2014-02-12 16:30:59<br>Total Duration: 0 days 00:02:34.527677<br>GPS Points: 16<br><hr><br><b>Sub-Cluster 4:</b><br>First Seen: 2014-02-13 14:01:54<br>Last Seen: 2014-02-13 14:03:04<br>Total Duration: 0 days 00:01:09.373194<br>GPS Points: 11<br><hr><br><b>Sub-Cluster 5:</b><br>First Seen: 2014-02-14 13:53:46<br>Last Seen: 2014-02-14 13:55:05<br>Total Duration: 0 days 00:01:19.248034<br>GPS Points: 12<br><hr><br><b>Sub-Cluster 6:</b><br>First Seen: 2014-02-14 19:44:41<br>Last Seen: 2014-02-14 19:46:13<br>Total Duration: 0 days 00:01:31.504555<br>GPS Points: 14<br><hr><br><b>Sub-Cluster 7:</b><br>First Seen: 2014-02-18 17:50:20<br>Last Seen: 2014-02-18 17:51:48<br>Total Duration: 0 days 00:01:27.662366<br>GPS Points: 13<br><hr><br><b>Sub-Cluster 8:</b><br>First Seen: 2014-02-20 14:52:56<br>Last Seen: 2014-02-20 14:57:26<br>Total Duration: 0 days 00:04:29.862954<br>GPS Points: 36<br><hr><br><b>Sub-Cluster 9:</b><br>First Seen: 2014-02-20 19:16:43<br>Last Seen: 2014-02-20 19:18:07<br>Total Duration: 0 days 00:01:23.661692<br>GPS Points: 13<br><hr><br><b>Sub-Cluster 10:</b><br>First Seen: 2014-02-23 18:37:42<br>Last Seen: 2014-02-23 18:39:00<br>Total Duration: 0 days 00:01:17.395930<br>GPS Points: 12<br><hr><br><b>Sub-Cluster 11:</b><br>First Seen: 2014-02-26 19:18:28<br>Last Seen: 2014-02-26 19:52:05<br>Total Duration: 0 days 00:33:37.142446<br>GPS Points: 37<br><hr><br><b>Other Amenities:</b><br>taxi: 1</div>`)[0];
+                popup_d38b78d4ce6b59730cf69aa764dd2b47.setContent(html_6ee6db8a6ee013535b26084195c2b468);
+            
+        
+
+        marker_f76dab0acfd936fa9043b53281476031.bindPopup(popup_d38b78d4ce6b59730cf69aa764dd2b47)
+        ;
+
+        
+    
+    
+            var marker_8d71a872baa9139489b9788b3b16f1b8 = L.marker(
+                [41.888381718166904, 12.480746504222731],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_e5af8eaaf4e2e8bdc44967da527d6bde = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8d71a872baa9139489b9788b3b16f1b8.setIcon(icon_e5af8eaaf4e2e8bdc44967da527d6bde);
+        
+    
+        var popup_e005198dde22f3aba94beb7339b151f3 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_84a8fcc332a22cf17db86d6c93fb6362 = $(`<div id="html_84a8fcc332a22cf17db86d6c93fb6362" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-05 15:49:03<br>Last Seen: 2014-02-05 15:50:04<br>Total Duration: 0 days 00:01:01.162144<br>GPS Points: 7<br><hr><br><b>Other Amenities:</b><br>taxi: 1</div>`)[0];
+                popup_e005198dde22f3aba94beb7339b151f3.setContent(html_84a8fcc332a22cf17db86d6c93fb6362);
+            
+        
+
+        marker_8d71a872baa9139489b9788b3b16f1b8.bindPopup(popup_e005198dde22f3aba94beb7339b151f3)
+        ;
+
+        
+    
+    
+            var marker_231a10db87b8aa50d7398dbc66ae3c96 = L.marker(
+                [41.90183469760596, 12.498259611576135],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_2309c58a9c9810828874e374efe1d05c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_231a10db87b8aa50d7398dbc66ae3c96.setIcon(icon_2309c58a9c9810828874e374efe1d05c);
+        
+    
+        var popup_c6dae93fcb2b7e946e5516eaa7a9f01b = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_5e9438542df38359025d43a11331f35b = $(`<div id="html_5e9438542df38359025d43a11331f35b" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-05 18:28:33<br>Last Seen: 2014-02-05 18:29:41<br>Total Duration: 0 days 00:01:08.745842<br>GPS Points: 8<br><hr><br><b>Sub-Cluster 2:</b><br>First Seen: 2014-02-06 16:53:21<br>Last Seen: 2014-02-06 16:54:24<br>Total Duration: 0 days 00:01:03.305702<br>GPS Points: 7<br><hr><br><b>Sub-Cluster 3:</b><br>First Seen: 2014-02-07 16:38:29<br>Last Seen: 2014-02-07 16:39:40<br>Total Duration: 0 days 00:01:10.612765<br>GPS Points: 8<br><hr><br><b>Sub-Cluster 4:</b><br>First Seen: 2014-02-11 17:33:18<br>Last Seen: 2014-02-11 17:34:39<br>Total Duration: 0 days 00:01:21.442371<br>GPS Points: 9<br><hr><br><b>Sub-Cluster 5:</b><br>First Seen: 2014-02-14 17:31:33<br>Last Seen: 2014-02-14 18:35:17<br>Total Duration: 0 days 01:03:43.399571<br>GPS Points: 26<br><hr><br><b>Sub-Cluster 6:</b><br>First Seen: 2014-02-19 15:41:28<br>Last Seen: 2014-02-19 15:42:49<br>Total Duration: 0 days 00:01:21.235314<br>GPS Points: 12<br><hr><br><b>Sub-Cluster 7:</b><br>First Seen: 2014-02-20 16:11:05<br>Last Seen: 2014-02-20 16:12:06<br>Total Duration: 0 days 00:01:01.241749<br>GPS Points: 10<br><hr><br><b>Sub-Cluster 8:</b><br>First Seen: 2014-02-21 18:11:47<br>Last Seen: 2014-02-21 18:13:07<br>Total Duration: 0 days 00:01:19.518445<br>GPS Points: 12<br><hr><br><b>Sub-Cluster 9:</b><br>First Seen: 2014-02-22 16:07:21<br>Last Seen: 2014-02-22 16:08:26<br>Total Duration: 0 days 00:01:04.620140<br>GPS Points: 12<br><hr><br><b>Sub-Cluster 10:</b><br>First Seen: 2014-02-26 16:22:03<br>Last Seen: 2014-02-26 16:23:05<br>Total Duration: 0 days 00:01:02.116404<br>GPS Points: 7<br><hr><br><b>Fast_Food:</b><br>- Er Buchetto<br><b>Cafe:</b><br>- Al Massimo<br>- Café<br><b>Restaurant:</b><br>- Ristorante del Passeggero<br><b>Other Amenities:</b><br>post_office: 1</div>`)[0];
+                popup_c6dae93fcb2b7e946e5516eaa7a9f01b.setContent(html_5e9438542df38359025d43a11331f35b);
+            
+        
+
+        marker_231a10db87b8aa50d7398dbc66ae3c96.bindPopup(popup_c6dae93fcb2b7e946e5516eaa7a9f01b)
+        ;
+
+        
+    
+    
+            var marker_748c18c269ec1f3fe46054b11e8ce86f = L.marker(
+                [41.90236307674205, 12.49893210217825],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_36d791246e8440731f64b6b61d2945c0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_748c18c269ec1f3fe46054b11e8ce86f.setIcon(icon_36d791246e8440731f64b6b61d2945c0);
+        
+    
+        var popup_fda39042b9e9ed115718e0c6678ec393 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_9a1e584522f73b036214691afadc747f = $(`<div id="html_9a1e584522f73b036214691afadc747f" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-17 18:44:51<br>Last Seen: 2014-02-17 18:46:09<br>Total Duration: 0 days 00:01:18.492379<br>GPS Points: 12<br><hr></div>`)[0];
+                popup_fda39042b9e9ed115718e0c6678ec393.setContent(html_9a1e584522f73b036214691afadc747f);
+            
+        
+
+        marker_748c18c269ec1f3fe46054b11e8ce86f.bindPopup(popup_fda39042b9e9ed115718e0c6678ec393)
+        ;
+
+        
+    
+    
+            var marker_4a4b5ec93c75385c0e1970796cad7df1 = L.marker(
+                [41.90212347958776, 12.4986355591329],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_44a963d9321c887a86411dbaffbed306 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_4a4b5ec93c75385c0e1970796cad7df1.setIcon(icon_44a963d9321c887a86411dbaffbed306);
+        
+    
+        var popup_a984f5709c46a7604dd71c052327e426 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_702daad5db7323a4ca3e0e19ca22b708 = $(`<div id="html_702daad5db7323a4ca3e0e19ca22b708" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-23 22:39:23<br>Last Seen: 2014-02-23 22:49:49<br>Total Duration: 0 days 00:10:26.353228<br>GPS Points: 24<br><hr></div>`)[0];
+                popup_a984f5709c46a7604dd71c052327e426.setContent(html_702daad5db7323a4ca3e0e19ca22b708);
+            
+        
+
+        marker_4a4b5ec93c75385c0e1970796cad7df1.bindPopup(popup_a984f5709c46a7604dd71c052327e426)
+        ;
+
+        
+    
+    
+            var marker_2067a5d8058c285550874b037336d9c5 = L.marker(
+                [41.87286813090223, 12.465574944004157],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_df585326f49063db7398cb644048f30a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_2067a5d8058c285550874b037336d9c5.setIcon(icon_df585326f49063db7398cb644048f30a);
+        
+    
+        var popup_e52508fa32a05e93dbe6cabfe645c5da = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_f63707791f5a76c8b0aa55e57e89cf7f = $(`<div id="html_f63707791f5a76c8b0aa55e57e89cf7f" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-09 19:01:07<br>Last Seen: 2014-02-09 21:07:25<br>Total Duration: 0 days 02:06:17.270272<br>GPS Points: 385<br><hr><br><b>Sub-Cluster 2:</b><br>First Seen: 2014-02-23 20:05:56<br>Last Seen: 2014-02-23 22:24:21<br>Total Duration: 0 days 02:18:25.808519<br>GPS Points: 712<br><hr><br><b>Cafe:</b><br>- Bar Baffo Caffè Vergnano<br>- Binario Caffè<br><b>Fast_Food:</b><br>- Istanbul 34<br><b>Restaurant:</b><br>- Beleza Roma<br><b>Other Amenities:</b><br>taxi: 1<br>theatre: 1</div>`)[0];
+                popup_e52508fa32a05e93dbe6cabfe645c5da.setContent(html_f63707791f5a76c8b0aa55e57e89cf7f);
+            
+        
+
+        marker_2067a5d8058c285550874b037336d9c5.bindPopup(popup_e52508fa32a05e93dbe6cabfe645c5da)
+        ;
+
+        
+    
+    
+            var marker_a09b6fd1a54a01d1a6056543c86bdbdb = L.marker(
+                [41.87303991602603, 12.464404572640644],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_fb3d3ce1328e8070ab3ce8d5c4b5a695 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a09b6fd1a54a01d1a6056543c86bdbdb.setIcon(icon_fb3d3ce1328e8070ab3ce8d5c4b5a695);
+        
+    
+        var popup_a7e527e8ebcc3fef095e527bb995ec8a = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_c879291ed062afa287322345881be171 = $(`<div id="html_c879291ed062afa287322345881be171" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-12 16:58:56<br>Last Seen: 2014-02-12 17:07:56<br>Total Duration: 0 days 00:08:59.974657<br>GPS Points: 51<br><hr><br><b>Fast_Food:</b><br>- Istanbul 34<br><b>Other Amenities:</b><br>taxi: 1<br>theatre: 1</div>`)[0];
+                popup_a7e527e8ebcc3fef095e527bb995ec8a.setContent(html_c879291ed062afa287322345881be171);
+            
+        
+
+        marker_a09b6fd1a54a01d1a6056543c86bdbdb.bindPopup(popup_a7e527e8ebcc3fef095e527bb995ec8a)
+        ;
+
+        
+    
+    
+            var marker_7fa3d62f424fb76de0ae2bb909b6c463 = L.marker(
+                [41.87305193129134, 12.464952461486984],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_3be261932d1f62a6ea816a77d3ad9f7b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_7fa3d62f424fb76de0ae2bb909b6c463.setIcon(icon_3be261932d1f62a6ea816a77d3ad9f7b);
+        
+    
+        var popup_03867e694c7f362981b674052e2ea752 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_68951e2116bddd0af839d169e4492505 = $(`<div id="html_68951e2116bddd0af839d169e4492505" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-19 15:05:41<br>Last Seen: 2014-02-19 15:07:12<br>Total Duration: 0 days 00:01:30.948193<br>GPS Points: 14<br><hr><br><b>Sub-Cluster 2:</b><br>First Seen: 2014-02-22 19:20:56<br>Last Seen: 2014-02-22 19:22:20<br>Total Duration: 0 days 00:01:24.051263<br>GPS Points: 13<br><hr><br><b>Cafe:</b><br>- Binario Caffè<br><b>Fast_Food:</b><br>- Chicken Hut<br>- Istanbul 34<br>- La Boccaccia<br><b>Other Amenities:</b><br>taxi: 1<br>theatre: 1</div>`)[0];
+                popup_03867e694c7f362981b674052e2ea752.setContent(html_68951e2116bddd0af839d169e4492505);
+            
+        
+
+        marker_7fa3d62f424fb76de0ae2bb909b6c463.bindPopup(popup_03867e694c7f362981b674052e2ea752)
+        ;
+
+        
+    
+    
+            var marker_ffc9e44334a7e68007eae54169fe507f = L.marker(
+                [41.87338449022537, 12.465479009542774],
+                {
+}
+            ).addTo(map_00cdf0f1105289de8dc3a0b3d385705f);
+        
+    
+            var icon_596351caf0e5f064fb242fee861a6937 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ffc9e44334a7e68007eae54169fe507f.setIcon(icon_596351caf0e5f064fb242fee861a6937);
+        
+    
+        var popup_3203f80e11f5d0cf14933013955e2d4e = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_f19729567ad85cfe5a3871e9434c4b7d = $(`<div id="html_f19729567ad85cfe5a3871e9434c4b7d" style="width: 100.0%; height: 100.0%;"><b>Sub-Cluster 1:</b><br>First Seen: 2014-02-24 16:16:07<br>Last Seen: 2014-02-24 16:17:38<br>Total Duration: 0 days 00:01:30.917557<br>GPS Points: 14<br><hr><br><b>Cafe:</b><br>- Bar Baffo Caffè Vergnano<br>- Binario Caffè<br><b>Fast_Food:</b><br>- Chicken Hut<br>- Istanbul 34<br>- La Boccaccia<br><b>Restaurant:</b><br>- Beleza Roma<br>- Shabby<br><b>Other Amenities:</b><br>taxi: 1<br>theatre: 1</div>`)[0];
+                popup_3203f80e11f5d0cf14933013955e2d4e.setContent(html_f19729567ad85cfe5a3871e9434c4b7d);
+            
+        
+
+        marker_ffc9e44334a7e68007eae54169fe507f.bindPopup(popup_3203f80e11f5d0cf14933013955e2d4e)
+        ;
+
+        
+    
+</script>
+</html>
