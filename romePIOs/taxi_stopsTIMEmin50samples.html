@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_4973a390982ea4551c5e96ce14746f30 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_4973a390982ea4551c5e96ce14746f30" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_4973a390982ea4551c5e96ce14746f30 = L.map(
+                "map_4973a390982ea4551c5e96ce14746f30",
+                {
+                    center: [41.9028, 12.4964],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b3e703b96585d410b337e5024dbe379a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b3e703b96585d410b337e5024dbe379a.addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var marker_68164bbd576df318832b25295cd5744c = L.marker(
+                [41.901932185145476, 12.480804074318423],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_d9474b6cab19f2caa8cc385f367b8708 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_68164bbd576df318832b25295cd5744c.setIcon(icon_d9474b6cab19f2caa8cc385f367b8708);
+        
+    
+        var popup_5f4e23f1426587fe6cd984687d92861a = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_b14bb3da5e1ac75df149d994aab32bba = $(`<div id="html_b14bb3da5e1ac75df149d994aab32bba" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-03 13:50:03<br><b>Last Seen:</b> 2014-02-03 21:32:15<br><b>Total Duration:</b> 0 days 07:42:12.356393<br><b>GPS Points:</b> 420<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_5f4e23f1426587fe6cd984687d92861a.setContent(html_b14bb3da5e1ac75df149d994aab32bba);
+            
+        
+
+        marker_68164bbd576df318832b25295cd5744c.bindPopup(popup_5f4e23f1426587fe6cd984687d92861a)
+        ;
+
+        
+    
+    
+            var marker_25dd599ea33b4fbde6fe8ef21d256d9b = L.marker(
+                [41.90187654212678, 12.480795650649949],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_fb1fd8f5bc4672b1bac7cc6e08cf9e01 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_25dd599ea33b4fbde6fe8ef21d256d9b.setIcon(icon_fb1fd8f5bc4672b1bac7cc6e08cf9e01);
+        
+    
+        var popup_072c8dab64d350796bcee4e2b7c645ef = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_f2207a5151df2b2e8376e30eefae671f = $(`<div id="html_f2207a5151df2b2e8376e30eefae671f" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-04 13:50:53<br><b>Last Seen:</b> 2014-02-04 21:43:16<br><b>Total Duration:</b> 0 days 07:52:23.010017<br><b>GPS Points:</b> 1073<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_072c8dab64d350796bcee4e2b7c645ef.setContent(html_f2207a5151df2b2e8376e30eefae671f);
+            
+        
+
+        marker_25dd599ea33b4fbde6fe8ef21d256d9b.bindPopup(popup_072c8dab64d350796bcee4e2b7c645ef)
+        ;
+
+        
+    
+    
+            var marker_5b443c2d628feb07432f690e06f48bef = L.marker(
+                [41.90187607129893, 12.480702343348204],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_bb6476631656218555a38e18d40cd61a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_5b443c2d628feb07432f690e06f48bef.setIcon(icon_bb6476631656218555a38e18d40cd61a);
+        
+    
+        var popup_b306b3ccb8cdd891abd1fefa0ccf5163 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_53059856953d7a1c4704f8aee4a894cc = $(`<div id="html_53059856953d7a1c4704f8aee4a894cc" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-05 13:57:52<br><b>Last Seen:</b> 2014-02-05 21:45:39<br><b>Total Duration:</b> 0 days 07:47:46.715653<br><b>GPS Points:</b> 615<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_b306b3ccb8cdd891abd1fefa0ccf5163.setContent(html_53059856953d7a1c4704f8aee4a894cc);
+            
+        
+
+        marker_5b443c2d628feb07432f690e06f48bef.bindPopup(popup_b306b3ccb8cdd891abd1fefa0ccf5163)
+        ;
+
+        
+    
+    
+            var marker_6b24b1e65bd7d3a4dd0e85294b4b8a55 = L.marker(
+                [41.901886111133514, 12.480689258377655],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_c5c8590ce72acfdbc35c15db330c85fc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6b24b1e65bd7d3a4dd0e85294b4b8a55.setIcon(icon_c5c8590ce72acfdbc35c15db330c85fc);
+        
+    
+        var popup_c663494fff70eb8216b960ab6185618c = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_f16e099dad3bc6c7ce0b62efaa84c5d6 = $(`<div id="html_f16e099dad3bc6c7ce0b62efaa84c5d6" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-06 14:14:28<br><b>Last Seen:</b> 2014-02-06 21:44:29<br><b>Total Duration:</b> 0 days 07:30:01.317033<br><b>GPS Points:</b> 749<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_c663494fff70eb8216b960ab6185618c.setContent(html_f16e099dad3bc6c7ce0b62efaa84c5d6);
+            
+        
+
+        marker_6b24b1e65bd7d3a4dd0e85294b4b8a55.bindPopup(popup_c663494fff70eb8216b960ab6185618c)
+        ;
+
+        
+    
+    
+            var marker_2f6224de71c042c3f8b013df650d978b = L.marker(
+                [41.90194143053531, 12.480781190055398],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_21fb617e105cb4ca38828829c474d9bc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_2f6224de71c042c3f8b013df650d978b.setIcon(icon_21fb617e105cb4ca38828829c474d9bc);
+        
+    
+        var popup_fffed75e9d19e05574ad0cafbfc743f5 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_b0c64d70940385381015d6aad4bfd849 = $(`<div id="html_b0c64d70940385381015d6aad4bfd849" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-07 14:35:59<br><b>Last Seen:</b> 2014-02-07 21:19:15<br><b>Total Duration:</b> 0 days 06:43:16.210124<br><b>GPS Points:</b> 874<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_fffed75e9d19e05574ad0cafbfc743f5.setContent(html_b0c64d70940385381015d6aad4bfd849);
+            
+        
+
+        marker_2f6224de71c042c3f8b013df650d978b.bindPopup(popup_fffed75e9d19e05574ad0cafbfc743f5)
+        ;
+
+        
+    
+    
+            var marker_5a0a962edbc560b0ee1c2919ade60501 = L.marker(
+                [41.90176339776732, 12.480766176146194],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_0f0cfc119ee91c4de7e1b56fe556fc78 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_5a0a962edbc560b0ee1c2919ade60501.setIcon(icon_0f0cfc119ee91c4de7e1b56fe556fc78);
+        
+    
+        var popup_4734240014acb14ccb11a46202559494 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_09e47aee482893a3638af9d6fdd8e57a = $(`<div id="html_09e47aee482893a3638af9d6fdd8e57a" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-08 14:19:31<br><b>Last Seen:</b> 2014-02-08 21:09:10<br><b>Total Duration:</b> 0 days 06:49:38.979759<br><b>GPS Points:</b> 421<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_4734240014acb14ccb11a46202559494.setContent(html_09e47aee482893a3638af9d6fdd8e57a);
+            
+        
+
+        marker_5a0a962edbc560b0ee1c2919ade60501.bindPopup(popup_4734240014acb14ccb11a46202559494)
+        ;
+
+        
+    
+    
+            var marker_8ae8f274742f113470c812687bb54067 = L.marker(
+                [41.90177362726469, 12.480678094632339],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_f755acebd952a79d81f266224658e510 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8ae8f274742f113470c812687bb54067.setIcon(icon_f755acebd952a79d81f266224658e510);
+        
+    
+        var popup_7f8ed0e48b048a39f60242979b28a0c2 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_18b6fb8545e596e67c4058969535a245 = $(`<div id="html_18b6fb8545e596e67c4058969535a245" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-09 17:20:16<br><b>Last Seen:</b> 2014-02-09 17:42:07<br><b>Total Duration:</b> 0 days 00:21:51.039490<br><b>GPS Points:</b> 136<br><hr><br><b>Cafe:</b><br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_7f8ed0e48b048a39f60242979b28a0c2.setContent(html_18b6fb8545e596e67c4058969535a245);
+            
+        
+
+        marker_8ae8f274742f113470c812687bb54067.bindPopup(popup_7f8ed0e48b048a39f60242979b28a0c2)
+        ;
+
+        
+    
+    
+            var marker_a6cf37ad4d3e490bd9d0ab49552020aa = L.marker(
+                [41.901889825503396, 12.480926503093503],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_447ea657727167e68ae57e65ece84b82 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a6cf37ad4d3e490bd9d0ab49552020aa.setIcon(icon_447ea657727167e68ae57e65ece84b82);
+        
+    
+        var popup_88f414f4593f52dbfe83c0d258535ccd = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_ea2a43f3baf7a10ac9eabe1dd4f69c2d = $(`<div id="html_ea2a43f3baf7a10ac9eabe1dd4f69c2d" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-10 14:41:09<br><b>Last Seen:</b> 2014-02-10 19:22:55<br><b>Total Duration:</b> 0 days 04:41:45.830949<br><b>GPS Points:</b> 457<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_88f414f4593f52dbfe83c0d258535ccd.setContent(html_ea2a43f3baf7a10ac9eabe1dd4f69c2d);
+            
+        
+
+        marker_a6cf37ad4d3e490bd9d0ab49552020aa.bindPopup(popup_88f414f4593f52dbfe83c0d258535ccd)
+        ;
+
+        
+    
+    
+            var marker_4378f6a35294442ae0a2942972d24fdf = L.marker(
+                [41.90204172311619, 12.480707962960109],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_b756b8960d88312ccd750210e0d588e9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_4378f6a35294442ae0a2942972d24fdf.setIcon(icon_b756b8960d88312ccd750210e0d588e9);
+        
+    
+        var popup_344faf9b0cd6ec042283b0412837ac2b = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_4b706142cc97a27922aa1d8eef697d75 = $(`<div id="html_4b706142cc97a27922aa1d8eef697d75" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-11 12:56:55<br><b>Last Seen:</b> 2014-02-11 20:10:15<br><b>Total Duration:</b> 0 days 07:13:19.049035<br><b>GPS Points:</b> 713<br><hr><br><b>Cafe:</b><br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_344faf9b0cd6ec042283b0412837ac2b.setContent(html_4b706142cc97a27922aa1d8eef697d75);
+            
+        
+
+        marker_4378f6a35294442ae0a2942972d24fdf.bindPopup(popup_344faf9b0cd6ec042283b0412837ac2b)
+        ;
+
+        
+    
+    
+            var marker_602c6aef5bfde6330a876417bacacb71 = L.marker(
+                [41.90191032826923, 12.480648837980016],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_85c476e87e15f33fe94006b672f0d3c1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_602c6aef5bfde6330a876417bacacb71.setIcon(icon_85c476e87e15f33fe94006b672f0d3c1);
+        
+    
+        var popup_018ea49552dcec7466a68d0525bc8698 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_1cd6e89f66a6deb2470f306822bc2008 = $(`<div id="html_1cd6e89f66a6deb2470f306822bc2008" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-12 15:28:36<br><b>Last Seen:</b> 2014-02-12 20:02:00<br><b>Total Duration:</b> 0 days 04:33:24.204976<br><b>GPS Points:</b> 177<br><hr><br><b>Cafe:</b><br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_018ea49552dcec7466a68d0525bc8698.setContent(html_1cd6e89f66a6deb2470f306822bc2008);
+            
+        
+
+        marker_602c6aef5bfde6330a876417bacacb71.bindPopup(popup_018ea49552dcec7466a68d0525bc8698)
+        ;
+
+        
+    
+    
+            var marker_46f2629da49d1898f02bfb0f875b8ea1 = L.marker(
+                [41.90208146829468, 12.480897406859404],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_85570006123e034d5f9f8d445cf93d8c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_46f2629da49d1898f02bfb0f875b8ea1.setIcon(icon_85570006123e034d5f9f8d445cf93d8c);
+        
+    
+        var popup_e9d04ce112f9e6849c810ce88639501c = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_0cc90f3b514676e58b963f73121f722d = $(`<div id="html_0cc90f3b514676e58b963f73121f722d" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-13 16:11:54<br><b>Last Seen:</b> 2014-02-13 19:59:19<br><b>Total Duration:</b> 0 days 03:47:24.815124<br><b>GPS Points:</b> 379<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 2<br>bicycle_repair_station: 1</div>`)[0];
+                popup_e9d04ce112f9e6849c810ce88639501c.setContent(html_0cc90f3b514676e58b963f73121f722d);
+            
+        
+
+        marker_46f2629da49d1898f02bfb0f875b8ea1.bindPopup(popup_e9d04ce112f9e6849c810ce88639501c)
+        ;
+
+        
+    
+    
+            var marker_11df60d9991c203efbbf9e76af6004c9 = L.marker(
+                [41.90199660746465, 12.480828976865878],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_7c9dbc87fe50d0f382267fc0b4a06cce = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_11df60d9991c203efbbf9e76af6004c9.setIcon(icon_7c9dbc87fe50d0f382267fc0b4a06cce);
+        
+    
+        var popup_5ba3eb6284488a1482d92462faf55223 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_334aac7477a11626840506f1ca027b2c = $(`<div id="html_334aac7477a11626840506f1ca027b2c" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-14 14:13:04<br><b>Last Seen:</b> 2014-02-14 20:51:40<br><b>Total Duration:</b> 0 days 06:38:35.505524<br><b>GPS Points:</b> 903<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_5ba3eb6284488a1482d92462faf55223.setContent(html_334aac7477a11626840506f1ca027b2c);
+            
+        
+
+        marker_11df60d9991c203efbbf9e76af6004c9.bindPopup(popup_5ba3eb6284488a1482d92462faf55223)
+        ;
+
+        
+    
+    
+            var marker_82b828616cb1f582bc328eb3631927cc = L.marker(
+                [41.90174175522014, 12.480782028577018],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_e19b892535724621ee0754d314f16720 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_82b828616cb1f582bc328eb3631927cc.setIcon(icon_e19b892535724621ee0754d314f16720);
+        
+    
+        var popup_599ea3cc5e76003fcfac0c2a3f321f06 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_078bd8307bb55b5e71e8baa5b49fde66 = $(`<div id="html_078bd8307bb55b5e71e8baa5b49fde66" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-17 14:20:55<br><b>Last Seen:</b> 2014-02-17 20:52:25<br><b>Total Duration:</b> 0 days 06:31:30.333467<br><b>GPS Points:</b> 1140<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_599ea3cc5e76003fcfac0c2a3f321f06.setContent(html_078bd8307bb55b5e71e8baa5b49fde66);
+            
+        
+
+        marker_82b828616cb1f582bc328eb3631927cc.bindPopup(popup_599ea3cc5e76003fcfac0c2a3f321f06)
+        ;
+
+        
+    
+    
+            var marker_334cedb7ae3ff7cbc2241130a8f0b6e9 = L.marker(
+                [41.901902876197724, 12.480780667349864],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_dfffa9cbaf21754958abb3c931fd1d6e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_334cedb7ae3ff7cbc2241130a8f0b6e9.setIcon(icon_dfffa9cbaf21754958abb3c931fd1d6e);
+        
+    
+        var popup_621a354084e3e8d0e704527ac3f8d7d8 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_0928a95002956225e6b55713f07f86ec = $(`<div id="html_0928a95002956225e6b55713f07f86ec" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-18 14:53:28<br><b>Last Seen:</b> 2014-02-18 21:36:09<br><b>Total Duration:</b> 0 days 06:42:40.426672<br><b>GPS Points:</b> 466<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_621a354084e3e8d0e704527ac3f8d7d8.setContent(html_0928a95002956225e6b55713f07f86ec);
+            
+        
+
+        marker_334cedb7ae3ff7cbc2241130a8f0b6e9.bindPopup(popup_621a354084e3e8d0e704527ac3f8d7d8)
+        ;
+
+        
+    
+    
+            var marker_a5e22fa3d44213ff4002905cc3000fd7 = L.marker(
+                [41.90191368478513, 12.480913994375785],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_e103236b07a253a74e1a9791061d28ab = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a5e22fa3d44213ff4002905cc3000fd7.setIcon(icon_e103236b07a253a74e1a9791061d28ab);
+        
+    
+        var popup_32d207789556cd921cccf401cd10cdee = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_108cb5bf0159bdf594de0c77b17819f2 = $(`<div id="html_108cb5bf0159bdf594de0c77b17819f2" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-19 15:26:04<br><b>Last Seen:</b> 2014-02-19 21:25:31<br><b>Total Duration:</b> 0 days 05:59:26.926694<br><b>GPS Points:</b> 866<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_32d207789556cd921cccf401cd10cdee.setContent(html_108cb5bf0159bdf594de0c77b17819f2);
+            
+        
+
+        marker_a5e22fa3d44213ff4002905cc3000fd7.bindPopup(popup_32d207789556cd921cccf401cd10cdee)
+        ;
+
+        
+    
+    
+            var marker_e54f74d8552c5164e944b2a7d62729f5 = L.marker(
+                [41.901989433303186, 12.480703786164824],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_9b3dd1d3884f4b6fdca8c14b0ab344bb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e54f74d8552c5164e944b2a7d62729f5.setIcon(icon_9b3dd1d3884f4b6fdca8c14b0ab344bb);
+        
+    
+        var popup_c5f33fe58df965f06c1356985649b9fe = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_5b725986bc1b3158ca9fb6e50cd8c53d = $(`<div id="html_5b725986bc1b3158ca9fb6e50cd8c53d" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-20 14:14:34<br><b>Last Seen:</b> 2014-02-20 21:49:01<br><b>Total Duration:</b> 0 days 07:34:26.847377<br><b>GPS Points:</b> 586<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_c5f33fe58df965f06c1356985649b9fe.setContent(html_5b725986bc1b3158ca9fb6e50cd8c53d);
+            
+        
+
+        marker_e54f74d8552c5164e944b2a7d62729f5.bindPopup(popup_c5f33fe58df965f06c1356985649b9fe)
+        ;
+
+        
+    
+    
+            var marker_f30633ef8af2b84ce5ba39266c552654 = L.marker(
+                [41.90193195254018, 12.48084098333535],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_343c90069d1b59ceb31faba9751d1ff4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_f30633ef8af2b84ce5ba39266c552654.setIcon(icon_343c90069d1b59ceb31faba9751d1ff4);
+        
+    
+        var popup_8fa3a6f77e26db6246044a7aad90a5da = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_f32764b9b5fb6dc7efdf49f35886af22 = $(`<div id="html_f32764b9b5fb6dc7efdf49f35886af22" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-21 14:26:15<br><b>Last Seen:</b> 2014-02-21 22:00:37<br><b>Total Duration:</b> 0 days 07:34:22.929708<br><b>GPS Points:</b> 1643<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_8fa3a6f77e26db6246044a7aad90a5da.setContent(html_f32764b9b5fb6dc7efdf49f35886af22);
+            
+        
+
+        marker_f30633ef8af2b84ce5ba39266c552654.bindPopup(popup_8fa3a6f77e26db6246044a7aad90a5da)
+        ;
+
+        
+    
+    
+            var marker_63b9d205f7099a84344125b1aa305458 = L.marker(
+                [41.901789013399565, 12.480686341194378],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_04bde75479ccb80feb9a7c49da1352ed = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_63b9d205f7099a84344125b1aa305458.setIcon(icon_04bde75479ccb80feb9a7c49da1352ed);
+        
+    
+        var popup_ebe9ae46b9350695d686a8a0dfd77661 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_ee3362356b2eb6e1ee21dd35c7527189 = $(`<div id="html_ee3362356b2eb6e1ee21dd35c7527189" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-22 14:44:59<br><b>Last Seen:</b> 2014-02-22 16:28:46<br><b>Total Duration:</b> 0 days 01:43:46.701961<br><b>GPS Points:</b> 450<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_ebe9ae46b9350695d686a8a0dfd77661.setContent(html_ee3362356b2eb6e1ee21dd35c7527189);
+            
+        
+
+        marker_63b9d205f7099a84344125b1aa305458.bindPopup(popup_ebe9ae46b9350695d686a8a0dfd77661)
+        ;
+
+        
+    
+    
+            var marker_143074e7f05e3a6075461c55342286c1 = L.marker(
+                [41.901772505765685, 12.480678712993406],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_5e3ab0d6078421e039f39a03d8a18bc5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_143074e7f05e3a6075461c55342286c1.setIcon(icon_5e3ab0d6078421e039f39a03d8a18bc5);
+        
+    
+        var popup_ec725b29362afb5de1cf40abd87ad952 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_3dc7cab7b351bf464d8d7084b13cad9c = $(`<div id="html_3dc7cab7b351bf464d8d7084b13cad9c" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-22 19:44:50<br><b>Last Seen:</b> 2014-02-22 22:19:30<br><b>Total Duration:</b> 0 days 02:34:40.200421<br><b>GPS Points:</b> 408<br><hr><br><b>Cafe:</b><br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_ec725b29362afb5de1cf40abd87ad952.setContent(html_3dc7cab7b351bf464d8d7084b13cad9c);
+            
+        
+
+        marker_143074e7f05e3a6075461c55342286c1.bindPopup(popup_ec725b29362afb5de1cf40abd87ad952)
+        ;
+
+        
+    
+    
+            var marker_1d671c4f3730606246cf9f97c053f52f = L.marker(
+                [41.90177614005266, 12.480672112307534],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_a38c38665e958002ac63da1cf2de4784 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_1d671c4f3730606246cf9f97c053f52f.setIcon(icon_a38c38665e958002ac63da1cf2de4784);
+        
+    
+        var popup_8a42204110409a90afdadbbd807a7c8a = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_c257be0081fdb3ba7a1efdd691898a93 = $(`<div id="html_c257be0081fdb3ba7a1efdd691898a93" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-23 14:51:51<br><b>Last Seen:</b> 2014-02-23 14:58:51<br><b>Total Duration:</b> 0 days 00:07:00.191625<br><b>GPS Points:</b> 63<br><hr><br><b>Cafe:</b><br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_8a42204110409a90afdadbbd807a7c8a.setContent(html_c257be0081fdb3ba7a1efdd691898a93);
+            
+        
+
+        marker_1d671c4f3730606246cf9f97c053f52f.bindPopup(popup_8a42204110409a90afdadbbd807a7c8a)
+        ;
+
+        
+    
+    
+            var marker_7700565326992808e2f0640abd16ba83 = L.marker(
+                [41.90239365833895, 12.480974887609737],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_1b2ca895a5892e0a22c8e25d175ef1f3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_7700565326992808e2f0640abd16ba83.setIcon(icon_1b2ca895a5892e0a22c8e25d175ef1f3);
+        
+    
+        var popup_2cc06715a943f6880e707c8578e18a24 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_b68d0d5b5c003ed78f6458ef659e0474 = $(`<div id="html_b68d0d5b5c003ed78f6458ef659e0474" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-23 18:26:23<br><b>Last Seen:</b> 2014-02-23 19:24:45<br><b>Total Duration:</b> 0 days 00:58:21.162378<br><b>GPS Points:</b> 116<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br>- San Silvestro Caffé<br><b>Other Amenities:</b><br>post_office: 1<br>atm: 1<br>bicycle_repair_station: 1<br>theatre: 1</div>`)[0];
+                popup_2cc06715a943f6880e707c8578e18a24.setContent(html_b68d0d5b5c003ed78f6458ef659e0474);
+            
+        
+
+        marker_7700565326992808e2f0640abd16ba83.bindPopup(popup_2cc06715a943f6880e707c8578e18a24)
+        ;
+
+        
+    
+    
+            var marker_b7d9a7b25840810a919add2183557413 = L.marker(
+                [41.901922135472425, 12.480838877553852],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_a8912c376160e1c5799738b9eb868b52 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b7d9a7b25840810a919add2183557413.setIcon(icon_a8912c376160e1c5799738b9eb868b52);
+        
+    
+        var popup_a5d4223d88749bc1e962bbb8b8ee5434 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_d9e2271bf7ac95303ab4a569834c857a = $(`<div id="html_d9e2271bf7ac95303ab4a569834c857a" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-24 13:48:58<br><b>Last Seen:</b> 2014-02-24 20:38:37<br><b>Total Duration:</b> 0 days 06:49:39.220595<br><b>GPS Points:</b> 1303<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_a5d4223d88749bc1e962bbb8b8ee5434.setContent(html_d9e2271bf7ac95303ab4a569834c857a);
+            
+        
+
+        marker_b7d9a7b25840810a919add2183557413.bindPopup(popup_a5d4223d88749bc1e962bbb8b8ee5434)
+        ;
+
+        
+    
+    
+            var marker_e311db25b2e58b85b081e6ed757633e4 = L.marker(
+                [41.90195967272248, 12.48087525316895],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_8d876bf6ebf9ca3718b6cbd9b4b8da4d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e311db25b2e58b85b081e6ed757633e4.setIcon(icon_8d876bf6ebf9ca3718b6cbd9b4b8da4d);
+        
+    
+        var popup_6a1a9015c8f569b686cc37dc270a0d26 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_7ee2c01ba189e77224571522f8c626a3 = $(`<div id="html_7ee2c01ba189e77224571522f8c626a3" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-26 15:04:44<br><b>Last Seen:</b> 2014-02-26 20:08:15<br><b>Total Duration:</b> 0 days 05:03:31.184391<br><b>GPS Points:</b> 554<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_6a1a9015c8f569b686cc37dc270a0d26.setContent(html_7ee2c01ba189e77224571522f8c626a3);
+            
+        
+
+        marker_e311db25b2e58b85b081e6ed757633e4.bindPopup(popup_6a1a9015c8f569b686cc37dc270a0d26)
+        ;
+
+        
+    
+    
+            var marker_fb178965474e4bee979d04e61912ea95 = L.marker(
+                [41.901968427292154, 12.48084211091152],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_4ba1cc872a69917edbfe13100fb4aa9e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_fb178965474e4bee979d04e61912ea95.setIcon(icon_4ba1cc872a69917edbfe13100fb4aa9e);
+        
+    
+        var popup_7600166f78a343375a7e3576330daee7 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_a3b97ed6d6ac31559f3b2b558a8643a4 = $(`<div id="html_a3b97ed6d6ac31559f3b2b558a8643a4" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-27 13:44:00<br><b>Last Seen:</b> 2014-02-27 20:42:09<br><b>Total Duration:</b> 0 days 06:58:09.500497<br><b>GPS Points:</b> 940<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_7600166f78a343375a7e3576330daee7.setContent(html_a3b97ed6d6ac31559f3b2b558a8643a4);
+            
+        
+
+        marker_fb178965474e4bee979d04e61912ea95.bindPopup(popup_7600166f78a343375a7e3576330daee7)
+        ;
+
+        
+    
+    
+            var marker_479c636fdf4e1afbc3df921244c55971 = L.marker(
+                [41.90175842239394, 12.480745045511675],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_87760db85aab3fe88f8ebece97828e65 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_479c636fdf4e1afbc3df921244c55971.setIcon(icon_87760db85aab3fe88f8ebece97828e65);
+        
+    
+        var popup_321ddfe39b5972d59405a2a48a5cb4e7 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_569001773326bfc1da4db2673707e4b3 = $(`<div id="html_569001773326bfc1da4db2673707e4b3" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-28 13:31:53<br><b>Last Seen:</b> 2014-02-28 13:42:27<br><b>Total Duration:</b> 0 days 00:10:33.896024<br><b>GPS Points:</b> 94<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_321ddfe39b5972d59405a2a48a5cb4e7.setContent(html_569001773326bfc1da4db2673707e4b3);
+            
+        
+
+        marker_479c636fdf4e1afbc3df921244c55971.bindPopup(popup_321ddfe39b5972d59405a2a48a5cb4e7)
+        ;
+
+        
+    
+    
+            var marker_ecb2246007a826e0ddd9e375502d7ae4 = L.marker(
+                [41.90194078111063, 12.481093366132807],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_b3dc2edaa8dd5968038f80f742026254 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ecb2246007a826e0ddd9e375502d7ae4.setIcon(icon_b3dc2edaa8dd5968038f80f742026254);
+        
+    
+        var popup_534459606ad6c582b28ef71db8b86c27 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_2846a8702d2b9a0312a378e3247f400a = $(`<div id="html_2846a8702d2b9a0312a378e3247f400a" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-28 17:25:23<br><b>Last Seen:</b> 2014-02-28 18:03:34<br><b>Total Duration:</b> 0 days 00:38:10.151301<br><b>GPS Points:</b> 323<br><hr><br><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1<br>theatre: 1</div>`)[0];
+                popup_534459606ad6c582b28ef71db8b86c27.setContent(html_2846a8702d2b9a0312a378e3247f400a);
+            
+        
+
+        marker_ecb2246007a826e0ddd9e375502d7ae4.bindPopup(popup_534459606ad6c582b28ef71db8b86c27)
+        ;
+
+        
+    
+    
+            var marker_52a2f3b1d70affea88e453f4bf85946c = L.marker(
+                [41.91097499814299, 12.498499361129847],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_349edb9ed31207a0145823ecb1b4ac1b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_52a2f3b1d70affea88e453f4bf85946c.setIcon(icon_349edb9ed31207a0145823ecb1b4ac1b);
+        
+    
+        var popup_6ae7b2f4330ecbe9d0e2757e26781a0e = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_20692811bb4f15bbfcb362e2bb5c2709 = $(`<div id="html_20692811bb4f15bbfcb362e2bb5c2709" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-03 14:26:58<br><b>Last Seen:</b> 2014-02-03 17:14:32<br><b>Total Duration:</b> 0 days 02:47:33.574067<br><b>GPS Points:</b> 101<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_6ae7b2f4330ecbe9d0e2757e26781a0e.setContent(html_20692811bb4f15bbfcb362e2bb5c2709);
+            
+        
+
+        marker_52a2f3b1d70affea88e453f4bf85946c.bindPopup(popup_6ae7b2f4330ecbe9d0e2757e26781a0e)
+        ;
+
+        
+    
+    
+            var marker_9d6866cd5d98887ccf5608292110b2b3 = L.marker(
+                [41.9108163390441, 12.498440123931333],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_1626dc6482efb814a40951778f1689f2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9d6866cd5d98887ccf5608292110b2b3.setIcon(icon_1626dc6482efb814a40951778f1689f2);
+        
+    
+        var popup_1fa52272750f08eea8832b861a9aa610 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_aec41e141f05913697e46a2b3791d5a2 = $(`<div id="html_aec41e141f05913697e46a2b3791d5a2" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-04 15:04:22<br><b>Last Seen:</b> 2014-02-04 15:12:42<br><b>Total Duration:</b> 0 days 00:08:19.749630<br><b>GPS Points:</b> 51<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_1fa52272750f08eea8832b861a9aa610.setContent(html_aec41e141f05913697e46a2b3791d5a2);
+            
+        
+
+        marker_9d6866cd5d98887ccf5608292110b2b3.bindPopup(popup_1fa52272750f08eea8832b861a9aa610)
+        ;
+
+        
+    
+    
+            var marker_6bad0989b41f819bfe9ef9a9f553bd20 = L.marker(
+                [41.91079835530063, 12.498380872664747],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_5dc51df79e91cddda445acd29c5bb4fe = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6bad0989b41f819bfe9ef9a9f553bd20.setIcon(icon_5dc51df79e91cddda445acd29c5bb4fe);
+        
+    
+        var popup_ef1f2b790f0c71eb0b3562f4e02911f9 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_fc3d67a46ede8d53a29809f333b29710 = $(`<div id="html_fc3d67a46ede8d53a29809f333b29710" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-04 18:48:48<br><b>Last Seen:</b> 2014-02-04 18:53:45<br><b>Total Duration:</b> 0 days 00:04:57.051964<br><b>GPS Points:</b> 32<br><hr><br><b>Restaurant:</b><br>- Mok<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>charging_station: 1</div>`)[0];
+                popup_ef1f2b790f0c71eb0b3562f4e02911f9.setContent(html_fc3d67a46ede8d53a29809f333b29710);
+            
+        
+
+        marker_6bad0989b41f819bfe9ef9a9f553bd20.bindPopup(popup_ef1f2b790f0c71eb0b3562f4e02911f9)
+        ;
+
+        
+    
+    
+            var marker_cd6d48431db1a8ad0737c3bd9fd986a3 = L.marker(
+                [41.91099592715517, 12.498502780202903],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_246f914d19ca52e60f76251b8b0c3db9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_cd6d48431db1a8ad0737c3bd9fd986a3.setIcon(icon_246f914d19ca52e60f76251b8b0c3db9);
+        
+    
+        var popup_6d7da1760ede8dbc073b7cda05402ee6 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_195724b420091f64bf7b78ac72b6b526 = $(`<div id="html_195724b420091f64bf7b78ac72b6b526" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-07 17:32:17<br><b>Last Seen:</b> 2014-02-07 18:05:32<br><b>Total Duration:</b> 0 days 00:33:15.756424<br><b>GPS Points:</b> 60<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_6d7da1760ede8dbc073b7cda05402ee6.setContent(html_195724b420091f64bf7b78ac72b6b526);
+            
+        
+
+        marker_cd6d48431db1a8ad0737c3bd9fd986a3.bindPopup(popup_6d7da1760ede8dbc073b7cda05402ee6)
+        ;
+
+        
+    
+    
+            var marker_82416576f1f1dc464f2d1f6ffdaa1162 = L.marker(
+                [41.91095311760604, 12.498379390686],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_220b07db95f8475cac1171c05604838a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_82416576f1f1dc464f2d1f6ffdaa1162.setIcon(icon_220b07db95f8475cac1171c05604838a);
+        
+    
+        var popup_6f5b2783e39b13e831b675e2a48b6fed = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_6db7af290025bcdedc960fa2020dabce = $(`<div id="html_6db7af290025bcdedc960fa2020dabce" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-08 15:05:19<br><b>Last Seen:</b> 2014-02-08 15:07:20<br><b>Total Duration:</b> 0 days 00:02:00.734919<br><b>GPS Points:</b> 15<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_6f5b2783e39b13e831b675e2a48b6fed.setContent(html_6db7af290025bcdedc960fa2020dabce);
+            
+        
+
+        marker_82416576f1f1dc464f2d1f6ffdaa1162.bindPopup(popup_6f5b2783e39b13e831b675e2a48b6fed)
+        ;
+
+        
+    
+    
+            var marker_88b1892ec19e6d0f2e9fbdeddf4cc764 = L.marker(
+                [41.91093110907132, 12.498488807304128],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_76528389355898a33b88cbd281d70495 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_88b1892ec19e6d0f2e9fbdeddf4cc764.setIcon(icon_76528389355898a33b88cbd281d70495);
+        
+    
+        var popup_b196e6d3a22d1bc4ded144fab6d83083 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_1831fc5a329cdc329da3e0bd786c073b = $(`<div id="html_1831fc5a329cdc329da3e0bd786c073b" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-10 13:52:33<br><b>Last Seen:</b> 2014-02-10 17:55:21<br><b>Total Duration:</b> 0 days 04:02:48.267609<br><b>GPS Points:</b> 568<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_b196e6d3a22d1bc4ded144fab6d83083.setContent(html_1831fc5a329cdc329da3e0bd786c073b);
+            
+        
+
+        marker_88b1892ec19e6d0f2e9fbdeddf4cc764.bindPopup(popup_b196e6d3a22d1bc4ded144fab6d83083)
+        ;
+
+        
+    
+    
+            var marker_02552ac893bf553a1490e5c4541e30cc = L.marker(
+                [41.91093761295987, 12.498399739015996],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_1155faca9f15b0022b680e54e3ecc623 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_02552ac893bf553a1490e5c4541e30cc.setIcon(icon_1155faca9f15b0022b680e54e3ecc623);
+        
+    
+        var popup_403134aceafd9af4c881f9d96f48c2d3 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_3f479cf45f11add09a709fcae11532db = $(`<div id="html_3f479cf45f11add09a709fcae11532db" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-11 15:42:03<br><b>Last Seen:</b> 2014-02-11 17:02:17<br><b>Total Duration:</b> 0 days 01:20:13.380842<br><b>GPS Points:</b> 248<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_403134aceafd9af4c881f9d96f48c2d3.setContent(html_3f479cf45f11add09a709fcae11532db);
+            
+        
+
+        marker_02552ac893bf553a1490e5c4541e30cc.bindPopup(popup_403134aceafd9af4c881f9d96f48c2d3)
+        ;
+
+        
+    
+    
+            var marker_ed7389e9be29994257211388da2784c9 = L.marker(
+                [41.91095942796884, 12.498351008081483],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_1d660b01d46976758a3f3ffd7044af64 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ed7389e9be29994257211388da2784c9.setIcon(icon_1d660b01d46976758a3f3ffd7044af64);
+        
+    
+        var popup_349ce8bd0d86c085703075de0ca6a285 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_04973b8b6abfa14a8186303baf8c946c = $(`<div id="html_04973b8b6abfa14a8186303baf8c946c" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-12 13:35:13<br><b>Last Seen:</b> 2014-02-12 13:56:43<br><b>Total Duration:</b> 0 days 00:21:29.688251<br><b>GPS Points:</b> 109<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_349ce8bd0d86c085703075de0ca6a285.setContent(html_04973b8b6abfa14a8186303baf8c946c);
+            
+        
+
+        marker_ed7389e9be29994257211388da2784c9.bindPopup(popup_349ce8bd0d86c085703075de0ca6a285)
+        ;
+
+        
+    
+    
+            var marker_81a0fe4ad298e2ce959ea7259bbe5846 = L.marker(
+                [41.91107967376019, 12.498859187156999],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_d1c25c4486964ab7c055a54f9b63c115 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_81a0fe4ad298e2ce959ea7259bbe5846.setIcon(icon_d1c25c4486964ab7c055a54f9b63c115);
+        
+    
+        var popup_d1954f0871aefe5237c68f8d7df00be5 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_5edb73d637a9ab146b0a2f75c848637c = $(`<div id="html_5edb73d637a9ab146b0a2f75c848637c" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-13 19:07:29<br><b>Last Seen:</b> 2014-02-13 19:08:30<br><b>Total Duration:</b> 0 days 00:01:01.007589<br><b>GPS Points:</b> 7<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_d1954f0871aefe5237c68f8d7df00be5.setContent(html_5edb73d637a9ab146b0a2f75c848637c);
+            
+        
+
+        marker_81a0fe4ad298e2ce959ea7259bbe5846.bindPopup(popup_d1954f0871aefe5237c68f8d7df00be5)
+        ;
+
+        
+    
+    
+            var marker_dbbbaab2eaaeb50c3d5a4a9f44f5cee3 = L.marker(
+                [41.91067747084303, 12.498074940860015],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_2362ac1a4522a1f3098d780a92a32aa9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_dbbbaab2eaaeb50c3d5a4a9f44f5cee3.setIcon(icon_2362ac1a4522a1f3098d780a92a32aa9);
+        
+    
+        var popup_5f42a7cc8c14c32c9153c7a3d7ee0a34 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_57accb27a283b414b8740048b2c67812 = $(`<div id="html_57accb27a283b414b8740048b2c67812" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-14 20:02:33<br><b>Last Seen:</b> 2014-02-14 20:29:03<br><b>Total Duration:</b> 0 days 00:26:29.478388<br><b>GPS Points:</b> 23<br><hr><br><b>Restaurant:</b><br>- Mok<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>charging_station: 1</div>`)[0];
+                popup_5f42a7cc8c14c32c9153c7a3d7ee0a34.setContent(html_57accb27a283b414b8740048b2c67812);
+            
+        
+
+        marker_dbbbaab2eaaeb50c3d5a4a9f44f5cee3.bindPopup(popup_5f42a7cc8c14c32c9153c7a3d7ee0a34)
+        ;
+
+        
+    
+    
+            var marker_4ed0b63adbb2644c32f6bc2ccf05963e = L.marker(
+                [41.91098295452429, 12.49832500393996],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_cfea9892f11f5ce071149a7e06809751 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_4ed0b63adbb2644c32f6bc2ccf05963e.setIcon(icon_cfea9892f11f5ce071149a7e06809751);
+        
+    
+        var popup_ca7a211b4f1eef8fbb44df5277f15867 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_ba54d37a8b40f47ff15f99854c4a22a6 = $(`<div id="html_ba54d37a8b40f47ff15f99854c4a22a6" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-17 14:53:00<br><b>Last Seen:</b> 2014-02-17 17:20:44<br><b>Total Duration:</b> 0 days 02:27:44.159393<br><b>GPS Points:</b> 382<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_ca7a211b4f1eef8fbb44df5277f15867.setContent(html_ba54d37a8b40f47ff15f99854c4a22a6);
+            
+        
+
+        marker_4ed0b63adbb2644c32f6bc2ccf05963e.bindPopup(popup_ca7a211b4f1eef8fbb44df5277f15867)
+        ;
+
+        
+    
+    
+            var marker_02e671dc7e5c0ec7a73a00751e10d611 = L.marker(
+                [41.911358986426485, 12.498535902976442],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_551c305bff62a09cc007182ad8841f37 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_02e671dc7e5c0ec7a73a00751e10d611.setIcon(icon_551c305bff62a09cc007182ad8841f37);
+        
+    
+        var popup_3621d7b27b187d786df40910eb805c8c = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_2b80f31640379e229e6e669015f3d795 = $(`<div id="html_2b80f31640379e229e6e669015f3d795" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-18 14:21:59<br><b>Last Seen:</b> 2014-02-18 17:35:29<br><b>Total Duration:</b> 0 days 03:13:29.093646<br><b>GPS Points:</b> 214<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1<br>ice_cream: 1</div>`)[0];
+                popup_3621d7b27b187d786df40910eb805c8c.setContent(html_2b80f31640379e229e6e669015f3d795);
+            
+        
+
+        marker_02e671dc7e5c0ec7a73a00751e10d611.bindPopup(popup_3621d7b27b187d786df40910eb805c8c)
+        ;
+
+        
+    
+    
+            var marker_8105d406e173760a035f5ed74b8cabd7 = L.marker(
+                [41.910957086000984, 12.498445285483927],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_130bbb48b004f8cc6fc653488e490e1c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8105d406e173760a035f5ed74b8cabd7.setIcon(icon_130bbb48b004f8cc6fc653488e490e1c);
+        
+    
+        var popup_7ad8c1b7cb629727d229cc997b0e4c6b = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_dba38484110c798a879a166cb9a59e24 = $(`<div id="html_dba38484110c798a879a166cb9a59e24" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-19 17:04:22<br><b>Last Seen:</b> 2014-02-19 17:34:53<br><b>Total Duration:</b> 0 days 00:30:30.675321<br><b>GPS Points:</b> 197<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_7ad8c1b7cb629727d229cc997b0e4c6b.setContent(html_dba38484110c798a879a166cb9a59e24);
+            
+        
+
+        marker_8105d406e173760a035f5ed74b8cabd7.bindPopup(popup_7ad8c1b7cb629727d229cc997b0e4c6b)
+        ;
+
+        
+    
+    
+            var marker_9db800eef88fe174cf0863f4bc09b344 = L.marker(
+                [41.9109205206263, 12.498498275888545],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_246a827b9eb8eeca18521e9a744d9847 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9db800eef88fe174cf0863f4bc09b344.setIcon(icon_246a827b9eb8eeca18521e9a744d9847);
+        
+    
+        var popup_39112aa71992f371aabfb992b1b03d36 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_94305765a8b59da01b235c9c39dd266d = $(`<div id="html_94305765a8b59da01b235c9c39dd266d" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-20 16:51:36<br><b>Last Seen:</b> 2014-02-20 18:03:31<br><b>Total Duration:</b> 0 days 01:11:54.808932<br><b>GPS Points:</b> 288<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_39112aa71992f371aabfb992b1b03d36.setContent(html_94305765a8b59da01b235c9c39dd266d);
+            
+        
+
+        marker_9db800eef88fe174cf0863f4bc09b344.bindPopup(popup_39112aa71992f371aabfb992b1b03d36)
+        ;
+
+        
+    
+    
+            var marker_dd2ab658f42b7589c34147e233855c64 = L.marker(
+                [41.91041568943379, 12.497892149111758],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_6ca4e169baaaffbca540a54686c2668a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_dd2ab658f42b7589c34147e233855c64.setIcon(icon_6ca4e169baaaffbca540a54686c2668a);
+        
+    
+        var popup_6729a82da127f621fcf346e9bd80aa14 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_f1f41a436253355cc56f5c95c850e8d8 = $(`<div id="html_f1f41a436253355cc56f5c95c850e8d8" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-21 13:38:22<br><b>Last Seen:</b> 2014-02-21 13:43:09<br><b>Total Duration:</b> 0 days 00:04:47.340759<br><b>GPS Points:</b> 25<br><hr><br><b>Restaurant:</b><br>- Al Forno della Soffitta<br>- Chinappi<br>- Mok<br><b>Cafe:</b><br>- Faro</div>`)[0];
+                popup_6729a82da127f621fcf346e9bd80aa14.setContent(html_f1f41a436253355cc56f5c95c850e8d8);
+            
+        
+
+        marker_dd2ab658f42b7589c34147e233855c64.bindPopup(popup_6729a82da127f621fcf346e9bd80aa14)
+        ;
+
+        
+    
+    
+            var marker_01c84f6e4569f9d9247406a1d214f409 = L.marker(
+                [41.9108765721174, 12.49836848382243],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_3cc0f6f0aec780acef92abef9390d730 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_01c84f6e4569f9d9247406a1d214f409.setIcon(icon_3cc0f6f0aec780acef92abef9390d730);
+        
+    
+        var popup_65953432cc70d97c2a463ff8ae4f5750 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_3de244c6bb8267db8421c529ad0c8275 = $(`<div id="html_3de244c6bb8267db8421c529ad0c8275" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-21 16:59:02<br><b>Last Seen:</b> 2014-02-21 17:14:47<br><b>Total Duration:</b> 0 days 00:15:44.951083<br><b>GPS Points:</b> 137<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>charging_station: 1</div>`)[0];
+                popup_65953432cc70d97c2a463ff8ae4f5750.setContent(html_3de244c6bb8267db8421c529ad0c8275);
+            
+        
+
+        marker_01c84f6e4569f9d9247406a1d214f409.bindPopup(popup_65953432cc70d97c2a463ff8ae4f5750)
+        ;
+
+        
+    
+    
+            var marker_908bcf683f6ae7d0ca6d3617a0ac252c = L.marker(
+                [41.91107355181198, 12.498409101712035],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_63712ee986a4e61335e05955c958fab3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_908bcf683f6ae7d0ca6d3617a0ac252c.setIcon(icon_63712ee986a4e61335e05955c958fab3);
+        
+    
+        var popup_6ce42a01fcb30593133faaf056af3874 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_72d2dc2024f5e7e84d822b0d46f0c0c7 = $(`<div id="html_72d2dc2024f5e7e84d822b0d46f0c0c7" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-24 15:20:05<br><b>Last Seen:</b> 2014-02-24 17:48:17<br><b>Total Duration:</b> 0 days 02:28:11.444780<br><b>GPS Points:</b> 477<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_6ce42a01fcb30593133faaf056af3874.setContent(html_72d2dc2024f5e7e84d822b0d46f0c0c7);
+            
+        
+
+        marker_908bcf683f6ae7d0ca6d3617a0ac252c.bindPopup(popup_6ce42a01fcb30593133faaf056af3874)
+        ;
+
+        
+    
+    
+            var marker_2daff1349351bab10c66c8b13467a243 = L.marker(
+                [41.91066287027837, 12.498431354329181],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_7ce720176d7678eb6e689e45ad68d026 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_2daff1349351bab10c66c8b13467a243.setIcon(icon_7ce720176d7678eb6e689e45ad68d026);
+        
+    
+        var popup_355e3f426a8a13350d65e6fbe4846158 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_fcc2acf08c6474f371c39298b112092d = $(`<div id="html_fcc2acf08c6474f371c39298b112092d" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-26 18:40:00<br><b>Last Seen:</b> 2014-02-26 18:43:03<br><b>Total Duration:</b> 0 days 00:03:02.782699<br><b>GPS Points:</b> 23<br><hr><br><b>Restaurant:</b><br>- Chinappi<br>- Mok<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>charging_station: 1</div>`)[0];
+                popup_355e3f426a8a13350d65e6fbe4846158.setContent(html_fcc2acf08c6474f371c39298b112092d);
+            
+        
+
+        marker_2daff1349351bab10c66c8b13467a243.bindPopup(popup_355e3f426a8a13350d65e6fbe4846158)
+        ;
+
+        
+    
+    
+            var marker_8bbedd3ad97ae45d9a3bb3301ab3bf46 = L.marker(
+                [41.91095372576534, 12.498361090159547],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_ef5b5c62ccd86cf00fa372bc718a5783 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8bbedd3ad97ae45d9a3bb3301ab3bf46.setIcon(icon_ef5b5c62ccd86cf00fa372bc718a5783);
+        
+    
+        var popup_6cf835314d4a994d9eef8addb5ddc33d = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_c12b8450ad9d62aea2569a314ef2aa73 = $(`<div id="html_c12b8450ad9d62aea2569a314ef2aa73" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-27 14:20:56<br><b>Last Seen:</b> 2014-02-27 14:27:05<br><b>Total Duration:</b> 0 days 00:06:08.417745<br><b>GPS Points:</b> 56<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_6cf835314d4a994d9eef8addb5ddc33d.setContent(html_c12b8450ad9d62aea2569a314ef2aa73);
+            
+        
+
+        marker_8bbedd3ad97ae45d9a3bb3301ab3bf46.bindPopup(popup_6cf835314d4a994d9eef8addb5ddc33d)
+        ;
+
+        
+    
+    
+            var marker_a0ba7a84c9d115aead4f7cf1769fe691 = L.marker(
+                [41.91090988299616, 12.498378293768381],
+                {
+}
+            ).addTo(map_4973a390982ea4551c5e96ce14746f30);
+        
+    
+            var icon_e4f9ff328e7f8a6a9668a92620398216 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a0ba7a84c9d115aead4f7cf1769fe691.setIcon(icon_e4f9ff328e7f8a6a9668a92620398216);
+        
+    
+        var popup_9257ebcb2f20e1465f8241c0ff1a749f = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_bca4ea8f71da3e10272fa5b2d6e27584 = $(`<div id="html_bca4ea8f71da3e10272fa5b2d6e27584" style="width: 100.0%; height: 100.0%;"><b>First Seen:</b> 2014-02-28 13:16:00<br><b>Last Seen:</b> 2014-02-28 13:22:32<br><b>Total Duration:</b> 0 days 00:06:32.519736<br><b>GPS Points:</b> 57<br><hr><br><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_9257ebcb2f20e1465f8241c0ff1a749f.setContent(html_bca4ea8f71da3e10272fa5b2d6e27584);
+            
+        
+
+        marker_a0ba7a84c9d115aead4f7cf1769fe691.bindPopup(popup_9257ebcb2f20e1465f8241c0ff1a749f)
+        ;
+
+        
+    
+</script>
+</html>

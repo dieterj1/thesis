@@ -7,6 +7,8 @@ Check the download_network.ipynb.
 ```bash
 # Run precomputation
 ubodt_gen --network beijing/edges.shp --network_id fid --source u --target v --output beijing/ubodt.txt --delta 0.03 --use_omp
+
+ubodt_gen --network rome/edges.shp --network_id fid --source u --target v --output rome/ubodt.txt --delta 0.01 --use_omp
 # Run fmm
 fmm --ubodt beijing/ubodt.txt --network beijing/edges.shp --network_id fid --source u --target v --gps beijing/trips.csv -k 8 -r 0.003 -e 0.0005 --output beijing/mr.txt --use_omp
 # Run stmatch

@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_013b7ad12fded08bc505edd2fd6326d5 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_013b7ad12fded08bc505edd2fd6326d5" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_013b7ad12fded08bc505edd2fd6326d5 = L.map(
+                "map_013b7ad12fded08bc505edd2fd6326d5",
+                {
+                    center: [41.9028, 12.4964],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ec59409768f4bd0c768307b1ce075ed5 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_ec59409768f4bd0c768307b1ce075ed5.addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var marker_6dfe23fa9ea8e4802e6a7391bf59815d = L.marker(
+                [41.926709618947484, 12.423037643696215],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_6c164acf8a30c16ddd1c44c66a4390c0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6dfe23fa9ea8e4802e6a7391bf59815d.setIcon(icon_6c164acf8a30c16ddd1c44c66a4390c0);
+        
+    
+        var popup_64b48440fd2a5db5e85b737d1715fa46 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_af5658ead3239ace35c4ace038eb858a = $(`<div id="html_af5658ead3239ace35c4ace038eb858a" style="width: 100.0%; height: 100.0%;"><b>Other Amenities:</b><br>fuel: 2</div>`)[0];
+                popup_64b48440fd2a5db5e85b737d1715fa46.setContent(html_af5658ead3239ace35c4ace038eb858a);
+            
+        
+
+        marker_6dfe23fa9ea8e4802e6a7391bf59815d.bindPopup(popup_64b48440fd2a5db5e85b737d1715fa46)
+        ;
+
+        
+    
+    
+            var marker_9a720fec8dd9bf5b3227c8bdb2994936 = L.marker(
+                [41.9019800077283, 12.480739262361961],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_1aa522ed883e97d708977e2edffca408 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9a720fec8dd9bf5b3227c8bdb2994936.setIcon(icon_1aa522ed883e97d708977e2edffca408);
+        
+    
+        var popup_cb5dedcebeeab5825183318dde25b407 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_1ce6270e2f69ab70fdd3533c3b5b419d = $(`<div id="html_1ce6270e2f69ab70fdd3533c3b5b419d" style="width: 100.0%; height: 100.0%;"><b>Cafe:</b><br>- Giaroma<br>- It Bread & Salad<br><b>Other Amenities:</b><br>atm: 1<br>bicycle_repair_station: 1</div>`)[0];
+                popup_cb5dedcebeeab5825183318dde25b407.setContent(html_1ce6270e2f69ab70fdd3533c3b5b419d);
+            
+        
+
+        marker_9a720fec8dd9bf5b3227c8bdb2994936.bindPopup(popup_cb5dedcebeeab5825183318dde25b407)
+        ;
+
+        
+    
+    
+            var marker_621e78d0bbb864c093bc7d3b38eb4e29 = L.marker(
+                [41.91094771791062, 12.498404143717893],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_312a3236b8100859b1a2a8e58b4d9a8b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_621e78d0bbb864c093bc7d3b38eb4e29.setIcon(icon_312a3236b8100859b1a2a8e58b4d9a8b);
+        
+    
+        var popup_08a0613af64c0f1d35e01cbd2d362c82 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_d954396a8df58351f4f3206c2418af35 = $(`<div id="html_d954396a8df58351f4f3206c2418af35" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Mok<br>- Proloco Pinciano<br>- Quelli di via Nizza<br><b>Cafe:</b><br>- Faro<br><b>Other Amenities:</b><br>cinema: 1<br>charging_station: 1</div>`)[0];
+                popup_08a0613af64c0f1d35e01cbd2d362c82.setContent(html_d954396a8df58351f4f3206c2418af35);
+            
+        
+
+        marker_621e78d0bbb864c093bc7d3b38eb4e29.bindPopup(popup_08a0613af64c0f1d35e01cbd2d362c82)
+        ;
+
+        
+    
+    
+            var marker_fa1df11eb5853d7642df7bc78576029b = L.marker(
+                [41.90232763322247, 12.483980101273707],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_5c56414194a1d6c5ccd88777c102982f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_fa1df11eb5853d7642df7bc78576029b.setIcon(icon_5c56414194a1d6c5ccd88777c102982f);
+        
+    
+        var popup_00b5a91f6945f88bddc7c9e8eeef9806 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_a4423650300e87a560569fe02ac9d442 = $(`<div id="html_a4423650300e87a560569fe02ac9d442" style="width: 100.0%; height: 100.0%;"><b>Fast_Food:</b><br>- La Sandwicheria<br>- La sandwicheria<br>- McDonald's<br><b>Cafe:</b><br>- Caffè Accademia<br>- Pa.Po Bistrot<br><b>Restaurant:</b><br>- Al Camineto<br>- II Riqtoro dal Patriota<br>- La Prosciutteria Roma Trevi - Cantina dei Papi<br><b>Bar:</b><br>- Bar Tazza D'Oro<br><b>Other Amenities:</b><br>ice_cream: 1<br>pharmacy: 1<br>taxi: 1</div>`)[0];
+                popup_00b5a91f6945f88bddc7c9e8eeef9806.setContent(html_a4423650300e87a560569fe02ac9d442);
+            
+        
+
+        marker_fa1df11eb5853d7642df7bc78576029b.bindPopup(popup_00b5a91f6945f88bddc7c9e8eeef9806)
+        ;
+
+        
+    
+    
+            var marker_4a9a18114a95c5108415e1cd6df82aae = L.marker(
+                [41.8985226004167, 12.497074329339572],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_06125eabf5a361b2ff32b2b0f8e64124 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_4a9a18114a95c5108415e1cd6df82aae.setIcon(icon_06125eabf5a361b2ff32b2b0f8e64124);
+        
+    
+        var popup_5b48b20adedabd3df6c2f94b704009cf = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_f5a265f44a7453114ee7e539c0e24e15 = $(`<div id="html_f5a265f44a7453114ee7e539c0e24e15" style="width: 100.0%; height: 100.0%;"><b>Cafe:</b><br>- Bar Tea Room<br>- Orologio<br><b>Restaurant:</b><br>- Bono<br><b>Other Amenities:</b><br>pub: 1<br>car_rental: 1<br>bank: 1<br>bureau_de_change: 1<br>motorcycle_rental: 1<br>pharmacy: 1</div>`)[0];
+                popup_5b48b20adedabd3df6c2f94b704009cf.setContent(html_f5a265f44a7453114ee7e539c0e24e15);
+            
+        
+
+        marker_4a9a18114a95c5108415e1cd6df82aae.bindPopup(popup_5b48b20adedabd3df6c2f94b704009cf)
+        ;
+
+        
+    
+    
+            var marker_185aa63c63b02afee15ddc413c0edc82 = L.marker(
+                [41.89036355588602, 12.507065836052668],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_65b0c0539e24e79d18e6edc0ce98ac13 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_185aa63c63b02afee15ddc413c0edc82.setIcon(icon_65b0c0539e24e79d18e6edc0ce98ac13);
+        
+    
+        var popup_2192d0aba39ba866ac362db9d151225f = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_2a75cc3c1e143e48da7104c01e70a9b8 = $(`<div id="html_2a75cc3c1e143e48da7104c01e70a9b8" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Osteria Romana<br><b>Bar:</b><br>- Revenge<br><b>Other Amenities:</b><br>pharmacy: 1<br>cinema: 1</div>`)[0];
+                popup_2192d0aba39ba866ac362db9d151225f.setContent(html_2a75cc3c1e143e48da7104c01e70a9b8);
+            
+        
+
+        marker_185aa63c63b02afee15ddc413c0edc82.bindPopup(popup_2192d0aba39ba866ac362db9d151225f)
+        ;
+
+        
+    
+    
+            var marker_6d5d8571474f674d0e2a5468b5e8fa7f = L.marker(
+                [41.903237596917414, 12.48693817910853],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_d1e14cc58affdc90ce1d7158c49a90ec = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6d5d8571474f674d0e2a5468b5e8fa7f.setIcon(icon_d1e14cc58affdc90ce1d7158c49a90ec);
+        
+    
+        var popup_a71784e43f9486bddac82092f221d661 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_7e3495fca9e65a0e0036121163e0506c = $(`<div id="html_7e3495fca9e65a0e0036121163e0506c" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Artesfizio Ristorante<br>- Chicken Hut Gelateria<br>- Colline Emiliane<br><b>Cafe:</b><br>- Pepy's bar<br>- White Cafè<br><b>Fast_Food:</b><br>- Luna Caprese<br><b>Bar:</b><br>- Al Sipario Bar<br>- Hotel87<br><b>Other Amenities:</b><br>nightclub: 2<br>bureau_de_change: 1<br>ice_cream: 1</div>`)[0];
+                popup_a71784e43f9486bddac82092f221d661.setContent(html_7e3495fca9e65a0e0036121163e0506c);
+            
+        
+
+        marker_6d5d8571474f674d0e2a5468b5e8fa7f.bindPopup(popup_a71784e43f9486bddac82092f221d661)
+        ;
+
+        
+    
+    
+            var marker_e94d640ba6078d7cc8606c0278c954ba = L.marker(
+                [41.912895255352986, 12.520717701934574],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_8874f48e1c4ff25395ccbbeba4b884ed = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e94d640ba6078d7cc8606c0278c954ba.setIcon(icon_8874f48e1c4ff25395ccbbeba4b884ed);
+        
+    
+        var popup_2e44a946bd69d8661ea1f7a06fc034c3 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_9b79d65a4e105804d23eddf7a873dec8 = $(`<div id="html_9b79d65a4e105804d23eddf7a873dec8" style="width: 100.0%; height: 100.0%;"><b>Fast_Food:</b><br>- Banco & pizza<br>- Pizza Queen<br><b>Cafe:</b><br>- Bologna Lounge Café<br><b>Restaurant:</b><br>- Maki contemporary sushi<br>- Mato Street Food<br><b>Other Amenities:</b><br>pharmacy: 1<br>bank: 1<br>pub: 1</div>`)[0];
+                popup_2e44a946bd69d8661ea1f7a06fc034c3.setContent(html_9b79d65a4e105804d23eddf7a873dec8);
+            
+        
+
+        marker_e94d640ba6078d7cc8606c0278c954ba.bindPopup(popup_2e44a946bd69d8661ea1f7a06fc034c3)
+        ;
+
+        
+    
+    
+            var marker_2e7e94997dc5022dcb0e18fc88a24499 = L.marker(
+                [41.90910468373295, 12.449702819582827],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_633589da0ec2c452268d0fcdb4b0a1ed = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_2e7e94997dc5022dcb0e18fc88a24499.setIcon(icon_633589da0ec2c452268d0fcdb4b0a1ed);
+        
+    
+        var popup_8f59fac93983d0a50e55bfecedb160df = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_161dc2cdf3f524dce51d2da38c3d5c5b = $(`<div id="html_161dc2cdf3f524dce51d2da38c3d5c5b" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Asian Delight<br>- Eroi della Pizza<br>- Ristorante Cantina 26<br><b>Cafe:</b><br>- Antico Caffe Doria<br>- Caffe'Mastandrea<br>- Panificio<br><b>Other Amenities:</b><br>cinema: 1<br>pub: 1</div>`)[0];
+                popup_8f59fac93983d0a50e55bfecedb160df.setContent(html_161dc2cdf3f524dce51d2da38c3d5c5b);
+            
+        
+
+        marker_2e7e94997dc5022dcb0e18fc88a24499.bindPopup(popup_8f59fac93983d0a50e55bfecedb160df)
+        ;
+
+        
+    
+    
+            var marker_b352d4c7bcfb6240f58795b7dcb32793 = L.marker(
+                [41.90146668807265, 12.50017333696528],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_2a8d345eda79420c5741b3e401885cfc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_b352d4c7bcfb6240f58795b7dcb32793.setIcon(icon_2a8d345eda79420c5741b3e401885cfc);
+        
+    
+        var popup_edda5e7604bf0b3aa56575275be0e31c = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_08dc25e741d00b7ef521cf5f8d558797 = $(`<div id="html_08dc25e741d00b7ef521cf5f8d558797" style="width: 100.0%; height: 100.0%;"><b>Other Amenities:</b><br>vending_machine: 1</div>`)[0];
+                popup_edda5e7604bf0b3aa56575275be0e31c.setContent(html_08dc25e741d00b7ef521cf5f8d558797);
+            
+        
+
+        marker_b352d4c7bcfb6240f58795b7dcb32793.bindPopup(popup_edda5e7604bf0b3aa56575275be0e31c)
+        ;
+
+        
+    
+    
+            var marker_695940774285602bedd1fdbd4c1d5a1a = L.marker(
+                [41.90868439169404, 12.45505287731103],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_2661bb410b82a5f58c983fdb45863a3a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_695940774285602bedd1fdbd4c1d5a1a.setIcon(icon_2661bb410b82a5f58c983fdb45863a3a);
+        
+    
+        var popup_f3b0b9122d22c9d7ae442228b4afe0d4 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_044509e51bec59bc5264c88d1bdcbc3f = $(`<div id="html_044509e51bec59bc5264c88d1bdcbc3f" style="width: 100.0%; height: 100.0%;"><b>Fast_Food:</b><br>- Burger King<br>- Burgez<br>- I love pizza<br><b>Restaurant:</b><br>- Bella Napoli 2<br>- El maíz<br>- Gli Archi<br><b>Cafe:</b><br>- Novecentotredici Pasticceria<br>- Panificio Mosca<br>- Sfiziarte<br><b>Other Amenities:</b><br>cinema: 1<br>pub: 1<br>vending_machine: 1<br>place_of_worship: 1</div>`)[0];
+                popup_f3b0b9122d22c9d7ae442228b4afe0d4.setContent(html_044509e51bec59bc5264c88d1bdcbc3f);
+            
+        
+
+        marker_695940774285602bedd1fdbd4c1d5a1a.bindPopup(popup_f3b0b9122d22c9d7ae442228b4afe0d4)
+        ;
+
+        
+    
+    
+            var marker_2b84162e4db3da9c579eb4b309f33e00 = L.marker(
+                [41.9050582049051, 12.472892512979465],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_ff9149655ef38e6650d18266f89b68ef = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_2b84162e4db3da9c579eb4b309f33e00.setIcon(icon_ff9149655ef38e6650d18266f89b68ef);
+        
+    
+        var popup_d300291dfb6ba5c0e1912403bed91fc5 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_fa742f729ef1cee9dba291a010f8132c = $(`<div id="html_fa742f729ef1cee9dba291a010f8132c" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Cantine Cavour<br>- Stella d'oro<br><b>Cafe:</b><br>- Antico Café Ruschena<br>- BAR Tabacchi e....<br>- le carré frança is<br><b>Other Amenities:</b><br>bank: 1<br>pub: 1</div>`)[0];
+                popup_d300291dfb6ba5c0e1912403bed91fc5.setContent(html_fa742f729ef1cee9dba291a010f8132c);
+            
+        
+
+        marker_2b84162e4db3da9c579eb4b309f33e00.bindPopup(popup_d300291dfb6ba5c0e1912403bed91fc5)
+        ;
+
+        
+    
+    
+            var marker_91c539898638f7275d353d4ab850e62c = L.marker(
+                [41.895027561400056, 12.500495251138826],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_eef43516b48c63052f79a0292d2a4710 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_91c539898638f7275d353d4ab850e62c.setIcon(icon_eef43516b48c63052f79a0292d2a4710);
+        
+    
+        var popup_50d8a224a4d6a79db05ad594750e7737 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_9825383a85419605b31dd64a23ee0479 = $(`<div id="html_9825383a85419605b31dd64a23ee0479" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Aloft<br>- Branca<br>- Lo scoglio di Frisio<br><b>Cafe:</b><br>- D'Amore<br>- Ponzi<br><b>Other Amenities:</b><br>pharmacy: 2<br>post_office: 1<br>events_venue: 1<br>college: 1<br>bank: 1</div>`)[0];
+                popup_50d8a224a4d6a79db05ad594750e7737.setContent(html_9825383a85419605b31dd64a23ee0479);
+            
+        
+
+        marker_91c539898638f7275d353d4ab850e62c.bindPopup(popup_50d8a224a4d6a79db05ad594750e7737)
+        ;
+
+        
+    
+    
+            var marker_5b7de6843837eec103414eb394488dfc = L.marker(
+                [41.88829967826555, 12.481345525432966],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_8db191942fba435dfcb2e559add3dff5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_5b7de6843837eec103414eb394488dfc.setIcon(icon_8db191942fba435dfcb2e559add3dff5);
+        
+    
+        var popup_0a5ec019e5b866f262d1e1937856c7bb = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_09b20b767799aae0fb49b3335b2b2043 = $(`<div id="html_09b20b767799aae0fb49b3335b2b2043" style="width: 100.0%; height: 100.0%;"><b>Other Amenities:</b><br>library: 1<br>taxi: 1</div>`)[0];
+                popup_0a5ec019e5b866f262d1e1937856c7bb.setContent(html_09b20b767799aae0fb49b3335b2b2043);
+            
+        
+
+        marker_5b7de6843837eec103414eb394488dfc.bindPopup(popup_0a5ec019e5b866f262d1e1937856c7bb)
+        ;
+
+        
+    
+    
+            var marker_dbb726f21c318843fc4847a4d107e1d9 = L.marker(
+                [41.87230702840966, 12.48014058571793],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_f01389f27d5677e658cde76f4d83a4ce = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_dbb726f21c318843fc4847a4d107e1d9.setIcon(icon_f01389f27d5677e658cde76f4d83a4ce);
+        
+    
+        var popup_785c3264ffeb05114c36c315ca89bd92 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_64e239d2d7611067d55c6c3097696d01 = $(`<div id="html_64e239d2d7611067d55c6c3097696d01" style="width: 100.0%; height: 100.0%;"><b>Fast_Food:</b><br>- Alice<br>- Burger King<br>- Dolce Notte<br><b>Cafe:</b><br>- Pasticceria Andreotti<br><b>Restaurant:</b><br>- Angelina<br>- Il Secchio e l'Olivaro Ostiense<br>- Makai - Surf & Tiki bar<br><b>Bar:</b><br>- Redrum<br><b>Other Amenities:</b><br>ice_cream: 1<br>recycling: 1</div>`)[0];
+                popup_785c3264ffeb05114c36c315ca89bd92.setContent(html_64e239d2d7611067d55c6c3097696d01);
+            
+        
+
+        marker_dbb726f21c318843fc4847a4d107e1d9.bindPopup(popup_785c3264ffeb05114c36c315ca89bd92)
+        ;
+
+        
+    
+    
+            var marker_59a33f0d621fd4a73e811ee3eb6c0118 = L.marker(
+                [41.90416610201657, 12.474754549298382],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_54ef8e63a8fd60dc48586df82809c319 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_59a33f0d621fd4a73e811ee3eb6c0118.setIcon(icon_54ef8e63a8fd60dc48586df82809c319);
+        
+    
+        var popup_0b73f04c8cb5f4b457836ba9870262ec = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_e7fdc1b2581b85a9c09308056ff48aaf = $(`<div id="html_e7fdc1b2581b85a9c09308056ff48aaf" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Art, cibo & cafè<br>- Due Ladroni<br>- Il Marchese<br><b>Other Amenities:</b><br>university: 1<br>place_of_worship: 1<br>ferry_terminal: 1</div>`)[0];
+                popup_0b73f04c8cb5f4b457836ba9870262ec.setContent(html_e7fdc1b2581b85a9c09308056ff48aaf);
+            
+        
+
+        marker_59a33f0d621fd4a73e811ee3eb6c0118.bindPopup(popup_0b73f04c8cb5f4b457836ba9870262ec)
+        ;
+
+        
+    
+    
+            var marker_0de5c90fbd0c88a0104dc743fc543b76 = L.marker(
+                [41.909932980293036, 12.488027003453285],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_d0e87845f74848f5acc10e3950778f77 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_0de5c90fbd0c88a0104dc743fc543b76.setIcon(icon_d0e87845f74848f5acc10e3950778f77);
+        
+    
+        var popup_a91aa964746328873cf10f55a1b9b831 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_81bbd7ed6b859c8733273b9c0bc9198e = $(`<div id="html_81bbd7ed6b859c8733273b9c0bc9198e" style="width: 100.0%; height: 100.0%;"><b>Bar:</b><br>- Harry's Bar<br><b>Other Amenities:</b><br>taxi: 1</div>`)[0];
+                popup_a91aa964746328873cf10f55a1b9b831.setContent(html_81bbd7ed6b859c8733273b9c0bc9198e);
+            
+        
+
+        marker_0de5c90fbd0c88a0104dc743fc543b76.bindPopup(popup_a91aa964746328873cf10f55a1b9b831)
+        ;
+
+        
+    
+    
+            var marker_aba2e25ff44027224538c983a88e1457 = L.marker(
+                [41.9045845724056, 12.493786315851498],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_52c59da589b594ea22f6847e39e1eb41 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_aba2e25ff44027224538c983a88e1457.setIcon(icon_52c59da589b594ea22f6847e39e1eb41);
+        
+    
+        var popup_befd866a9735ba5b7fd54cb812497716 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_ed4a71d876cadd1f57c64254f645382c = $(`<div id="html_ed4a71d876cadd1f57c64254f645382c" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Orlando<br>- Pan Bernardo<br><b>Cafe:</b><br>- il grottino di san Bernardo<br><b>Fast_Food:</b><br>- La Piadineria<br><b>Other Amenities:</b><br>fountain: 1<br>bank: 1</div>`)[0];
+                popup_befd866a9735ba5b7fd54cb812497716.setContent(html_ed4a71d876cadd1f57c64254f645382c);
+            
+        
+
+        marker_aba2e25ff44027224538c983a88e1457.bindPopup(popup_befd866a9735ba5b7fd54cb812497716)
+        ;
+
+        
+    
+    
+            var marker_9ba209d91965d6fc3522ef02ebf5c8ce = L.marker(
+                [41.90085555423772, 12.463199706853022],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_d88084d3633c13cdf7b612caf9f7eb09 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9ba209d91965d6fc3522ef02ebf5c8ce.setIcon(icon_d88084d3633c13cdf7b612caf9f7eb09);
+        
+    
+        var popup_f1a22682d0f76684592f5017e55232f8 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_01ace0206b717b6c89372692619af1eb = $(`<div id="html_01ace0206b717b6c89372692619af1eb" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Clandestine – Mordi e fuggi<br><b>Other Amenities:</b><br>hospital: 1<br>pub: 1</div>`)[0];
+                popup_f1a22682d0f76684592f5017e55232f8.setContent(html_01ace0206b717b6c89372692619af1eb);
+            
+        
+
+        marker_9ba209d91965d6fc3522ef02ebf5c8ce.bindPopup(popup_f1a22682d0f76684592f5017e55232f8)
+        ;
+
+        
+    
+    
+            var marker_2ed92ad971b25901b31439f6ed145c5a = L.marker(
+                [41.90483588555148, 12.483008444628002],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_d78aa51733e131c70c61aee47684fee8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_2ed92ad971b25901b31439f6ed145c5a.setIcon(icon_d78aa51733e131c70c61aee47684fee8);
+        
+    
+        var popup_1a6b0047468f19dac816925a91d4c89a = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_ce60610a0c4009b1c4a142abbe5318b8 = $(`<div id="html_ce60610a0c4009b1c4a142abbe5318b8" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Angie's<br>- Barcaccia<br>- Caffe Leonardo<br><b>Fast_Food:</b><br>- McDonald's<br><b>Cafe:</b><br>- Bar Frattina<br>- Cahhetteria Antica Roma<br>- Elisa Gelateria Pasticceria Caffe<br><b>Other Amenities:</b><br>pharmacy: 1<br>ice_cream: 1<br>bank: 1</div>`)[0];
+                popup_1a6b0047468f19dac816925a91d4c89a.setContent(html_ce60610a0c4009b1c4a142abbe5318b8);
+            
+        
+
+        marker_2ed92ad971b25901b31439f6ed145c5a.bindPopup(popup_1a6b0047468f19dac816925a91d4c89a)
+        ;
+
+        
+    
+    
+            var marker_101c7c8db50ca5dd4a865bf2e4e661a0 = L.marker(
+                [41.90474742877765, 12.478297777326173],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_235260407ab4d7168eb295d67144fbb7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_101c7c8db50ca5dd4a865bf2e4e661a0.setIcon(icon_235260407ab4d7168eb295d67144fbb7);
+        
+    
+        var popup_7b7ea507723cc65dbfb7f6267cfaff29 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_2785d5cdea7ade72a7fa6ca01ea44ca7 = $(`<div id="html_2785d5cdea7ade72a7fa6ca01ea44ca7" style="width: 100.0%; height: 100.0%;"><b>Bar:</b><br>- Ciampino bistrot<br><b>Restaurant:</b><br>- 06 Osteria<br>- Gino Sorbillo - Lievito Madre a Roma<br>- Settimio al'Arancio</div>`)[0];
+                popup_7b7ea507723cc65dbfb7f6267cfaff29.setContent(html_2785d5cdea7ade72a7fa6ca01ea44ca7);
+            
+        
+
+        marker_101c7c8db50ca5dd4a865bf2e4e661a0.bindPopup(popup_7b7ea507723cc65dbfb7f6267cfaff29)
+        ;
+
+        
+    
+    
+            var marker_4b4db1243e302c962c53978ea7f54f73 = L.marker(
+                [41.9186731901049, 12.445689872612409],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_a39f0cc7b558adad2165d4e01084b01a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_4b4db1243e302c962c53978ea7f54f73.setIcon(icon_a39f0cc7b558adad2165d4e01084b01a);
+        
+    
+        var popup_47d254be9e23f5b24f520e6cd5d3d5fa = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_018d6f080bf8aa3febe42c3de4c143d0 = $(`<div id="html_018d6f080bf8aa3febe42c3de4c143d0" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- La Pergola</div>`)[0];
+                popup_47d254be9e23f5b24f520e6cd5d3d5fa.setContent(html_018d6f080bf8aa3febe42c3de4c143d0);
+            
+        
+
+        marker_4b4db1243e302c962c53978ea7f54f73.bindPopup(popup_47d254be9e23f5b24f520e6cd5d3d5fa)
+        ;
+
+        
+    
+    
+            var marker_fb236cd16888e17df66249ee88123502 = L.marker(
+                [41.91783242131798, 12.491580611497536],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_aa89c07c7bd123a82b23c04c866d9be5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_fb236cd16888e17df66249ee88123502.setIcon(icon_aa89c07c7bd123a82b23c04c866d9be5);
+        
+    
+        var popup_235fe3c728e1eae46c37441219b8c158 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_06e01e191a84aca4a192cc6acc9d3f21 = $(`<div id="html_06e01e191a84aca4a192cc6acc9d3f21" style="width: 100.0%; height: 100.0%;"><b>Other Amenities:</b><br>taxi: 1<br>social_facility: 1</div>`)[0];
+                popup_235fe3c728e1eae46c37441219b8c158.setContent(html_06e01e191a84aca4a192cc6acc9d3f21);
+            
+        
+
+        marker_fb236cd16888e17df66249ee88123502.bindPopup(popup_235fe3c728e1eae46c37441219b8c158)
+        ;
+
+        
+    
+    
+            var marker_eaa5f862e2e5184455faa7a37251429f = L.marker(
+                [41.87294149794903, 12.465276820377824],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_89d8e69ce77425f0a3003ad72c85dca2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_eaa5f862e2e5184455faa7a37251429f.setIcon(icon_89d8e69ce77425f0a3003ad72c85dca2);
+        
+    
+        var popup_c459323c871e3d9637debc52c72ec32d = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_09873ab760a9a4833b8acd05c389ce35 = $(`<div id="html_09873ab760a9a4833b8acd05c389ce35" style="width: 100.0%; height: 100.0%;"><b>Cafe:</b><br>- Bar Baffo Caffè Vergnano<br>- Binario Caffè<br><b>Fast_Food:</b><br>- Chicken Hut<br>- Istanbul 34<br>- La Boccaccia<br><b>Restaurant:</b><br>- Beleza Roma<br><b>Other Amenities:</b><br>taxi: 1<br>theatre: 1</div>`)[0];
+                popup_c459323c871e3d9637debc52c72ec32d.setContent(html_09873ab760a9a4833b8acd05c389ce35);
+            
+        
+
+        marker_eaa5f862e2e5184455faa7a37251429f.bindPopup(popup_c459323c871e3d9637debc52c72ec32d)
+        ;
+
+        
+    
+    
+            var marker_bb2b35c51577f302a06aa9dcbb7ed1d6 = L.marker(
+                [41.900667830839076, 12.48485084472088],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_c43e6d8880b00439c0fd1722b38f9000 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_bb2b35c51577f302a06aa9dcbb7ed1d6.setIcon(icon_c43e6d8880b00439c0fd1722b38f9000);
+        
+    
+        var popup_389b7626bb1bff76c2dfe687699c4363 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_49de46fbe786a5f715f008e21857048d = $(`<div id="html_49de46fbe786a5f715f008e21857048d" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Al Picchio<br>- Birreria<br>- Da Cecere<br><b>Cafe:</b><br>- Gelateria A.Cecere<br>- Gelateria Valentino<br>- Trevi Cafe<br><b>Other Amenities:</b><br>fountain: 1<br>ice_cream: 1<br>library: 1</div>`)[0];
+                popup_389b7626bb1bff76c2dfe687699c4363.setContent(html_49de46fbe786a5f715f008e21857048d);
+            
+        
+
+        marker_bb2b35c51577f302a06aa9dcbb7ed1d6.bindPopup(popup_389b7626bb1bff76c2dfe687699c4363)
+        ;
+
+        
+    
+    
+            var marker_51aeb59f967aeb6587cc7515da694f59 = L.marker(
+                [41.90083348878712, 12.492718057959348],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_ee497f9f5b8ddaef79338fddc986d77f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_51aeb59f967aeb6587cc7515da694f59.setIcon(icon_ee497f9f5b8ddaef79338fddc986d77f);
+        
+    
+        var popup_c1b5b7fa49b0f05ffd83c04bf633f433 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_88f99ac6092cb94bf6f19d07c8a7a301 = $(`<div id="html_88f99ac6092cb94bf6f19d07c8a7a301" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Berzitello<br>- Doveralu<br>- Flann O'Brien Irish Pub<br><b>Cafe:</b><br>- Sweet & Savory<br><b>Other Amenities:</b><br>ice_cream: 2<br>cinema: 1<br>pharmacy: 1<br>bank: 1<br>bureau_de_change: 1<br>language_school: 1</div>`)[0];
+                popup_c1b5b7fa49b0f05ffd83c04bf633f433.setContent(html_88f99ac6092cb94bf6f19d07c8a7a301);
+            
+        
+
+        marker_51aeb59f967aeb6587cc7515da694f59.bindPopup(popup_c1b5b7fa49b0f05ffd83c04bf633f433)
+        ;
+
+        
+    
+    
+            var marker_6243ac63d19b6c40024b53b186957872 = L.marker(
+                [41.89910739325836, 12.427737422116278],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_86e3517714a42ec65660fd2f9fdc9a3f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_6243ac63d19b6c40024b53b186957872.setIcon(icon_86e3517714a42ec65660fd2f9fdc9a3f);
+        
+    
+        var popup_6f06e2bad7e8c5f0ae97987b9c3cbf03 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_8a3e4e01b030726c18495a46b82970ea = $(`<div id="html_8a3e4e01b030726c18495a46b82970ea" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- 1<br>- Gustosando<br>- Hua Da<br><b>Fast_Food:</b><br>- McDonald's<br><b>Cafe:</b><br>- Bar Camilloni<br>- Tiramisú<br><b>Other Amenities:</b><br>bank: 1</div>`)[0];
+                popup_6f06e2bad7e8c5f0ae97987b9c3cbf03.setContent(html_8a3e4e01b030726c18495a46b82970ea);
+            
+        
+
+        marker_6243ac63d19b6c40024b53b186957872.bindPopup(popup_6f06e2bad7e8c5f0ae97987b9c3cbf03)
+        ;
+
+        
+    
+    
+            var marker_518d43bdf3a832628c13f27d95e521f1 = L.marker(
+                [41.91591314331519, 12.496723097406015],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_a1b0a8bc1338365857b8ff1df3ec287a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_518d43bdf3a832628c13f27d95e521f1.setIcon(icon_a1b0a8bc1338365857b8ff1df3ec287a);
+        
+    
+        var popup_ac1455b20b010941b6747256619f37b8 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_b47a0212db258ae470b2018db9b381e3 = $(`<div id="html_b47a0212db258ae470b2018db9b381e3" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Giakis<br>- Osteria del Rione<br><b>Cafe:</b><br>- Cafe Marziali</div>`)[0];
+                popup_ac1455b20b010941b6747256619f37b8.setContent(html_b47a0212db258ae470b2018db9b381e3);
+            
+        
+
+        marker_518d43bdf3a832628c13f27d95e521f1.bindPopup(popup_ac1455b20b010941b6747256619f37b8)
+        ;
+
+        
+    
+    
+            var marker_9467f623d2eac423db6c206251e0d737 = L.marker(
+                [41.93425403545405, 12.44001488201715],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_6217e04a6c52315e7db9b020c2c19c3d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9467f623d2eac423db6c206251e0d737.setIcon(icon_6217e04a6c52315e7db9b020c2c19c3d);
+        
+    
+        var popup_a6f91749583a032e6e062a256ac55cb5 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_3847eb490df7b535651bba8dbd0ae367 = $(`<div id="html_3847eb490df7b535651bba8dbd0ae367" style="width: 100.0%; height: 100.0%;"><b>Other Amenities:</b><br>pharmacy: 1<br>bank: 1</div>`)[0];
+                popup_a6f91749583a032e6e062a256ac55cb5.setContent(html_3847eb490df7b535651bba8dbd0ae367);
+            
+        
+
+        marker_9467f623d2eac423db6c206251e0d737.bindPopup(popup_a6f91749583a032e6e062a256ac55cb5)
+        ;
+
+        
+    
+    
+            var marker_90eef4ab9d2ef46b701f0f0a064d8f34 = L.marker(
+                [41.90008589585122, 12.473796942992804],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_39b710cbceed20d8e2da4d93632666de = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_90eef4ab9d2ef46b701f0f0a064d8f34.setIcon(icon_39b710cbceed20d8e2da4d93632666de);
+        
+    
+        var popup_d03243f1faa04e20af33365fe5e51a22 = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_d01bce61b23232977200cd5e9f5878cf = $(`<div id="html_d01bce61b23232977200cd5e9f5878cf" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Anni '60<br>- Bernini<br>- Il Tagliere Toscano<br><b>Fast_Food:</b><br>- Che Pasta<br>- Mariotti<br>- McDonald's<br><b>Cafe:</b><br>- Gelateria Tre Fontane<br><b>Other Amenities:</b><br>pharmacy: 1<br>taxi: 1<br>library: 1<br>university: 1<br>ice_cream: 1<br>driving_school: 1</div>`)[0];
+                popup_d03243f1faa04e20af33365fe5e51a22.setContent(html_d01bce61b23232977200cd5e9f5878cf);
+            
+        
+
+        marker_90eef4ab9d2ef46b701f0f0a064d8f34.bindPopup(popup_d03243f1faa04e20af33365fe5e51a22)
+        ;
+
+        
+    
+    
+            var marker_c563579fcc8bccdeb50005b4d76690ef = L.marker(
+                [41.891837499816276, 12.474891660630757],
+                {
+}
+            ).addTo(map_013b7ad12fded08bc505edd2fd6326d5);
+        
+    
+            var icon_27768ba249a971a1b8b3655cc94a291c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_c563579fcc8bccdeb50005b4d76690ef.setIcon(icon_27768ba249a971a1b8b3655cc94a291c);
+        
+    
+        var popup_077aabc5ab9d727ce7c91b7302cc963c = L.popup({
+  "maxWidth": 450,
+});
+
+        
+            
+                var html_33628b913601b257e872b4b91613f766 = $(`<div id="html_33628b913601b257e872b4b91613f766" style="width: 100.0%; height: 100.0%;"><b>Restaurant:</b><br>- Bar del Cappuccino<br>- Kuriya<br><b>Cafe:</b><br>- Gelateria del teatro<br>- Tiepolo - Bistro Bottiglieria<br><b>Other Amenities:</b><br>car_sharing: 1<br>ice_cream: 1</div>`)[0];
+                popup_077aabc5ab9d727ce7c91b7302cc963c.setContent(html_33628b913601b257e872b4b91613f766);
+            
+        
+
+        marker_c563579fcc8bccdeb50005b4d76690ef.bindPopup(popup_077aabc5ab9d727ce7c91b7302cc963c)
+        ;
+
+        
+    
+</script>
+</html>
