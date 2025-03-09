@@ -3,5 +3,5 @@ poi_extraction/taxidata/taxi_february.txt
 fmm/example/osmnx_example/beijing
 fmm/example/osmnx_example/cache
 fmm/example/osmnx_example/rome
-.venv/
 fmm/example/notebook/datapath.json
+.venv/
