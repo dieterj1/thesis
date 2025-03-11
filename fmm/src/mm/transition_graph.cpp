@@ -37,16 +37,18 @@ double TransitionGraph::calc_tp(double sp_dist,double eu_dist){
 
 double TransitionGraph::calc_ep(double dist,double error,bool obfuscation) {
   if (obfuscation) {
-    
-    // weibull pdf
-    double shape = 2.067928832715637;  // shape (k)
-    double scale = 0.0008170520572796062;  // scale (lamb)
-    
-    double a = shape / scale;
-    double b = std::pow(dist / scale, shape - 1);
-    double c = std::exp(-std::pow(dist / scale, shape));
-    return a*b*c;
-
+    double dist_2 = dist * dist;       
+    double dist_3 = dist_2 * dist;      
+    double dist_4 = dist_3 * dist;      
+    if(dist < 0.000684) {
+      return (1.62828 * 1e13 * dist_4) 
+           - (1.3994 * 1e10 * dist_3)
+           - (6.54078 * 1e6 * dist_2)
+           + (5902.53 * dist) + 0.063818;
+    }
+    else {
+      return 3489.29 * dist_2 - 41.237 * dist + 0.145086;
+    }
   }
   else {
     double a = dist / error;
