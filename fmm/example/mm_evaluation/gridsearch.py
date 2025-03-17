@@ -42,7 +42,6 @@ def process_user(user_id):
         trace = df[['y', 'x', 'timestamp']].to_numpy()
         trace = [tuple(x) for x in trace]
         trace = [(x[0], x[1], int(x[2])) for x in trace]
-        traces.append(trace)
         
         # Create WKT from lat lon data
         original_linestring = LineString(zip(df["y"], df["x"]))
@@ -55,14 +54,11 @@ def process_user(user_id):
         if result.cpath:
             print(f"Map matching succeeded for user {user_id}")
             ground_truths.append(loads(result.mgeom.export_wkt()))
+            traces.append(trace)
     
     return traces, ground_truths
         
 def mapmatch_perturbated(perturbed_wkt, gt, k, radius, gps_error, reverse_tolerance, perturbation, space_noise, time_min_period):
-
-    perturbed_linestring = LineString(zip(df_pert["y"], df_pert["x"]))
-    perturbed_wkt = perturbed_linestring.wkt
-    
     if perturbation:
         #Custom noise distribution
         fmm_config_pert = FastMapMatchConfig(k, radius, space_noise, reverse_tolerance, perturbation)
@@ -79,8 +75,9 @@ def mapmatch_perturbated(perturbed_wkt, gt, k, radius, gps_error, reverse_tolera
         intersection = gt.intersection(perturbed_geom).length
         gt_length = gt.length
         mm_length = perturbed_geom.length
+        if mm_length > 0 and gt_length > 0:
+            return intersection / max(mm_length, gt_length)
         
-        return intersection / max(mm_length, gt_length)
     return None
 
 # parameter grid
@@ -104,10 +101,10 @@ for user_id in range(5):
     for space_noise in space_noise_range:
         perturbed_traces = tr.perturb_traces((space_noise, time_min_period), traces, picker_str='closest')
         
-        # Iterate through each perturbed trace and its corresponding ground truth
+        # grid search for each space noise param
         for perturbed_trace, gt in zip(perturbed_traces, ground_truths):
             df_pert = pd.DataFrame(perturbed_trace, columns=["y", "x", "timestamp"])
-            df_pert["id"] = user_id  # Assign the user ID
+            df_pert["id"] = user_id  
             
             perturbed_linestring = LineString(zip(df_pert["y"], df_pert["x"]))
             perturbed_wkt = perturbed_linestring.wkt
@@ -133,3 +130,16 @@ for user_id in range(5):
                             best_original_model[key] = (0, 0)
                         sum_accuracy, count = best_original_model[key]
                         best_original_model[key] = (sum_accuracy + accuracy, count + 1)
+
+# final average for all users
+final_changed_model = {key: (acc / cnt, params) for key, (acc, cnt) in best_changed_model.items() if cnt > 0}
+final_original_model = {key: (acc / cnt, params) for key, (acc, cnt) in best_original_model.items() if cnt > 0}
+all_keys = sorted(set(final_original_model.keys()))
+
+for key in all_keys:
+    changed_value = final_changed_model.get(key, ("not found", "not found"))
+    original_value = final_original_model.get(key, ("not found", "not found"))
+    
+    print(f"perturbation: {key}")
+    print(f"  Changed model  avg accuracy: {changed_value[0]}, Params: {changed_value[1]}")
+    print(f"  Original model avg accuracy: {original_value[0]}, Params: {original_value[1]}\n")
