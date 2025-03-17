@@ -81,65 +81,89 @@ def mapmatch_perturbated(perturbed_wkt, gt, k, radius, gps_error, reverse_tolera
     return None
 
 # parameter grid
-k_range = [5, 7, 9, 11, 13, 15]
-perturbation_range = [True, False]
+k_range = [5, 7, 9, 11, 13, 15, 17]
 space_noise_range = [20, 30, 40, 50, 60, 70, 80, 90, 100]
-time_min_period_range = [30]
-gps_error_range = [10, 30, 50, 70, 90, 110, 130, 150, 170]
+time_min_period_range = [30,45,60]
+gps_error_range = [10, 30, 50, 70, 90, 110, 130, 150, 170, 190, 210]
 
-totl_combinations = len(list(product(k_range, gps_error_range, perturbation_range, space_noise_range, time_min_period_range)))
+best_changed_model = {}  
+best_original_model = {} 
 
-best_changed_model = {}
-best_original_model = {}
-
-for user_id in range(5):
+#user limit
+for user_id in range(100):  
     traces, ground_truths = process_user(user_id)
-    
-    if not traces or not ground_truths: 
+    print(f"user {user_id} non-perturbated traces processed")
+    if not traces or not ground_truths:
         continue
-    
+
+    time_min_period = 30
+
+    # Perturb traces first (once per user)
     for space_noise in space_noise_range:
+        print(f"Perturbing traces for (space_noise, time_min_period): ({space_noise}, {time_min_period})")
         perturbed_traces = tr.perturb_traces((space_noise, time_min_period), traces, picker_str='closest')
-        
-        # grid search for each space noise param
+
         for perturbed_trace, gt in zip(perturbed_traces, ground_truths):
             df_pert = pd.DataFrame(perturbed_trace, columns=["y", "x", "timestamp"])
             df_pert["id"] = user_id  
-            
-            perturbed_linestring = LineString(zip(df_pert["y"], df_pert["x"]))
-            perturbed_wkt = perturbed_linestring.wkt
-            
-            for params in product(k_range, gps_error_range, perturbation_range, time_min_period_range):
-                k, gps_error, perturbation, time_min_period = params
+            perturbed_wkt = LineString(zip(df_pert["y"], df_pert["x"])).wkt
 
+            # Perturbation=True: use specific distribution for space_noise
+            for k in k_range:
                 accuracy = mapmatch_perturbated(
-                    perturbed_wkt, gt, k, 400 / METER_PER_DEGREE, gps_error / METER_PER_DEGREE,
-                    0.5, perturbation, space_noise, time_min_period
-                )
+                    perturbed_wkt, gt, k, 400 / METER_PER_DEGREE, 0,  
+                    0.5, True, space_noise, time_min_period)
 
                 if accuracy is not None:
-                    key = (space_noise, time_min_period)
-                    
-                    if perturbation:
-                        if key not in best_changed_model:
-                            best_changed_model[key] = (0, 0)
+                    key = (space_noise, time_min_period, k)  
+                    if key not in best_changed_model:
+                        best_changed_model[key] = (accuracy, 1)  # (sum_accuracy, count)
+                    else:
                         sum_accuracy, count = best_changed_model[key]
                         best_changed_model[key] = (sum_accuracy + accuracy, count + 1)
-                    else:
+
+            # Perturbation=False uses gps_error (gaussian distribution) instead of space_noise
+            for gps_error in gps_error_range:
+                for k in k_range:
+                    accuracy = mapmatch_perturbated(
+                        perturbed_wkt, gt, k, 400 / METER_PER_DEGREE, gps_error / METER_PER_DEGREE,
+                        0.5, False, 0, time_min_period)
+
+                    if accuracy is not None:
+                        key = (space_noise, time_min_period, gps_error, k)  
                         if key not in best_original_model:
-                            best_original_model[key] = (0, 0)
-                        sum_accuracy, count = best_original_model[key]
-                        best_original_model[key] = (sum_accuracy + accuracy, count + 1)
+                            best_original_model[key] = (accuracy, 1)  # (sum_accuracy, count)
+                        else:
+                            sum_accuracy, count = best_original_model[key]
+                            best_original_model[key] = (sum_accuracy + accuracy, count + 1)
 
-# final average for all users
-final_changed_model = {key: (acc / cnt, params) for key, (acc, cnt) in best_changed_model.items() if cnt > 0}
-final_original_model = {key: (acc / cnt, params) for key, (acc, cnt) in best_original_model.items() if cnt > 0}
-all_keys = sorted(set(final_original_model.keys()))
+# Final results for both models
+original_model_results = {}
+changed_model_results = {}
 
-for key in all_keys:
-    changed_value = final_changed_model.get(key, ("not found", "not found"))
-    original_value = final_original_model.get(key, ("not found", "not found"))
-    
-    print(f"perturbation: {key}")
-    print(f"  Changed model  avg accuracy: {changed_value[0]}, Params: {changed_value[1]}")
-    print(f"  Original model avg accuracy: {original_value[0]}, Params: {original_value[1]}\n")
+# Calculate average accuracy for changed model
+for key in sorted(best_changed_model.keys()):
+    sum_acc, count = best_changed_model[key]
+    accuracy = sum_acc / count
+    if (key[0], key[1]) not in changed_model_results:
+        changed_model_results[(key[0], key[1])] = accuracy, key[2]
+    elif accuracy > changed_model_results[(key[0], key[1])][0]:
+        changed_model_results[(key[0], key[1])] = accuracy, key[2]
+
+# Calculate average accuracy for original model
+for key in sorted(best_original_model.keys()):
+    sum_acc, count = best_original_model[key]
+    accuracy = sum_acc / count
+    if (key[0], key[1]) not in original_model_results:
+        original_model_results[(key[0], key[1])] = accuracy, key[3], key[2]
+    elif accuracy > original_model_results[(key[0], key[1])][0]:
+        original_model_results[(key[0], key[1])] = accuracy, key[3], key[2]
+
+# Print final results
+for key in original_model_results:
+    accuracy, k, stdev = original_model_results[key]
+    print(f"Original model ({key[0]},{key[1]}): best accuracy: {accuracy} k: {k}, stdev: {stdev}")
+    accuracy, k = changed_model_results[key]
+    print(f"Changed model  ({key[0]},{key[1]}): best accuracy: {accuracy} k: {k}\n")
+
+print("Traces count (approximate): ",count)
