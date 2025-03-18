@@ -83,14 +83,14 @@ def mapmatch_perturbated(perturbed_wkt, gt, k, radius, gps_error, reverse_tolera
 # parameter grid
 k_range = [5, 7, 9, 11, 13, 15, 17]
 space_noise_range = [20, 30, 40, 50, 60, 70, 80, 90, 100]
-time_min_period_range = [30,45,60]
+time_min_period_range = [30]
 gps_error_range = [10, 30, 50, 70, 90, 110, 130, 150, 170, 190, 210]
 
 best_changed_model = {}  
 best_original_model = {} 
 
 #user limit
-for user_id in range(100):  
+for user_id in range(193,262):  
     traces, ground_truths = process_user(user_id)
     print(f"user {user_id} non-perturbated traces processed")
     if not traces or not ground_truths:

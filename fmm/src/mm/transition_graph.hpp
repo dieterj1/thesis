@@ -64,7 +64,7 @@ public:
    * @param tc        Trajectory candidates
    * @param gps_error GPS error
    */
-  TransitionGraph(const Traj_Candidates &tc, double gps_error, bool obfuscation);
+  TransitionGraph(const Traj_Candidates &tc, double gps_error, bool perturbation);
 
   /**
    * Calculate transition probability
@@ -78,11 +78,11 @@ public:
    * Calculate emission probability
    * @param  dist  The actual gps error from observed point to matched point
    * @param  error The GPS sensor's accuracy
-   * @param  obfuscation Indicating if there is obfuscation applied on the GPS data
+   * @param  perturbation Indicating if there is perturbation applied on the GPS data
    * @return  emission probability in HMM
    */
 
-  static double calc_ep(double dist,double error,bool obfuscation);
+  static double calc_ep(double dist,double error,bool perturbation);
 
   /**
    * Reset all the proability data stored in a layer of the transition graph

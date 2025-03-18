@@ -19,9 +19,9 @@ using namespace FMM::MM;
 FastMapMatchConfig::FastMapMatchConfig(int k_arg, double r_arg,
                                        double gps_error,
                                        double reverse_tolerance,
-                                       bool obfuscation) :
+                                       bool perturbation) :
   k(k_arg), radius(r_arg), gps_error(gps_error),
-  reverse_tolerance(reverse_tolerance), obfuscation(obfuscation) {
+  reverse_tolerance(reverse_tolerance), perturbation(perturbation) {
 };
 
 void FastMapMatchConfig::print() const {
@@ -91,7 +91,7 @@ MatchResult FastMapMatch::match_traj(const Trajectory &traj,
   SPDLOG_DEBUG("Trajectory candidate {}", tc);
   if (tc.empty()) return MatchResult{};
   SPDLOG_DEBUG("Generate transition graph");
-  TransitionGraph tg(tc, config.gps_error, config.obfuscation);
+  TransitionGraph tg(tc, config.gps_error, config.perturbation);
   SPDLOG_DEBUG("Update cost in transition graph");
   // The network will be used internally to update transition graph
   update_tg(&tg, traj, config.reverse_tolerance);
