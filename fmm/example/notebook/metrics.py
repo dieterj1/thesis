@@ -1,10 +1,15 @@
 import numpy as np
 from shapely.geometry import LineString
 from shapely.wkt import loads
-import numpy as np
 from shapely.geometry import Point, LineString, Polygon
-from shapely.wkt import loads
 from scipy.spatial import cKDTree
+import folium
+from typing import Tuple, Optional, List, Dict
+import math
+from shapely.ops import substring
+from shapely.geometry.base import BaseGeometry
+from scipy.spatial import cKDTree
+from math import radians, sin, cos, sqrt, atan2
 
 def precision_length(matched_geometry, ground_truth_geometry):
     """
@@ -182,31 +187,36 @@ def route_error(matched_geometry, ground_truth_geometry):
     }
 
 
-import numpy as np
-from shapely.geometry import Point, LineString, Polygon
-from shapely.wkt import loads
-from scipy.spatial import cKDTree
-
-def compute_spatial_skewing_in_meters(original_geom, pert_matched_geom, avg_latitude=None):
+def spatial_skewing(geom1, geom2):
     """
-    Compute the spatial skewing between original geometry and perturbed matched geometry,
-    with results in meters for coordinates in decimal degrees.
+    Calculate spatial skewing from geometry 2 to geometry 1 (map-matched to ground truth)
+    with accurate distance measurement in meters.
     
     Parameters:
     -----------
-    original_geom : Shapely geometry
-        The original/ground truth geometry
-    pert_matched_geom : Shapely geometry
-        The perturbed matched geometry
-    avg_latitude : float, optional
-        Average latitude of the data for more accurate conversion to meters
-        If None, will calculate from the data
-    
+    geom1 : str or shapely.geometry
+        WKT string or Shapely geometry object representing the ground truth
+    geom2 : str or shapely.geometry
+        WKT string or Shapely geometry object representing the map-matched trace
+        
     Returns:
     --------
     dict
-        Dictionary containing mean, median, and maximum skewing distances in meters
+        Dictionary containing the unidirectional 2to1 skewing metrics in meters
     """
+    # Convert inputs to Shapely geometries if they are WKT strings
+    if not isinstance(geom1, BaseGeometry):
+        try:
+            geom1 = loads(geom1)
+        except (TypeError, ValueError) as e:
+            raise ValueError(f"Invalid first geometry: {e}")
+    
+    if not isinstance(geom2, BaseGeometry):
+        try:
+            geom2 = loads(geom2)
+        except (TypeError, ValueError) as e:
+            raise ValueError(f"Invalid second geometry: {e}")
+    
     # Extract coordinates based on geometry type
     def extract_coords(geom):
         if isinstance(geom, Point):
@@ -217,250 +227,33 @@ def compute_spatial_skewing_in_meters(original_geom, pert_matched_geom, avg_lati
             return np.array(geom.exterior.coords)
         else:
             try:
-                # Try to extract coordinates from any geometry
-                return np.array([(x, y) for x, y in geom.coords])
+                # Try to handle other geometry types
+                coords = []
+                if hasattr(geom, 'geoms'):  # Multi-geometries
+                    for subgeom in geom.geoms:
+                        coords.extend(extract_coords(subgeom))
+                    return np.array(coords)
+                else:
+                    return np.array([(x, y) for x, y in geom.coords])
             except:
-                raise ValueError(f"Unsupported geometry type: {type(geom)}")
+                # Last resort: use representative points
+                return np.array([[p.x, p.y] for p in geom.representative_point()])
     
-    original_coords = extract_coords(original_geom)
-    pert_coords = extract_coords(pert_matched_geom)
+    # Extract coordinates from both geometries
+    coords1 = extract_coords(geom1)
+    coords2 = extract_coords(geom2)
     
-    # Calculate average latitude if not provided
-    if avg_latitude is None and len(original_coords) > 0:
-        avg_latitude = np.mean(original_coords[:, 1])
+    if len(coords1) == 0 or len(coords2) == 0:
+        raise ValueError("One or both geometries have no coordinates")
     
-    # Build KDTree for fast nearest-neighbor lookup
-    tree = cKDTree(pert_coords)
+    # Calculate average latitude for more accurate distance conversion
+    avg_latitude = np.mean(np.concatenate([coords1[:, 1], coords2[:, 1]]))
     
-    # Query the nearest neighbor distances for all original points
-    distances_deg, _ = tree.query(original_coords)
-    
-    # Convert degrees to meters (varies with latitude)
-    # At equator: 1 degree = 111,000 meters (roughly)
-    meters_per_degree_lat = 111000  # Approximate for latitude
-    
-    # Longitude conversion depends on latitude
-    if avg_latitude is not None:
-        meters_per_degree_lon = 111000 * np.cos(np.radians(avg_latitude))
-    else:
-        meters_per_degree_lon = 111000  # Default to equator
-    
-    # Since our distances are Euclidean in degree space, use an average conversion factor
-    # For more precision, would need to calculate separate lat/lon components
-    meters_per_degree_avg = (meters_per_degree_lat + meters_per_degree_lon) / 2
-    
-    # Convert to meters
-    distances_meters = distances_deg * meters_per_degree_avg
-    
-    # Compute spatial skewing statistics
-    mean_skewing = np.mean(distances_meters)
-    median_skewing = np.median(distances_meters)
-    max_skewing = np.max(distances_meters)
-    min_skewing = np.min(distances_meters)
-    
-    return {
-        "mean_meters": mean_skewing,
-        "median_meters": median_skewing,
-        "max_meters": max_skewing,
-        "min_meters": min_skewing
-    }
-
-def compute_bidirectional_spatial_skewing_meters(original_geom, pert_matched_geom, avg_latitude=None):
-    """
-    Compute bidirectional spatial skewing between original and perturbed geometries,
-    with results in meters for coordinates in decimal degrees.
-    
-    Parameters:
-    -----------
-    original_geom : Shapely geometry
-        The original/ground truth geometry
-    pert_matched_geom : Shapely geometry
-        The perturbed matched geometry
-    avg_latitude : float, optional
-        Average latitude for more accurate conversion to meters
-    
-    Returns:
-    --------
-    dict
-        Dictionary containing mean and maximum bidirectional skewing in meters
-    """
-    # Compute original → perturbed distances
-    orig_to_pert = compute_spatial_skewing_in_meters(original_geom, pert_matched_geom, avg_latitude)
-    
-    # Compute perturbed → original distances
-    pert_to_orig = compute_spatial_skewing_in_meters(pert_matched_geom, original_geom, avg_latitude)
-    
-    # Bidirectional mean: average of both directions
-    mean_bidirectional = (orig_to_pert["mean_meters"] + pert_to_orig["mean_meters"]) / 2
-    
-    # Bidirectional max: max of both directions (similar to Hausdorff distance)
-    max_bidirectional = max(orig_to_pert["max_meters"], pert_to_orig["max_meters"])
-    
-    return {
-        "mean_bidirectional_meters": mean_bidirectional,
-        "max_bidirectional_meters": max_bidirectional
-    }
-
-def analyze_spatial_skewing_meters(wkt, wkt_pert, result_pert=None):
-    """
-    Analyze spatial skewing between original and perturbed geometries,
-    reporting results in meters.
-    
-    Parameters:
-    -----------
-    wkt : str
-        WKT string of original geometry
-    wkt_pert : str
-        WKT string of perturbed geometry
-    result_pert : object, optional
-        Object with mgeom attribute containing matched geometry
-        
-    Returns:
-    --------
-    dict
-        Dictionary containing both unidirectional and bidirectional skewing metrics
-    """
-    # Load geometries
-    original_geom = loads(wkt)
-    pert_geom = loads(wkt_pert)
-    
-    # Use matched geometry if available, otherwise use perturbed geometry
-    if result_pert is not None:
-        try:
-            pert_matched_geom = loads(result_pert.mgeom.export_wkt())
-        except (AttributeError, ValueError):
-            print("Warning: Could not load matched geometry, using perturbed geometry instead")
-            pert_matched_geom = pert_geom
-    else:
-        pert_matched_geom = pert_geom
-    
-    # Calculate average latitude for better meter conversion
-    try:
-        coords = np.array(original_geom.coords)
-        avg_latitude = np.mean(coords[:, 1])
-    except:
-        avg_latitude = None
-    
-    # Compute unidirectional skewing
-    unidirectional = compute_spatial_skewing_in_meters(original_geom, pert_matched_geom, avg_latitude)
-    
-    # Compute bidirectional skewing
-    bidirectional = compute_bidirectional_spatial_skewing_meters(original_geom, pert_matched_geom, avg_latitude)
-    
-    # Combine results
-    results = {
-        "unidirectional": unidirectional,
-        "bidirectional": bidirectional
-    }
-    
-    # Print basic results
-    print(f"Spatial Skewing")
-    print(f"  Mean: {unidirectional['mean_meters']:.2f} meters")
-    print(f"  Median: {unidirectional['median_meters']:.2f} meters")
-    print(f"  Maximum: {unidirectional['max_meters']:.2f} meters")
-    
-    return results
-
-
-def analyze_spatial_skewing_metersV2(wkt, wkt_pert):
-    """
-    Analyze spatial skewing between original and perturbed geometries,
-    reporting results in meters.
-    
-    Parameters:
-    -----------
-    wkt : str or shapely.geometry.LineString
-        WKT string or LineString geometry of original geometry
-    wkt_pert : str or shapely.geometry.LineString
-        WKT string or LineString geometry of perturbed geometry
-        
-    Returns:
-    --------
-    dict
-        Dictionary containing both unidirectional and bidirectional skewing metrics
-    """
-    # Load geometries, check if they are already geometry objects
-    from shapely.geometry.base import BaseGeometry
-    
-    # Handle original geometry
-    if isinstance(wkt, BaseGeometry):
-        original_geom = wkt
-    else:
-        try:
-            original_geom = loads(wkt)
-        except TypeError as e:
-            print(f"Error loading original geometry: {e}")
-            raise
-    
-    # Handle perturbed geometry
-    if isinstance(wkt_pert, BaseGeometry):
-        pert_geom = wkt_pert
-    else:
-        try:
-            pert_geom = loads(wkt_pert)
-        except TypeError as e:
-            print(f"Error loading perturbed geometry: {e}")
-            raise
-    
-    # Calculate average latitude for better meter conversion
-    try:
-        coords = np.array(original_geom.coords)
-        avg_latitude = np.mean(coords[:, 1])
-    except:
-        avg_latitude = None
-    
-    # Compute unidirectional skewing
-    unidirectional = compute_spatial_skewing_in_meters(original_geom, pert_geom, avg_latitude)
-    
-    # Compute bidirectional skewing
-    bidirectional = compute_bidirectional_spatial_skewing_meters(original_geom, pert_geom, avg_latitude)
-    
-    # Combine results
-    results = {
-        "unidirectional": unidirectional,
-        "bidirectional": bidirectional
-    }
-    
-    # Print basic results
-    print(f"Spatial Skewing")
-    print(f"  Mean (unidirectional): {unidirectional['mean_meters']:.2f} meters")
-    print(f"  Median (unidirectional): {unidirectional['median_meters']:.2f} meters")
-    print(f"  Maximum (unidirectional): {unidirectional['max_meters']:.2f} meters")
-    print(f"  Maximum (bidirectional): {bidirectional['max_bidirectional_meters']:.2f} meters")
-    
-    return results
-
-
-def analyze_spatial_skewing_metersV3(original_geom, perturbed_geom, avg_latitude=None):
-    """
-    Compute spatial skewing between original and perturbed geometries in meters.
-    
-    Parameters:
-    -----------
-    original_geom : LineString
-        Original geometry
-    perturbed_geom : LineString
-        Perturbed geometry
-    avg_latitude : float, optional
-        Average latitude for better meter conversion
-        
-    Returns:
-    --------
-    dict
-        Dictionary with skewing metrics
-    """
-    from shapely.ops import nearest_points
-    import numpy as np
-    
-    # Function to convert degrees to meters
+    # Haversine distance function for accurate meter calculation
     def haversine_distance(lon1, lat1, lon2, lat2):
-        """Calculate haversine distance between two points in meters"""
-        from math import radians, sin, cos, sqrt, atan2
-        
-        # Convert decimal degrees to radians
+        """Calculate the great circle distance between two points in meters"""
         lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
         
-        # Haversine formula
         dlon = lon2 - lon1
         dlat = lat2 - lat1
         a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
@@ -468,64 +261,320 @@ def analyze_spatial_skewing_metersV3(original_geom, perturbed_geom, avg_latitude
         r = 6371000  # Earth radius in meters
         return c * r
     
-    # Get distances from original to perturbed
-    distances = []
+    # Build KDTree for efficient nearest neighbor lookups
+    tree1 = cKDTree(coords1)
     
-    # Extract coordinates
-    try:
-        orig_coords = list(original_geom.coords)
-    except AttributeError:
-        # Handle MultiLineString or other geometry types
-        print("Warning: Original geometry is not a LineString. Using representative point.")
-        orig_coords = [original_geom.representative_point().coords[0]]
-    
-    # Calculate distances for each point in original geometry
-    for point in orig_coords:
-        # Create Point object for the original point
-        from shapely.geometry import Point
-        orig_point = Point(point)
+    # Calculate distances from geom2 to geom1 (map-matched to ground truth)
+    distances_2to1 = []
+    for i, coord in enumerate(coords2):
+        # Find nearest point in geom1
+        dist, idx = tree1.query(coord)
+        nearest = coords1[idx]
         
-        # Find nearest point on perturbed geometry
-        nearest = nearest_points(orig_point, perturbed_geom)[1]
-        
-        # Calculate distance in meters
-        if avg_latitude is not None:
-            # Use average latitude for more accurate conversion
-            dist = haversine_distance(
-                point[0], point[1], 
-                nearest.x, nearest.y
-            )
-        else:
-            # Fallback to Euclidean distance (less accurate)
-            dist = orig_point.distance(nearest) * 111000  # rough conversion to meters
-            
-        distances.append(dist)
+        # Calculate haversine distance in meters
+        dist_meters = haversine_distance(coord[0], coord[1], nearest[0], nearest[1])
+        distances_2to1.append(dist_meters)
     
-    # Ensure we have distances to calculate
-    if not distances:
-        print("Warning: No distances calculated")
-        return {
-            "mean_meters": 0,
-            "median_meters": 0,
-            "max_meters": 0,
-            "distances_meters": []
-        }
+    # Convert to numpy array for efficient calculations
+    distances_2to1 = np.array(distances_2to1)
     
-    # Calculate metrics
-    # Add debugging output
-    print(f"DEBUG: Number of distance points: {len(distances)}")
-    print(f"DEBUG: First few distances: {distances[:5]}")
-    print(f"DEBUG: Distance range: {min(distances)} to {max(distances)}")
-    
-    # Calculate metrics (with additional checks)
-    distances_array = np.array(distances)
-    mean_dist = float(np.mean(distances_array))
-    median_dist = float(np.median(distances_array))
-    max_dist = float(np.max(distances_array))
-    
-    return {
-        "mean_meters": mean_dist,
-        "median_meters": median_dist,
-        "max_meters": max_dist,
-        "distances_meters": distances
+    # Calculate unidirectional metrics (geom2 to geom1)
+    results = {
+        "mean_meters": float(np.mean(distances_2to1)),
+        "median_meters": float(np.median(distances_2to1)),
+        "max_meters": float(np.max(distances_2to1)),
+        "min_meters": float(np.min(distances_2to1))
     }
+
+    
+    return results
+
+def calculate_trace_areas(
+    gt_trace: LineString,
+    perturbed_trace: LineString,
+    angle_threshold: float = 0.2,
+    area_threshold: float = 0,
+    create_map: bool = False
+) -> Tuple[Optional[folium.Map], List[Dict], float]:
+    """
+    Identify where two traces diverge and converge, then calculate the area between them.
+    Filters out areas that are smaller than a specified threshold.
+    
+    Args:
+        gt_trace (LineString): The ground truth trace
+        perturbed_trace (LineString): The perturbed trace
+        angle_threshold (float): Threshold for considering segments parallel (in radians)
+        create_map (bool): Whether to create and return a folium map visualization
+        
+    Returns:
+        Tuple containing:
+            - folium.Map or None: Map with traces, intersection points, and enclosed areas (if create_map=True)
+            - list: List of areas between divergent sections
+            - float: Total area between all divergent sections
+    """
+    # Convert LineStrings to coordinate lists (lon, lat)
+    line1_coords = list(gt_trace.coords)
+    line2_coords = list(perturbed_trace.coords)
+    
+    # Initialize map if requested
+    m = None
+    if create_map:
+        m = _create_map(gt_trace, perturbed_trace, line1_coords, line2_coords)
+    
+    # Find significant intersections (where traces diverge or converge)
+    significant_intersections = _find_intersections(
+        gt_trace, perturbed_trace, line1_coords, line2_coords, angle_threshold, m
+    )
+    
+    # Calculate areas between divergent sections
+    areas, total_area = _calculate_areas(
+        gt_trace, perturbed_trace, significant_intersections, m
+    )
+    
+    # Add layer control and save if map was created
+    if create_map and m is not None:
+        folium.LayerControl().add_to(m)
+    
+    return m, areas, total_area
+
+
+def _create_map(
+    gt_trace: LineString,
+    perturbed_trace: LineString,
+    line1_coords: List,
+    line2_coords: List
+) -> folium.Map:
+    """
+    Create a folium map with the two traces.
+    
+    Args:
+        gt_trace: Ground truth trace LineString
+        perturbed_trace: Perturbed trace LineString
+        line1_coords: Coordinates of ground truth trace
+        line2_coords: Coordinates of perturbed trace
+        
+    Returns:
+        folium.Map: Map with both traces
+    """
+    # Calculate map bounds and center
+    def get_bounds(line):
+        return (line.bounds[0], line.bounds[1], line.bounds[2], line.bounds[3])
+
+    line1_bounds = get_bounds(gt_trace)
+    line2_bounds = get_bounds(perturbed_trace)
+
+    min_lon = min(line1_bounds[0], line2_bounds[0])
+    max_lon = max(line1_bounds[2], line2_bounds[2])
+    min_lat = min(line1_bounds[1], line2_bounds[1])
+    max_lat = max(line1_bounds[3], line2_bounds[3])
+
+    center_lat = (min_lat + max_lat) / 2
+    center_lon = (min_lon + max_lon) / 2
+
+    # Create Folium map
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=15)
+
+    # Function to reverse coordinates for Folium
+    def reverse_coords(coords):
+        return [(lat, lon) for (lon, lat) in coords]
+
+    # Add original traces to map
+    folium.PolyLine(
+        reverse_coords(line1_coords),
+        color='blue',
+        weight=2.5,
+        opacity=1,
+        tooltip='Ground Truth'
+    ).add_to(m)
+
+    folium.PolyLine(
+        reverse_coords(line2_coords),
+        color='red',
+        weight=2.5,
+        opacity=1,
+        tooltip='Perturbed Path'
+    ).add_to(m)
+    
+    return m
+
+
+def _find_intersections(
+    gt_trace: LineString,
+    perturbed_trace: LineString,
+    line1_coords: List,
+    line2_coords: List,
+    angle_threshold: float,
+    m: Optional[folium.Map] = None
+) -> List[Dict]:
+    """
+    Find significant intersection points between the two traces.
+    
+    Args:
+        gt_trace: Ground truth trace LineString
+        perturbed_trace: Perturbed trace LineString
+        line1_coords: Coordinates of ground truth trace
+        line2_coords: Coordinates of perturbed trace
+        angle_threshold: Threshold for considering segments parallel (in radians)
+        m: Folium map to add markers to (optional)
+        
+    Returns:
+        List of significant intersection points with their metadata
+    """
+    significant_intersections = []
+    
+    for i in range(len(line1_coords)-1):
+        seg1 = LineString([line1_coords[i], line1_coords[i+1]])
+        
+        for j in range(len(line2_coords)-1):
+            seg2 = LineString([line2_coords[j], line2_coords[j+1]])
+            
+            if seg1.intersects(seg2):
+                intersection = seg1.intersection(seg2)
+                
+                if isinstance(intersection, Point):
+                    ip_coords = (intersection.x, intersection.y)
+                    
+                    # Calculate segment vectors
+                    vec1 = np.array([line1_coords[i+1][0] - line1_coords[i][0], 
+                                    line1_coords[i+1][1] - line1_coords[i][1]])
+                    vec2 = np.array([line2_coords[j+1][0] - line2_coords[j][0],
+                                    line2_coords[j+1][1] - line2_coords[j][1]])
+                    
+                    # Calculate angle between segments
+                    norm1 = np.linalg.norm(vec1)
+                    norm2 = np.linalg.norm(vec2)
+                    
+                    if norm1 > 0 and norm2 > 0:
+                        cos_angle = np.dot(vec1, vec2) / (norm1 * norm2)
+                        # Clip to valid range for arccos
+                        cos_angle = max(-1.0, min(1.0, cos_angle))
+                        angle = np.arccos(cos_angle)
+                        
+                        # Check if segments are parallel
+                        is_parallel = angle < angle_threshold or angle > np.pi - angle_threshold
+                        
+                        # Only keep intersections where segments are NOT parallel
+                        if not is_parallel:
+                            # Calculate distance along each line
+                            dist1 = gt_trace.project(Point(ip_coords))
+                            dist2 = perturbed_trace.project(Point(ip_coords))
+                            
+                            significant_intersections.append({
+                                'point': Point(ip_coords),
+                                'location': (ip_coords[1], ip_coords[0]),  # (lat, lon)
+                                'segments': (i, j),
+                                'angle': angle,
+                                'dist1': dist1,  # Distance along gt_trace
+                                'dist2': dist2   # Distance along perturbed_trace
+                            })
+                            
+                            # Add marker to the map if provided
+                            if m is not None:
+                                folium.CircleMarker(
+                                    location=(ip_coords[1], ip_coords[0]),
+                                    radius=7,
+                                    color='#00ff00',
+                                    fill=True,
+                                    fill_color='#00ff00',
+                                    popup=f"Segments: {i}-{j}<br>Angle: {angle:.2f} rad"
+                                ).add_to(m)
+    
+    # Sort intersections by distance along the first line
+    significant_intersections.sort(key=lambda x: x['dist1'])
+    return significant_intersections
+
+
+def _calculate_areas(
+    gt_trace: LineString,
+    perturbed_trace: LineString,
+    significant_intersections: List[Dict],
+    m: Optional[folium.Map] = None
+) -> Tuple[List[Dict], float]:
+    """
+    Calculate areas between divergent sections of the traces.
+    
+    Args:
+        gt_trace: Ground truth trace LineString
+        perturbed_trace: Perturbed trace LineString
+        significant_intersections: List of intersection points
+        area_threshold: Minimum area in square meters to consider
+        m: Folium map to add polygons to (optional)
+        
+    Returns:
+        Tuple containing:
+            - list of areas between divergent sections
+            - total area between all divergent sections
+    """
+    # Function to reverse coordinates for Folium
+    def reverse_coords(coords):
+        return [(lat, lon) for (lon, lat) in coords]
+    
+    areas = []
+    total_area = 0
+    
+    # For each pair of consecutive intersections
+    for i in range(len(significant_intersections) - 1):
+        start_point = significant_intersections[i]
+        end_point = significant_intersections[i+1]
+        
+        # Extract the substrings between these points for both lines
+        try:
+            # Get the distance along each line for start and end points
+            start_dist1 = start_point['dist1']
+            end_dist1 = end_point['dist1']
+            start_dist2 = start_point['dist2']
+            end_dist2 = end_point['dist2']
+            
+            # Create substrings
+            segment1 = substring(gt_trace, start_dist1, end_dist1)
+            segment2 = substring(perturbed_trace, start_dist2, end_dist2)
+            
+            # We need to create a polygon from the two segments
+            # To do this, we need to ensure the points are in the correct order
+            # Start with segment1 from start to end, then segment2 from end to start
+            segment1_coords = list(segment1.coords)
+            segment2_coords = list(segment2.coords)
+            segment2_coords.reverse()  # Reverse to close the polygon
+            
+            # Create polygon
+            polygon_coords = segment1_coords + segment2_coords
+            if len(polygon_coords) >= 3:  # Need at least 3 points for a polygon
+                polygon = Polygon(polygon_coords)
+                
+                # Calculate area in square degrees
+                area = polygon.area
+                
+                # Approximate conversion to square meters for lat/lon coordinates
+                avg_lat = (start_point['location'][0] + end_point['location'][0]) / 2
+                # Convert area in square degrees to square meters
+                # 1 degree of latitude is approximately 111,000 meters
+                # 1 degree of longitude varies with latitude
+                meters_per_degree_lon = 111000 * math.cos(math.radians(avg_lat))
+                area_in_sq_meters = area * 111000 * meters_per_degree_lon
+                
+                
+                areas.append({
+                    'start_point': start_point['location'],
+                    'end_point': end_point['location'],
+                    'area_sq_degrees': area,
+                    'area_sq_meters': area_in_sq_meters
+                })
+                    
+                total_area += area_in_sq_meters
+                    
+                # Add polygon to map if provided
+                if m is not None:
+                    folium.Polygon(
+                        locations=reverse_coords(polygon_coords),
+                        color='yellow',
+                        weight=1,
+                        fill=True,
+                        fill_color='yellow',
+                        fill_opacity=0.4,
+                        popup=f"Area: {area_in_sq_meters:.2f} sq meters"
+                    ).add_to(m)
+        except Exception as e:
+            print(f"Error calculating area between points!!! {e}")
+            pass
+    
+    return areas, total_area
