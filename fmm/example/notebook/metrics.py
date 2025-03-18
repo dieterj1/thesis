@@ -10,6 +10,7 @@ from shapely.ops import substring
 from shapely.geometry.base import BaseGeometry
 from scipy.spatial import cKDTree
 from math import radians, sin, cos, sqrt, atan2
+from haversine import haversine, Unit
 
 def precision_length(matched_geometry, ground_truth_geometry):
     """
@@ -187,7 +188,7 @@ def route_error(matched_geometry, ground_truth_geometry):
     }
 
 
-def spatial_skewing(geom1, geom2):
+def spatial_skewing(geom1, geom2, show_map=False):
     """
     Calculate spatial skewing from geometry 2 to geometry 1 (map-matched to ground truth)
     with accurate distance measurement in meters.
@@ -198,11 +199,14 @@ def spatial_skewing(geom1, geom2):
         WKT string or Shapely geometry object representing the ground truth
     geom2 : str or shapely.geometry
         WKT string or Shapely geometry object representing the map-matched trace
+    show_map : bool, default=False
+        If True, returns a folium map visualization showing all distances
         
     Returns:
     --------
-    dict
-        Dictionary containing the unidirectional 2to1 skewing metrics in meters
+    dict or tuple
+        If show_map=False: Dictionary containing the unidirectional 2to1 skewing metrics in meters
+        If show_map=True: Tuple containing (metrics_dict, folium_map)
     """
     # Convert inputs to Shapely geometries if they are WKT strings
     if not isinstance(geom1, BaseGeometry):
@@ -246,48 +250,172 @@ def spatial_skewing(geom1, geom2):
     if len(coords1) == 0 or len(coords2) == 0:
         raise ValueError("One or both geometries have no coordinates")
     
-    # Calculate average latitude for more accurate distance conversion
-    avg_latitude = np.mean(np.concatenate([coords1[:, 1], coords2[:, 1]]))
-    
-    # Haversine distance function for accurate meter calculation
-    def haversine_distance(lon1, lat1, lon2, lat2):
-        """Calculate the great circle distance between two points in meters"""
-        lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
-        
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
-        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-        c = 2 * atan2(sqrt(a), sqrt(1-a))
-        r = 6371000  # Earth radius in meters
-        return c * r
-    
     # Build KDTree for efficient nearest neighbor lookups
     tree1 = cKDTree(coords1)
     
     # Calculate distances from geom2 to geom1 (map-matched to ground truth)
     distances_2to1 = []
+    nearest_points = []  # Store the nearest points for mapping
+    nearest_indices = []  # Store indices of nearest points
+    
     for i, coord in enumerate(coords2):
         # Find nearest point in geom1
         dist, idx = tree1.query(coord)
         nearest = coords1[idx]
+        nearest_points.append((coord, nearest))
+        nearest_indices.append(idx)
         
-        # Calculate haversine distance in meters
-        dist_meters = haversine_distance(coord[0], coord[1], nearest[0], nearest[1])
+        # Calculate haversine distance in meters using the library
+        # Note: haversine expects (lat, lon) pairs, while our coords are (lon, lat)
+        dist_meters = haversine((coord[1], coord[0]), (nearest[1], nearest[0]), unit=Unit.METERS)
         distances_2to1.append(dist_meters)
     
     # Convert to numpy array for efficient calculations
     distances_2to1 = np.array(distances_2to1)
     
+    # Make sure we have valid data for calculations
+    if len(distances_2to1) == 0:
+        raise ValueError("No valid distance measurements could be calculated")
+    
     # Calculate unidirectional metrics (geom2 to geom1)
     results = {
         "mean_meters": float(np.mean(distances_2to1)),
-        "median_meters": float(np.median(distances_2to1)),
-        "max_meters": float(np.max(distances_2to1)),
-        "min_meters": float(np.min(distances_2to1))
+        "min_meters": float(np.min(distances_2to1)),
+        "max_meters": float(np.max(distances_2to1))
     }
+    
+    # Calculate median safely
+    if len(distances_2to1) % 2 == 1:  # Odd number of elements
+        results["median_meters"] = float(sorted(distances_2to1)[len(distances_2to1) // 2])
+    else:  # Even number of elements
+        sorted_vals = sorted(distances_2to1)
+        mid1 = sorted_vals[len(distances_2to1) // 2 - 1]
+        mid2 = sorted_vals[len(distances_2to1) // 2]
+        results["median_meters"] = float((mid1 + mid2) / 2)
+    
+    if show_map:
+        # Create a map centered on the average coordinates
+        centroid1 = np.mean(coords1, axis=0)
+        centroid2 = np.mean(coords2, axis=0)
+        center_lat = (centroid1[1] + centroid2[1]) / 2
+        center_lon = (centroid1[0] + centroid2[0]) / 2
+        
+        m = folium.Map(location=[center_lat, center_lon], zoom_start=14)
+        
+        # Add geom1 (ground truth) in blue
+        if isinstance(geom1, Point):
+            folium.CircleMarker(
+                location=[geom1.y, geom1.x],
+                radius=5,
+                color='blue',
+                fill=True,
+                fill_color='blue',
+                fill_opacity=0.6,
+                popup="Ground Truth"
+            ).add_to(m)
+        else:
+            folium.GeoJson(
+                geom1,
+                name="Ground Truth",
+                style_function=lambda x: {'color': 'blue', 'weight': 3}
+            ).add_to(m)
+            
+            # Add large markers for each point in the ground truth trace
+            gt_point_group = folium.FeatureGroup(name="Ground Truth Points")
+            for i, (x, y) in enumerate(coords1):
+                # Check if this point is used as a nearest point
+                is_nearest = i in nearest_indices
+                # Use a different style for points that are nearest neighbors
+                radius = 7 if is_nearest else 5
+                fill_opacity = 0.9 if is_nearest else 0.7
+                color = 'darkblue' if is_nearest else 'blue'
+                
+                folium.CircleMarker(
+                    location=[y, x],
+                    radius=radius,
+                    color=color,
+                    fill=True,
+                    fill_color=color,
+                    fill_opacity=fill_opacity,
+                    popup=f"Ground Truth Point {i}"
+                ).add_to(gt_point_group)
+            gt_point_group.add_to(m)
+        
+        # Add geom2 (map-matched) in red
+        if isinstance(geom2, Point):
+            folium.CircleMarker(
+                location=[geom2.y, geom2.x],
+                radius=5,
+                color='red',
+                fill=True,
+                fill_color='red',
+                fill_opacity=0.7,
+                popup="Map-Matched"
+            ).add_to(m)
+        else:
+            folium.GeoJson(
+                geom2,
+                name="Map-Matched",
+                style_function=lambda x: {'color': 'red', 'weight': 3}
+            ).add_to(m)
+            
+            # Add markers for each point in the map-matched trace
+            mm_point_group = folium.FeatureGroup(name="Map-Matched Points")
+            for i, (x, y) in enumerate(coords2):
+                folium.CircleMarker(
+                    location=[y, x],
+                    radius=4,
+                    color='red',
+                    fill=True,
+                    fill_color='red',
+                    fill_opacity=0.7,
+                    popup=f"Map-Matched Point {i}: Distance to nearest Ground Truth: {distances_2to1[i]:.2f} meters"
+                ).add_to(mm_point_group)
+            mm_point_group.add_to(m)
+        
+        # Add lines connecting map-matched points to their nearest ground truth points
+        connection_group = folium.FeatureGroup(name="Distance Connections")
+        for i, ((x2, y2), (x1, y1)) in enumerate(nearest_points):
+            folium.PolyLine(
+                locations=[[y2, x2], [y1, x1]],
+                color='green',
+                weight=2,
+                opacity=0.7,
+                popup=f"Distance: {distances_2to1[i]:.2f} meters"
+            ).add_to(connection_group)
+        connection_group.add_to(m)
+        
+        # Add a legend
+        legend_html = '''
+        <div style="position: fixed; bottom: 50px; left: 50px; 
+            border:2px solid grey; z-index:9999; font-size:14px;
+            background-color: white; padding: 10px; border-radius: 5px;">
+            <div style="margin-bottom: 5px;">
+                <span style="color: blue; font-weight: bold;">●</span> Ground Truth Points
+            </div>
+            <div style="margin-bottom: 5px;">
+                <span style="color: blue; font-weight: bold;">―</span> Ground Truth Line
+            </div>
+            <div style="margin-bottom: 5px;">
+                <span style="color: red; font-weight: bold;">●</span> Map-Matched Points
+            </div>
+            <div style="margin-bottom: 5px;">
+                <span style="color: red; font-weight: bold;">―</span> Map-Matched Line
+            </div>
+            <div>
+                <span style="color: green; font-weight: bold;">―</span> Distance Measurements
+            </div>
+        </div>
+        '''
+        m.get_root().html.add_child(folium.Element(legend_html))
 
+        # Add layer control
+        folium.LayerControl().add_to(m)
+        
+        return results, m
     
     return results
+
 
 def calculate_trace_areas(
     gt_trace: LineString,
