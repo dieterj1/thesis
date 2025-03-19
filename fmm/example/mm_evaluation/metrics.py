@@ -249,6 +249,7 @@ def spatial_skewing(geom1, geom2):
     # Calculate average latitude for more accurate distance conversion
     avg_latitude = np.mean(np.concatenate([coords1[:, 1], coords2[:, 1]]))
     
+    # TODO: maybe change this to geodesic?
     # Haversine distance function for accurate meter calculation
     def haversine_distance(lon1, lat1, lon2, lat2):
         """Calculate the great circle distance between two points in meters"""

@@ -40,112 +40,118 @@ double TransitionGraph::calc_ep(double dist,double error,bool perturbation) {
     double dist_2 = dist * dist;       
     double dist_3 = dist_2 * dist;      
     double dist_4 = dist_3 * dist;
-    const double meter_per_degree = 109662.80313373724;
-
-    switch(static_cast<int>(std::round(error*meter_per_degree))) {
+    // normalization factor of distribution
+    double alfa = 1.0;
+    switch(static_cast<int>(error)) {
       case 20:
-      if(dist < 0.00018) {
-        return (6.273 * 1e15 * dist_4) 
-            - ( 2.03 * 1e12 * dist_3)
-            + (1.041 * 1e8 * dist_2)
-            + ( 1.193 * 1e4 * dist) + 0.151;
-      }
-      else {
-        return 9910 * dist_2 - 48.93 * dist + 0.0694;
-      }
+        if(dist < 0.00018) {
+          return alfa*((6.273 * 1e15 * dist_4) 
+              - ( 2.03 * 1e12 * dist_3)
+              + (1.041 * 1e8 * dist_2)
+              + ( 1.193 * 1e4 * dist) + 0.151);
+        }
+        else {
+          return alfa*(9910 * dist_2 - 48.93 * dist + 0.0694);
+        }
 
       case 30:
-      if(dist < 0.000275) {
-        return (9.98 * 1e14 * dist_4) 
-            - (4.466 * 1e11 * dist_3)
-            + ( 1.093 * 1e7 * dist_2)
-            + (1.081 * 1e4 * dist) + 0.1053;
-      }
-      else {
-        return 9964 * dist_2 - 56.9 * dist + 0.09053;
-      }
+        if(dist < 0.000275) {
+          return alfa *((9.98 * 1e14 * dist_4) 
+              - (4.466 * 1e11 * dist_3)
+              + ( 1.093 * 1e7 * dist_2)
+              + (1.081 * 1e4 * dist) + 0.1053);
+        }
+        else {
+          return alfa*(9964 * dist_2 - 56.9 * dist + 0.09053);
+        }
 
       case 40:
-      if(dist < 0.000365) {
-        return (2.287 * 1e14 * dist_4) 
-            - (1.214 * 1e11 * dist_3)
-            - (1.107 * 1e7 * dist_2)
-            + (9712 * dist) + 0.07391;
-      }
-      else {
-        return 1.31 * 1e4 * dist_2 - 74.95 * dist + 0.1192;
-      }
+        if(dist < 0.000365) {
+          return alfa*((2.287 * 1e14 * dist_4) 
+              - (1.214 * 1e11 * dist_3)
+              - (1.107 * 1e7 * dist_2)
+              + (9712 * dist) + 0.07391);
+        }
+        else {
+          return alfa*(1.31 * 1e4 * dist_2 - 74.95 * dist + 0.1192);
+        }
 
       case 50:
-      if(dist < 0.000458) {
-        return (1.459 * 1e14 * dist_4) 
-            - (1.148 * 1e11 * dist_3)
-            + (1.003 * 1e7 * dist_2)
-            + (5894 * dist) +0.09841;
-      }
-      else {
-        return 1.617 * 1e4 * dist_2 - 91.67 * dist + 0.1448;
-      }
+        if(dist < 0.000458) {
+          return alfa*((-6.547 * 1e13 * dist_4) 
+              + (6.186 * 1e10 * dist_3)
+              - (3.003 * 1e7 * dist_2)
+              + (7729 * dist) +0.232);
+        }
+        else {
+          return alfa*(2.474 * 1e4 * dist_2 - 129.7 * dist + 0.1916);
+        }
 
       case 60:
-      if(dist < 0.00055) {
-        return (5.087 * 1e13 * dist_4) 
-            - (4.303 * 1e10 * dist_3)
-            - (2.264 * 1e6 * dist_2)
-            + (6131 * dist) + 0.08209;
-      }
-      else {
-        return 1.929 * 1e4 * dist_2 - 109.7 * dist + 0.1735;
-      }
+        if(dist < 0.00055) {
+          return alfa*((5.087 * 1e13 * dist_4) 
+              - (4.303 * 1e10 * dist_3)
+              - (2.264 * 1e6 * dist_2)
+              + (6131 * dist) + 0.08209);
+        }
+        else {
+          return alfa*(1.929 * 1e4 * dist_2 - 109.7 * dist + 0.1735);
+        }
 
       case 70:
-      if(dist < 0.00064) {
-        return (3.084 * 1e13 * dist_4) 
-            - (3.315 * 1e10 * dist_3)
-            + (1.709 * 1e6 * dist_2)
-            + (4658 * dist) + 0.0942;
-      }
-      else {
-        return 2.293 * 1e4 * dist_2 - 129.1 * dist + 0.2026;
-      }
-  
+        if(dist < 0.00064) {
+          return alfa*((3.084 * 1e13 * dist_4) 
+              - (3.315 * 1e10 * dist_3)
+              + (1.709 * 1e6 * dist_2)
+              + (4658 * dist) + 0.0942);
+        }
+        else {
+          return alfa*(2.293 * 1e4 * dist_2 - 129.1 * dist + 0.2026);
+        }
+    
       case 80:
-      if(dist < 0.000733) {
-        return (1.654 * 1e13 * dist_4) 
-            - (1.913 * 1e10 * dist_3)
-            - (5.956 * 1e5 * dist_2)
-            + (4440 * dist) + 0.08997;
-      }
-      else {
-        return 2.62 * 1e4 * dist_2 - 147.7 * dist + 0.2321;
-      }
+        if(dist < 0.000733) {
+          return alfa*((1.654 * 1e13 * dist_4) 
+              - (1.913 * 1e10 * dist_3)
+              - (5.956 * 1e5 * dist_2)
+              + (4440 * dist) + 0.08997);
+        }
+        else {
+          return alfa*(2.62 * 1e4 * dist_2 - 147.7 * dist + 0.2321);
+        }
 
       case 90:
-      if(dist < 0.000826) {
-        return (1.337 * 1e13 * dist_4) 
-            - (1.976 * 1e10 * dist_3)
-            + (3.702 * 1e6 * dist_2)
-            + (3081 * dist) + 0.09764;
-      }
-      else {
-        return 2.869 * 1e4 * dist_2 - 162.6 * dist + 0.2568;
-      }
+        if(dist < 0.000826) {
+          return alfa*((1.337 * 1e13 * dist_4) 
+              - (1.976 * 1e10 * dist_3)
+              + (3.702 * 1e6 * dist_2)
+              + (3081 * dist) + 0.09764);
+        }
+        else {
+          return alfa*(2.869 * 1e4 * dist_2 - 162.6 * dist + 0.2568);
+        }
 
       case 100:
-      if(dist < 0.000915) {
-        return - (1.659 * 1e12 * dist_4) 
-            + (5.471 * 1e9 * dist_3)
-            - (9.124 * 1e6 * dist_2)
-            + (5248 * dist) + 0.05154;
-      }
-      else {
-        return 3.436 * 1e4 * dist_2 - 195.1 * dist + 0.308;
-      }
+        if(dist < 0.000915) {
+          return alfa*(- (1.659 * 1e12 * dist_4) 
+              + (5.471 * 1e9 * dist_3)
+              - (9.124 * 1e6 * dist_2)
+              + (5248 * dist) + 0.05154);
+        }
+        else {
+          return alfa*(3.436 * 1e4 * dist_2 - 195.1 * dist + 0.308);
+        }
 
       default:
-        double a = dist / error;
-        return exp(-0.5 * a * a); 
-
+        if(dist < 0.000458) {
+          return alfa*((1.459 * 1e14 * dist_4) 
+              - (1.148 * 1e11 * dist_3)
+              + (1.003 * 1e7 * dist_2)
+              + (5894 * dist) +0.09841);
+        }
+        else {
+          return alfa*(1.617 * 1e4 * dist_2 - 91.67 * dist + 0.1448);
+        }
     }
   }
   else {

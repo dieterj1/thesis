@@ -5,8 +5,7 @@ from shapely.geometry import LineString
 import tracers as tr
 import numpy as np
 import os
-from itertools import product
-from metrics import _calculate_areas
+from metrics import calculate_trace_areas
 
 # Load network data and graph 
 network = Network("fmm/example/osmnx_example/rome/edges.shp", "fid", "u", "v")
@@ -71,37 +70,45 @@ def process_user(user_id):
     return traces, ground_truths
         
 def mapmatch_perturbated(perturbed_wkt, gt, k, radius, gps_error, reverse_tolerance, perturbation, space_noise, time_min_period):
+
     if perturbation:
         fmm_config_pert = FastMapMatchConfig(k, radius, space_noise, reverse_tolerance, perturbation)
     else:
         fmm_config_pert = FastMapMatchConfig(k, radius, gps_error, reverse_tolerance, perturbation)
 
+    
     result_pert = model.match_wkt(perturbed_wkt, fmm_config_pert)
-
-    if result_pert.cpath:
+    
+    if result_pert.cpath: 
         perturbed_wkt = result_pert.mgeom.export_wkt()
-
+        
         try:
-            perturbed_geom = loads(perturbed_wkt)
+            perturbed_geom = loads(perturbed_wkt)        
+    
             if perturbed_geom.geom_type != "LineString" or len(perturbed_geom.coords) < 2:
-                return None, None  # Return None for accuracy and length
+                print(f"Skipping user {user_id}, invalid LineString: {perturbed_wkt}")
+                return None
 
         except Exception as e:
-            return None, None  # Return None for accuracy and length
+            print(f"Skipping trace, error loading WKT: {e}")
+            return None 
 
-        # Calculate intersection length
-        intersection = gt.intersection(perturbed_geom).length
-        gt_length = gt.length
-        mm_length = perturbed_geom.length
+        if not gt.is_empty and not perturbed_geom.is_empty and gt.is_valid and perturbed_geom.is_valid:
+            if gt.geom_type != "LineString" or perturbed_geom.geom_type != "LineString":
+                print(f"Skipping due to invalid geometry type: {gt.geom_type}, {perturbed_geom.geom_type}")
+                return None
 
-        if mm_length > 0 and gt_length > 0:
-            return intersection / max(mm_length, gt_length), gt_length  # Return accuracy and gt_length
+            area = calculate_trace_areas(gt, perturbed_geom)[2]
+            if area > 0:
+                return area
+        else:
+            print(f"Skipping due to invalid or empty geometries for user {user_id}")
+            return None
 
-    return None, None  # Return None for accuracy and length if MM failed
-
+    return None
 
 # parameter grid
-k_range = [5, 7, 9, 11, 13, 15, 17, 19]
+k_range = [5, 7, 9, 11, 13, 15, 17]
 space_noise_range = [20, 30, 40, 50, 60, 70, 80, 90, 100]
 time_min_period_range = [30]
 gps_error_range = [10, 30, 50, 70, 90, 110, 130, 150, 170, 190, 210]
@@ -110,7 +117,7 @@ best_changed_model = {}
 best_original_model = {} 
 
 #user limit
-for user_id in range(5,13):  
+for user_id in range(5,10):  
     traces, ground_truths = process_user(user_id)
     print(f"user {user_id} non-perturbated traces processed")
     if not traces or not ground_truths:
@@ -130,34 +137,33 @@ for user_id in range(5,13):
 
             # Perturbation=True: use specific distribution for space_noise
             for k in k_range:
-                accuracy, gt_length = mapmatch_perturbated(
+                area = mapmatch_perturbated(
                     perturbed_wkt, gt, k, 400 / METER_PER_DEGREE, 0,  
                     0.5, True, space_noise, time_min_period)
 
-                if accuracy is not None:
+                if area is not None:
                     key = (space_noise, time_min_period, k)  
                     if key not in best_changed_model:
-                        best_changed_model[key] = (accuracy * gt_length, gt_length)  # Weighted sum
+                        best_changed_model[key] = (area, 1)  # (sum_accuracy, count)
                     else:
-                        sum_weighted_acc, total_length = best_changed_model[key]
-                        best_changed_model[key] = (sum_weighted_acc + accuracy * gt_length, total_length + gt_length)
+                        sum_area, count = best_changed_model[key]
+                        best_changed_model[key] = (sum_area + area, count + 1)
                 else:
                     print(f"MM failed for (space_noise,k)=({space_noise},{k})")
             # Perturbation=False uses gps_error (gaussian distribution) instead of space_noise
             for gps_error in gps_error_range:
                 for k in k_range:
-                    accuracy, gt_length = mapmatch_perturbated(
+                    area = mapmatch_perturbated(
                         perturbed_wkt, gt, k, 400 / METER_PER_DEGREE, gps_error / METER_PER_DEGREE,
                         0.5, False, 0, time_min_period)
 
-                    if accuracy is not None:
+                    if area is not None:
                         key = (space_noise, time_min_period, gps_error, k)  
                         if key not in best_original_model:
-                            best_original_model[key] = (accuracy * gt_length, gt_length)  # Weighted sum
+                            best_original_model[key] = (area, 1)  
                         else:
-                            sum_weighted_acc, total_length = best_original_model[key]
-                            best_original_model[key] = (sum_weighted_acc + accuracy * gt_length, total_length + gt_length)
-
+                            sum_area, count = best_original_model[key]
+                            best_original_model[key] = (sum_area + area, count + 1)
                     else:
                         print(f"MM failed for (space_noise,k,gps_error)=({space_noise},{k},{gps_error})")
 
@@ -165,29 +171,29 @@ for user_id in range(5,13):
 original_model_results = {}
 changed_model_results = {}
 
-# Calculate average accuracy for changed model
+# Calculate average area and for changed model
 for key in sorted(best_changed_model.keys()):
-    sum_weighted_acc, total_length = best_changed_model[key]
-    if total_length > 0:
-        weighted_accuracy = sum_weighted_acc / total_length  
-        if (key[0], key[1]) not in changed_model_results:
-            changed_model_results[(key[0], key[1])] = weighted_accuracy, key[2]
-        elif weighted_accuracy > changed_model_results[(key[0], key[1])][0]:
-            changed_model_results[(key[0], key[1])] = weighted_accuracy, key[2]
+    sum_area, count = best_changed_model[key]
+    area = sum_area / count
+    if (key[0], key[1]) not in changed_model_results:
+        changed_model_results[(key[0], key[1])] = area, key[2]
+    elif area < changed_model_results[(key[0], key[1])][0]:
+        changed_model_results[(key[0], key[1])] = area, key[2]
 
-# Calculate average accuracy for original model
+# Calculate average area and for original model
 for key in sorted(best_original_model.keys()):
-    sum_weighted_acc, total_length = best_original_model[key]
-    if total_length > 0:
-        weighted_accuracy = sum_weighted_acc / total_length  # Weighted accuracy
-        if (key[0], key[1]) not in original_model_results:
-            original_model_results[(key[0], key[1])] = weighted_accuracy, key[3], key[2]
-        elif weighted_accuracy > original_model_results[(key[0], key[1])][0]:
-            original_model_results[(key[0], key[1])] = weighted_accuracy, key[3], key[2]
+    sum_area, count = best_original_model[key]
+    area = sum_area / count
+    if (key[0], key[1]) not in original_model_results:
+        original_model_results[(key[0], key[1])] = area, key[3], key[2]
+    elif area > original_model_results[(key[0], key[1])][0]:
+        original_model_results[(key[0], key[1])] = area, key[3], key[2]
 
+# Print final results
 for key in original_model_results:
-    accuracy, k, stdev = original_model_results[key]
-    print(f"Original model ({key[0]},{key[1]}): best weighted accuracy: {accuracy} k: {k}, stdev: {stdev}")
-    
-    accuracy, k = changed_model_results[key]
-    print(f"Changed model  ({key[0]},{key[1]}): best weighted accuracy: {accuracy} k: {k}\n")
+    area, k, stdev = original_model_results[key]
+    print(f"Original model ({key[0]},{key[1]}): smallest area: {area} k: {k}, stdev: {stdev}")
+    area, k = changed_model_results[key]
+    print(f"Changed model  ({key[0]},{key[1]}): smallest area: {area} k: {k}\n")
+
+print("Traces count (approximate): ",count)
