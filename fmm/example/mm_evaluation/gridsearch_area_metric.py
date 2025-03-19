@@ -6,6 +6,7 @@ import tracers as tr
 import numpy as np
 import os
 from metrics import calculate_trace_areas
+import logging
 
 # Load network data and graph 
 network = Network("fmm/example/osmnx_example/rome/edges.shp", "fid", "u", "v")
@@ -19,6 +20,15 @@ model = FastMapMatch(network, graph, ubodt)
 root_path = '/mnt/d/maart18maxDist500noDROPv2'
 
 METER_PER_DEGREE = 109662.80313373724
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(),  
+        logging.FileHandler("fmm/example/mm_evaluation/gridsearch_area_metric.txt")  
+    ]
+)
 
 def process_user(user_id):
     user_path = f'taxi_{user_id}'
@@ -93,14 +103,18 @@ def mapmatch_perturbated(perturbed_wkt, gt, k, radius, gps_error, reverse_tolera
             print(f"Skipping trace, error loading WKT: {e}")
             return None 
 
-        if not gt.is_empty and not perturbed_geom.is_empty and gt.is_valid and perturbed_geom.is_valid:
-            if gt.geom_type != "LineString" or perturbed_geom.geom_type != "LineString":
-                print(f"Skipping due to invalid geometry type: {gt.geom_type}, {perturbed_geom.geom_type}")
+        if (not perturbed_geom.is_empty and not gt.is_empty and perturbed_geom.is_valid and gt.is_valid and len(perturbed_geom.coords) > 1 and len(gt.coords) > 1):
+            if perturbed_geom.geom_type != "LineString" or gt.geom_type != "LineString":
+                print(f"Skipping due to invalid geometry type: {perturbed_geom.geom_type}, {gt.geom_type}")
                 return None
-
+            
             area = calculate_trace_areas(gt, perturbed_geom)[2]
             if area > 0:
+                print(f" trace area: {area}")
                 return area
+            else:
+                print(f"Trace  gives zero area!")
+
         else:
             print(f"Skipping due to invalid or empty geometries for user {user_id}")
             return None
@@ -116,8 +130,8 @@ gps_error_range = [10, 30, 50, 70, 90, 110, 130, 150, 170, 190, 210]
 best_changed_model = {}  
 best_original_model = {} 
 
-#user limit
-for user_id in range(5,10):  
+#taxi range
+for user_id in range(13,14):  
     traces, ground_truths = process_user(user_id)
     print(f"user {user_id} non-perturbated traces processed")
     if not traces or not ground_truths:
@@ -189,11 +203,9 @@ for key in sorted(best_original_model.keys()):
     elif area > original_model_results[(key[0], key[1])][0]:
         original_model_results[(key[0], key[1])] = area, key[3], key[2]
 
-# Print final results
 for key in original_model_results:
     area, k, stdev = original_model_results[key]
-    print(f"Original model ({key[0]},{key[1]}): smallest area: {area} k: {k}, stdev: {stdev}")
+    logging.info(f"Original model ({key[0]},{key[1]}): smallest area: {area} k: {k}, stdev: {stdev}")
     area, k = changed_model_results[key]
-    print(f"Changed model  ({key[0]},{key[1]}): smallest area: {area} k: {k}\n")
+    logging.info(f"Changed model  ({key[0]},{key[1]}): smallest area: {area} k: {k}\n")
 
-print("Traces count (approximate): ",count)

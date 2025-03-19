@@ -5,6 +5,7 @@ from shapely.geometry import LineString
 import tracers as tr
 import numpy as np
 import os
+import logging
 from itertools import product
 from metrics import _calculate_areas
 
@@ -12,6 +13,15 @@ from metrics import _calculate_areas
 network = Network("fmm/example/osmnx_example/rome/edges.shp", "fid", "u", "v")
 print("Nodes {} edges {}".format(network.get_node_count(), network.get_edge_count()))
 graph = NetworkGraph(network)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(),  
+        logging.FileHandler("fmm/example/mm_evaluation/gridsearch_accuracy_metric.txt")  
+    ]
+)
 
 # Load UBODT
 ubodt = UBODT.read_ubodt_csv("fmm/example/osmnx_example/rome/ubodt.txt")
@@ -84,10 +94,10 @@ def mapmatch_perturbated(perturbed_wkt, gt, k, radius, gps_error, reverse_tolera
         try:
             perturbed_geom = loads(perturbed_wkt)
             if perturbed_geom.geom_type != "LineString" or len(perturbed_geom.coords) < 2:
-                return None, None  # Return None for accuracy and length
+                return None, None  # acc and length are none
 
         except Exception as e:
-            return None, None  # Return None for accuracy and length
+            return None, None  
 
         # Calculate intersection length
         intersection = gt.intersection(perturbed_geom).length
@@ -95,9 +105,9 @@ def mapmatch_perturbated(perturbed_wkt, gt, k, radius, gps_error, reverse_tolera
         mm_length = perturbed_geom.length
 
         if mm_length > 0 and gt_length > 0:
-            return intersection / max(mm_length, gt_length), gt_length  # Return accuracy and gt_length
+            return intersection / max(mm_length, gt_length), gt_length  
 
-    return None, None  # Return None for accuracy and length if MM failed
+    return None, None  
 
 
 # parameter grid
@@ -187,7 +197,7 @@ for key in sorted(best_original_model.keys()):
 
 for key in original_model_results:
     accuracy, k, stdev = original_model_results[key]
-    print(f"Original model ({key[0]},{key[1]}): best weighted accuracy: {accuracy} k: {k}, stdev: {stdev}")
+    logging.info(f"Original model ({key[0]},{key[1]}): best weighted accuracy: {accuracy} k: {k}, stdev: {stdev}")
     
     accuracy, k = changed_model_results[key]
-    print(f"Changed model  ({key[0]},{key[1]}): best weighted accuracy: {accuracy} k: {k}\n")
+    logging.info(f"Changed model  ({key[0]},{key[1]}): best weighted accuracy: {accuracy} k: {k}\n")

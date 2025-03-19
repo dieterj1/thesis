@@ -4,6 +4,7 @@ from shapely.wkt import loads
 from shapely.geometry import LineString
 import numpy as np
 import os
+import logging
 from metrics import calculate_trace_areas
 from itertools import product
 
@@ -23,6 +24,15 @@ model = FastMapMatch(network, graph, ubodt)
 root_path = '/mnt/d/maart18maxDist500noDROPv2'
 
 METER_PER_DEGREE = 109662.80313373724
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(),  
+        logging.FileHandler("fmm/example/mm_evaluation/mm_parameter_tuner.txt")  
+    ]
+)
 
 def process_user(user_id, k, radius, gps_error, reverse_tolerance):
     user_path = f'taxi_{user_id}'
@@ -101,10 +111,15 @@ k_range = [5,8,11,14]
 lowest_avg = float('inf') 
 best_k, best_radius, best_gps_error, best_reverse_tolerance = None, None, None, None
 
+nr_combinations = len(list(product(k_range, radius_range, gps_error_range, reverse_tolerance_range)))
+i = 0
+
 for k, radius, gps_error, reverse_tolerance in product(k_range, radius_range, gps_error_range, reverse_tolerance_range):
     total_area = 0
     count = 0
-
+    i+=1
+    print(f"Combination {i}/{nr_combinations}")
+    
     for user_id in range(13, 14): 
         print(f"Calculating traces for taxi {user_id}")
         area = process_user(user_id, k, radius, gps_error, reverse_tolerance)
@@ -124,11 +139,10 @@ for k, radius, gps_error, reverse_tolerance in product(k_range, radius_range, gp
             best_radius = radius
             best_gps_error = gps_error
             best_reverse_tolerance = reverse_tolerance
-            print(f"New lowest area: {avg} for (k={k}, r={radius}, stdev={gps_error}, reverse tol={reverse_tolerance})")
+
+            logging.info(f"New lowest area: {avg} for (k={k}, r={radius}, stdev={gps_error}, reverse tol={reverse_tolerance})")
     else:
-        print(f"No valid traces found for (k={k}, r={radius}, stdev={gps_error}, reverse tol={reverse_tolerance})")
+        logging.info(f"No valid traces found for (k={k}, r={radius}, stdev={gps_error}, reverse tol={reverse_tolerance})")
 
 if best_k is not None:
-    print(f"Search done, lowest area: {lowest_avg} for (k={best_k}, r={best_radius}, stdev={best_gps_error}, reverse tol={best_reverse_tolerance})")
-else:
-    print("Search done, but no valid results found.")
+    logging.info(f"Search done, lowest area: {lowest_avg} for (k={best_k}, r={best_radius}, stdev={best_gps_error}, reverse tol={best_reverse_tolerance})")
