@@ -6,3 +6,6 @@ fmm/example/osmnx_example/rome/edges.shp
 fmm/example/osmnx_example/rome
 fmm/example/notebook/datapath.json
 .venv/
+fmm/example/osmnx_example/rome/edges.shp
+fmm/example/osmnx_example/rome/edges.shp
+*.csv
