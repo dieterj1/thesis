@@ -389,15 +389,13 @@ def process_single_file(filepath, amenities_gdf, spatial_idx):
         return []
 
 def find_trip_files(folder_path):
-    """Find all trip files in the specified folder."""
-    pattern = r'matched_taxi-2-rit-.*\.csv'
+    """Find all files in the specified folder."""
     trip_files = []
     
     # Use relative path from current directory
     folder_path = os.path.join('.', folder_path)
     
     print(f"Looking for files in: {folder_path}")
-    print(f"Looking for pattern: {pattern}")
     
     if not os.path.exists(folder_path):
         print(f"Warning: Folder {folder_path} does not exist!")
@@ -405,8 +403,8 @@ def find_trip_files(folder_path):
     
     for filename in os.listdir(folder_path):
         print(f"Checking file: {filename}")
-        if re.match(pattern, filename):
-            trip_files.append(os.path.join(folder_path, filename))
+        # Append the full file path for all files
+        trip_files.append(os.path.join(folder_path, filename))
     
     return trip_files
 
@@ -435,7 +433,7 @@ def main():
     trip_files = find_trip_files(folder_path)
     
     if not trip_files:
-        print(f"No trip files found in {folder_path}. Looking for files matching 'matched_taxi-2-rit-*.csv'")
+        print(f"No trip files found in {folder_path}.")
         return
         
     print(f"Found {len(trip_files)} trip files to process")

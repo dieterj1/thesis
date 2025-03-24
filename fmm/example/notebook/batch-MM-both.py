@@ -43,10 +43,13 @@ for filename in os.listdir(input_folder):
         trace = df[['Longitude', 'Latitude', 'Timestamp']].to_numpy()
         trace = [tuple(x) for x in trace]
         trace = [(x[0], x[1], int(x[2])) for x in trace]
-        trace = trace[:50]
+        #trace = trace[:50]
+
+        single_id = df['ID'].iloc[0]
         
         # Perturb trace
         perturbed_traces = tr.perturb_traces((space_noise, time_min_period), [trace])
+
         
         # Extract coordinates
         coordinates_p = [(lon, lat) for lon, lat, _ in perturbed_traces[0]]
@@ -54,16 +57,19 @@ for filename in os.listdir(input_folder):
         wkt_trace_str_p = wkt_trace_p.wkt
         
         # Map matching
+        print("starting matching")
         result_raw_p = model.match_wkt(wkt_trace_str_p, fmm_config)
         pert_mm_wtk = loads(result_raw_p.mgeom.export_wkt())
         
         # Extract matched coordinates
         pert_mm_coords = list(pert_mm_wtk.coords)
-        
+        print("writing output")
         # Write output
         output_file = os.path.join(output_folder, f"matched_{filename}")
         with open(output_file, mode="w", newline="") as file:
             writer = csv.writer(file)
             writer.writerow(["ID", "Latitude", "Longitude"])
-            for idx, (lon, lat) in enumerate(pert_mm_coords, start=1):
-                writer.writerow([idx, lat, lon])
+            for lon, lat in pert_mm_coords:
+                writer.writerow([single_id, lat, lon])
+
+print("done")

@@ -9,3 +9,5 @@ fmm/example/notebook/datapath.json
 fmm/example/osmnx_example/rome/edges.shp
 fmm/example/osmnx_example/rome/edges.shp
 *.csv
+*.txt
+*.html
