@@ -15,7 +15,7 @@ using namespace FMM::PYTHON;
 
 STMATCHConfig::STMATCHConfig(
   int k_arg, double r_arg, double gps_error_arg,
-  double vmax_arg, double factor_arg, double reverse_tolerance_arg, bool obfuscation):
+  double vmax_arg, double factor_arg, double reverse_tolerance_arg, bool perturbation):
   k(k_arg), radius(r_arg), gps_error(gps_error_arg),
   vmax(vmax_arg), factor(factor_arg),
   reverse_tolerance(reverse_tolerance_arg) {
@@ -296,7 +296,7 @@ void STMATCH::update_layer(int level, TGLayer *la_ptr, TGLayer *lb_ptr,
       level, cg, source, targets, delta);
     for (auto iter_b = lb_ptr->begin(); iter_b != lb_ptr->end(); ++iter_b) {
       int i = std::distance(lb_ptr->begin(),iter_b);
-      double tp = TransitionGraph::calc_tp(distances[i], eu_dist);
+      double tp = TransitionGraph::calc_tp(distances[i], eu_dist, false);
       double temp = iter_a->cumu_prob + log(tp) + log(iter_b->ep);
       SPDLOG_TRACE("L {} f {} t {} sp {} dist {} tp {} ep {} fcp {} tcp {}",
         level, iter_a->c->edge->id,iter_b->c->edge->id,

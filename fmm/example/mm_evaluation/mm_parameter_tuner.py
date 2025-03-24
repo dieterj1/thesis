@@ -98,15 +98,11 @@ def process_user(user_id, k, radius, gps_error, reverse_tolerance):
     else:
         return None  
 
-    
 # parameter grid
-#k_range = [5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25]
 gps_error_range = [5, 10, 15, 20, 25]
-#radius_range = [200, 300, 400, 500]
-#reverse_tolerance_range = [0, 0.2, 0.4, 0.6, 0.8, 1]
-reverse_tolerance_range = [0,0.1,0.2,0.3,0.4,0.5]
-radius_range = [300]
-k_range = [5,8,11,14]
+radius_range = [200, 300, 400, 500]
+reverse_tolerance_range = [0,0.1,0.2,0.3,0.4]
+k_range = [5,7,9,11]
 
 lowest_avg = float('inf') 
 best_k, best_radius, best_gps_error, best_reverse_tolerance = None, None, None, None

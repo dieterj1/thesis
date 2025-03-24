@@ -31,125 +31,131 @@ TransitionGraph::TransitionGraph(const Traj_Candidates &tc, double gps_error, bo
   }
 }
 
-double TransitionGraph::calc_tp(double sp_dist,double eu_dist){
+double TransitionGraph::calc_tp(double sp_dist,double eu_dist, bool perturbation){
   return eu_dist>=sp_dist ? 1.0 : eu_dist/sp_dist;
 }
 
 double TransitionGraph::calc_ep(double dist,double error,bool perturbation) {
   if (perturbation) {
-    double dist_2 = dist * dist;       
-    double dist_3 = dist_2 * dist;      
-    double dist_4 = dist_3 * dist;
-    // normalization factor of distribution
-    switch(static_cast<int>(error)) {
-      case 20:
-        if(dist < 0.00018) {
-          return (8.939 * 1e14 * dist_4) 
-              - ( 2.232 * 1e11 * dist_3)
-              - ( 5.173 * 1e7 * dist_2)
-              + ( 1.316 * 1e4 * dist) + 0.3349;
-        }
-        else {
-          return 1.455 *1e4 * dist_2 - 66.83 * dist + 0.08811;
-        }
- 
-      case 30:
-        if(dist < 0.000275) {
-          return (-3.037 * 1e14 * dist_4) 
-              + (1.819 * 1e11 * dist_3)
-              - ( 6.54 * 1e7 * dist_2)
-              + (1.154 * 1e4 * dist) + 0.2797;
-        }
-        else {
-          return 1.49 * 1e4 * dist_2 - 78.11 * dist + 0.1159;
-        }
+    if(dist > 0.003) {
+      return 0;
+    }
+    else
+    {
+      double dist_2 = dist * dist;       
+      double dist_3 = dist_2 * dist;      
+      double dist_4 = dist_3 * dist;
 
-      case 40:
-        if(dist < 0.000365) {
-          return (-4.823 * 1e13 * dist_4) 
-              + (4.507 * 1e10 * dist_3)
-              - (3.035 * 1e7 * dist_2)
-              + (8302 * dist) + 0.2701;
-        }
-        else {
-          return  1.993 * 1e4 * dist_2 - 104.1 * dist + 0.1535;
-        }
+      switch(static_cast<int>(error)) {
+        case 20:
+          if(dist < 0.00018) {
+            return (8.939 * 1e14 * dist_4) 
+                - ( 2.232 * 1e11 * dist_3)
+                - ( 5.173 * 1e7 * dist_2)
+                + ( 1.316 * 1e4 * dist) + 0.3349;
+          }
+          else {
+            return 1.455 *1e4 * dist_2 - 66.83 * dist + 0.08811;
+          }
+  
+        case 30:
+          if(dist < 0.000275) {
+            return (-3.037 * 1e14 * dist_4) 
+                + (1.819 * 1e11 * dist_3)
+                - ( 6.54 * 1e7 * dist_2)
+                + (1.154 * 1e4 * dist) + 0.2797;
+          }
+          else {
+            return 1.49 * 1e4 * dist_2 - 78.11 * dist + 0.1159;
+          }
 
-      case 50:
-        if(dist < 0.000458) {
-          return (-6.547 * 1e13 * dist_4) 
-              + (6.186 * 1e10 * dist_3)
-              - (3.003 * 1e7 * dist_2)
-              + (7729 * dist) +0.232;
-        }
-        else {
-          return 2.474 * 1e4 * dist_2 - 129.7 * dist + 0.1916;
-        }
+        case 40:
+          if(dist < 0.000365) {
+            return (-4.823 * 1e13 * dist_4) 
+                + (4.507 * 1e10 * dist_3)
+                - (3.035 * 1e7 * dist_2)
+                + (8302 * dist) + 0.2701;
+          }
+          else {
+            return  1.993 * 1e4 * dist_2 - 104.1 * dist + 0.1535;
+          }
 
-      case 60:
-        if(dist < 0.00055) {
-          return (-3.286 * 1e13 * dist_4) 
-              + (3.626 * 1e10 * dist_3)
-              - (2.075 * 1e7 * dist_2)
-              + (6419 * dist) + 0.2268;
-        }
-        else {
-          return 3.023 * 1e4 * dist_2 - 157.6 * dist + 0.2312;
-        }
+        case 50:
+          if(dist < 0.000458) {
+            return (-6.547 * 1e13 * dist_4) 
+                + (6.186 * 1e10 * dist_3)
+                - (3.003 * 1e7 * dist_2)
+                + (7729 * dist) +0.232;
+          }
+          else {
+            return 2.474 * 1e4 * dist_2 - 129.7 * dist + 0.1916;
+          }
 
-      case 70:
-        if(dist < 0.00064) {
-          return (-2.031 * 1e13 * dist_4) 
-              + (2.534 * 1e10 * dist_3)
-              - (1.571 * 1e7 * dist_2)
-              + (5517 * dist) + 0.2054;
-        }
-        else {
-          return 3.596 * 1e4 * dist_2 - 187.1 * dist + 0.2732;
-        }
- 
-      case 80:
-        if(dist < 0.000733) {
-          return (-1.606 * 1e13 * dist_4) 
-              + (2.312 * 1e10 * dist_3)
-              - (1.483 * 1e7 * dist_2)
-              + (5244 * dist) + 0.1954;
-        }
-        else {
-          return 4.16 * 1e4 * dist_2 - 217.6 * dist + 0.3187;
-        }
+        case 60:
+          if(dist < 0.00055) {
+            return (-3.286 * 1e13 * dist_4) 
+                + (3.626 * 1e10 * dist_3)
+                - (2.075 * 1e7 * dist_2)
+                + (6419 * dist) + 0.2268;
+          }
+          else {
+            return 3.023 * 1e4 * dist_2 - 157.6 * dist + 0.2312;
+          }
 
-      case 90:
-        if(dist < 0.000825) {
-          return (-8.875 * 1e12 * dist_4) 
-              + (1.455 * 1e10 * dist_3)
-              - (1.109 * 1e7 * dist_2)
-              + (4635 * dist) + 0.1909;
-        }
-        else {
-          return 4.671 * 1e4 * dist_2 - 246.6 * dist + 0.3631;
-        }
+        case 70:
+          if(dist < 0.00064) {
+            return (-2.031 * 1e13 * dist_4) 
+                + (2.534 * 1e10 * dist_3)
+                - (1.571 * 1e7 * dist_2)
+                + (5517 * dist) + 0.2054;
+          }
+          else {
+            return 3.596 * 1e4 * dist_2 - 187.1 * dist + 0.2732;
+          }
+  
+        case 80:
+          if(dist < 0.000733) {
+            return (-1.606 * 1e13 * dist_4) 
+                + (2.312 * 1e10 * dist_3)
+                - (1.483 * 1e7 * dist_2)
+                + (5244 * dist) + 0.1954;
+          }
+          else {
+            return 4.16 * 1e4 * dist_2 - 217.6 * dist + 0.3187;
+          }
 
-      case 100:
-        if(dist < 0.000915) {
-          return (-4.13 * 1e12 * dist_4) 
-              + (6.907 * 1e9 * dist_3)
-              - (6.353 * 1e6 * dist_2)
-              + (3558 * dist) + 0.1925;
-        }
-        else {
-          return 5.184 * 1e4 * dist_2 - 274.8 * dist + 0.4052;
-        }
+        case 90:
+          if(dist < 0.000825) {
+            return (-8.875 * 1e12 * dist_4) 
+                + (1.455 * 1e10 * dist_3)
+                - (1.109 * 1e7 * dist_2)
+                + (4635 * dist) + 0.1909;
+          }
+          else {
+            return 4.671 * 1e4 * dist_2 - 246.6 * dist + 0.3631;
+          }
 
-      default:
-        if(dist < 0.000458) {
-          return (-6.547 * 1e13 * dist_4) 
-              + (6.186 * 1e10 * dist_3)
-              - (3.003 * 1e7 * dist_2)
-              + (7729 * dist) +0.232;
-        }
-        else {
-          return 2.474 * 1e4 * dist_2 - 129.7 * dist + 0.1916;
+        case 100:
+          if(dist < 0.000915) {
+            return (-4.13 * 1e12 * dist_4) 
+                + (6.907 * 1e9 * dist_3)
+                - (6.353 * 1e6 * dist_2)
+                + (3558 * dist) + 0.1925;
+          }
+          else {
+            return 5.184 * 1e4 * dist_2 - 274.8 * dist + 0.4052;
+          }
+
+        default:
+          if(dist < 0.000458) {
+            return (-6.547 * 1e13 * dist_4) 
+                + (6.186 * 1e10 * dist_3)
+                - (3.003 * 1e7 * dist_2)
+                + (7729 * dist) +0.232;
+          }
+          else {
+            return 2.474 * 1e4 * dist_2 - 129.7 * dist + 0.1916;
+          }
         }
     }
   }

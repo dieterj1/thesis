@@ -72,7 +72,7 @@ public:
    * @param  eu_dist Euclidean distance between two candidates
    * @return transition probability in HMM
    */
-  static double calc_tp(double sp_dist,double eu_dist);
+  static double calc_tp(double sp_dist,double eu_dist,bool perturbation);
 
   /**
    * Calculate emission probability

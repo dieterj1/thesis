@@ -94,7 +94,7 @@ MatchResult FastMapMatch::match_traj(const Trajectory &traj,
   TransitionGraph tg(tc, config.gps_error, config.perturbation);
   SPDLOG_DEBUG("Update cost in transition graph");
   // The network will be used internally to update transition graph
-  update_tg(&tg, traj, config.reverse_tolerance);
+  update_tg(&tg, traj, config.reverse_tolerance, config.perturbation);
   SPDLOG_DEBUG("Optimal path inference");
   TGOpath tg_opath = tg.backtrack();
   SPDLOG_DEBUG("Optimal path size {}", tg_opath.size());
@@ -276,7 +276,7 @@ double FastMapMatch::get_sp_dist(
 
 void FastMapMatch::update_tg(
   TransitionGraph *tg,
-  const Trajectory &traj, double reverse_tolerance) {
+  const Trajectory &traj, double reverse_tolerance, bool perturbation) {
   SPDLOG_DEBUG("Update transition graph");
   std::vector<TGLayer> &layers = tg->get_layers();
   std::vector<double> eu_dists = ALGORITHM::cal_eu_dist(traj.geom);
@@ -285,7 +285,7 @@ void FastMapMatch::update_tg(
     SPDLOG_DEBUG("Update layer {} ", i);
     bool connected = false;
     update_layer(i, &(layers[i]), &(layers[i + 1]),
-                 eu_dists[i], reverse_tolerance, &connected);
+                 eu_dists[i], reverse_tolerance, &connected, perturbation);
     if (!connected){
       SPDLOG_WARN("Traj {} unmatched as point {} and {} not connected",
         traj.id, i, i+1);
@@ -301,7 +301,7 @@ void FastMapMatch::update_layer(int level,
                                 TGLayer *lb_ptr,
                                 double eu_dist,
                                 double reverse_tolerance,
-                                bool *connected) {
+                                bool *connected, bool perturbation) {
   // SPDLOG_TRACE("Update layer");
   TGLayer &lb = *lb_ptr;
   bool layer_connected = false;
@@ -310,7 +310,7 @@ void FastMapMatch::update_layer(int level,
     for (auto iter_b = lb_ptr->begin(); iter_b != lb_ptr->end(); ++iter_b) {
       double sp_dist = get_sp_dist(iter_a->c, iter_b->c,
         reverse_tolerance);
-      double tp = TransitionGraph::calc_tp(sp_dist, eu_dist);
+      double tp = TransitionGraph::calc_tp(sp_dist, eu_dist,perturbation);
       double temp = iter_a->cumu_prob + log(tp) + log(iter_b->ep);
       SPDLOG_TRACE("L {} f {} t {} sp {} dist {} tp {} ep {} fcp {} tcp {}",
         level, iter_a->c->edge->id,iter_b->c->edge->id,

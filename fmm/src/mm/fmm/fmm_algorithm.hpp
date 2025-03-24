@@ -144,7 +144,7 @@ class FastMapMatch {
    */
   void update_tg(TransitionGraph *tg,
                  const CORE::Trajectory &traj,
-                 double reverse_tolerance = 0);
+                 double reverse_tolerance = 0, bool perturbation=false);
   /**
    * Update probabilities between two layers a and b in the transition graph
    * @param level   the index of layer a
@@ -156,7 +156,7 @@ class FastMapMatch {
    */
   void update_layer(int level, TGLayer *la_ptr, TGLayer *lb_ptr,
                     double eu_dist, double reverse_tolerance,
-                    bool *connected);
+                    bool *connected, bool perturbation=false);
  private:
   const NETWORK::Network &network_;
   const NETWORK::NetworkGraph &graph_;
