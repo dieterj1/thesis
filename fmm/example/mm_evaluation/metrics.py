@@ -188,6 +188,14 @@ def route_error(matched_geometry, ground_truth_geometry):
     }
 
 
+import numpy as np
+from scipy.spatial import cKDTree
+from shapely.geometry import Point, LineString, Polygon
+from shapely.geometry.base import BaseGeometry
+from shapely.wkt import loads
+import folium
+from haversine import haversine, Unit
+
 def spatial_skewing(geom1, geom2, show_map=False):
     """
     Calculate spatial skewing from geometry 2 to geometry 1 (map-matched to ground truth)
@@ -243,6 +251,55 @@ def spatial_skewing(geom1, geom2, show_map=False):
                 # Last resort: use representative points
                 return np.array([[p.x, p.y] for p in geom.representative_point()])
     
+    # Calculate length of a LineString in meters using haversine distance
+    def calculate_length_meters(line_geom):
+        if isinstance(line_geom, Point):
+            return 1.0  # Nominal value for a point to avoid division by zero
+        
+        coords = extract_coords(line_geom)
+        if len(coords) < 2:
+            return 1.0  # Not enough points to calculate length
+        
+        total_length = 0.0
+        for i in range(len(coords) - 1):
+            # Calculate haversine distance between consecutive points
+            # Convert (lon, lat) to (lat, lon) for haversine
+            dist = haversine(
+                (coords[i][1], coords[i][0]),
+                (coords[i+1][1], coords[i+1][0]),
+                unit=Unit.METERS
+            )
+            total_length += dist
+            
+        return total_length
+    
+    # Calculate length for complex geometries
+    def calculate_complex_geometry_length(geom):
+        if isinstance(geom, Point):
+            return 1.0
+        elif isinstance(geom, LineString):
+            return calculate_length_meters(geom)
+        elif isinstance(geom, Polygon):
+            return calculate_length_meters(geom.exterior)
+        elif hasattr(geom, 'geoms'):
+            # For multi-geometries, sum the length of each component
+            total = 0.0
+            for subgeom in geom.geoms:
+                total += calculate_complex_geometry_length(subgeom)
+            return total
+        else:
+            # Last resort: try to get coords and calculate length
+            try:
+                coords = extract_coords(geom)
+                if len(coords) < 2:
+                    return 1.0
+                
+                # Treat as a line
+                line = LineString(coords)
+                return calculate_length_meters(line)
+            except:
+                return 1.0  # Default to avoid division by zero
+    
     # Extract coordinates from both geometries
     coords1 = extract_coords(geom1)
     coords2 = extract_coords(geom2)
@@ -281,7 +338,7 @@ def spatial_skewing(geom1, geom2, show_map=False):
     results = {
         "mean_meters": float(np.mean(distances_2to1)),
         "min_meters": float(np.min(distances_2to1)),
-        "max_meters": float(np.max(distances_2to1))
+        "max_meters": float(np.max(distances_2to1)),
     }
     
     # Calculate median safely
@@ -292,6 +349,15 @@ def spatial_skewing(geom1, geom2, show_map=False):
         mid1 = sorted_vals[len(distances_2to1) // 2 - 1]
         mid2 = sorted_vals[len(distances_2to1) // 2]
         results["median_meters"] = float((mid1 + mid2) / 2)
+    
+    # NEW METRIC: Calculate normalized error (sum of distances / ground truth length)
+    total_distance_error = float(np.sum(distances_2to1))
+    gt_length = calculate_complex_geometry_length(geom1)
+    
+    # Add the new metrics to results
+    results["total_error_meters"] = total_distance_error
+    results["gt_length_meters"] = gt_length
+    results["normalized_error"] = total_distance_error / gt_length
     
     if show_map:
         # Create a map centered on the average coordinates
@@ -385,11 +451,24 @@ def spatial_skewing(geom1, geom2, show_map=False):
             ).add_to(connection_group)
         connection_group.add_to(m)
         
-        # Add a legend
-        legend_html = '''
+        # Add a legend with normalized error
+        legend_html = f'''
         <div style="position: fixed; bottom: 50px; left: 50px; 
             border:2px solid grey; z-index:9999; font-size:14px;
             background-color: white; padding: 10px; border-radius: 5px;">
+            <div style="margin-bottom: 5px; font-weight: bold;">
+                Metrics:
+            </div>
+            <div style="margin-bottom: 5px;">
+                Normalized Error: {results["normalized_error"]:.4f}
+            </div>
+            <div style="margin-bottom: 5px;">
+                Total Error: {results["total_error_meters"]:.2f} m
+            </div>
+            <div style="margin-bottom: 5px;">
+                Ground Truth Length: {results["gt_length_meters"]:.2f} m
+            </div>
+            <hr>
             <div style="margin-bottom: 5px;">
                 <span style="color: blue; font-weight: bold;">●</span> Ground Truth Points
             </div>
@@ -484,12 +563,9 @@ def _create_map(
     Returns:
         folium.Map: Map with both traces
     """
-    # Calculate map bounds and center
-    def get_bounds(line):
-        return (line.bounds[0], line.bounds[1], line.bounds[2], line.bounds[3])
-
-    line1_bounds = get_bounds(gt_trace)
-    line2_bounds = get_bounds(perturbed_trace)
+    # Calculate map bounds and center - using bounds directly
+    line1_bounds = gt_trace.bounds
+    line2_bounds = perturbed_trace.bounds
 
     min_lon = min(line1_bounds[0], line2_bounds[0])
     max_lon = max(line1_bounds[2], line2_bounds[2])
@@ -502,13 +578,13 @@ def _create_map(
     # Create Folium map
     m = folium.Map(location=[center_lat, center_lon], zoom_start=15)
 
-    # Function to reverse coordinates for Folium
-    def reverse_coords(coords):
-        return [(lat, lon) for (lon, lat) in coords]
+    # Precompute reversed coordinates for Folium
+    reversed_line1 = [(lat, lon) for (lon, lat) in line1_coords]
+    reversed_line2 = [(lat, lon) for (lon, lat) in line2_coords]
 
     # Add original traces to map
     folium.PolyLine(
-        reverse_coords(line1_coords),
+        reversed_line1,
         color='blue',
         weight=2.5,
         opacity=1,
@@ -516,7 +592,7 @@ def _create_map(
     ).add_to(m)
 
     folium.PolyLine(
-        reverse_coords(line2_coords),
+        reversed_line2,
         color='red',
         weight=2.5,
         opacity=1,
@@ -550,11 +626,50 @@ def _find_intersections(
     """
     significant_intersections = []
     
+    # Precompute segments and vectors for line1
+    line1_segments = []
+    line1_vectors = []
+    line1_norms = []
+    
     for i in range(len(line1_coords)-1):
-        seg1 = LineString([line1_coords[i], line1_coords[i+1]])
+        # Create segment
+        seg = LineString([line1_coords[i], line1_coords[i+1]])
+        line1_segments.append(seg)
         
-        for j in range(len(line2_coords)-1):
-            seg2 = LineString([line2_coords[j], line2_coords[j+1]])
+        # Calculate vector and norm
+        vec = np.array([line1_coords[i+1][0] - line1_coords[i][0], 
+                       line1_coords[i+1][1] - line1_coords[i][1]])
+        norm = np.linalg.norm(vec)
+        line1_vectors.append(vec)
+        line1_norms.append(norm)
+    
+    # Precompute segments and vectors for line2
+    line2_segments = []
+    line2_vectors = []
+    line2_norms = []
+    
+    for j in range(len(line2_coords)-1):
+        # Create segment
+        seg = LineString([line2_coords[j], line2_coords[j+1]])
+        line2_segments.append(seg)
+        
+        # Calculate vector and norm
+        vec = np.array([line2_coords[j+1][0] - line2_coords[j][0],
+                       line2_coords[j+1][1] - line2_coords[j][1]])
+        norm = np.linalg.norm(vec)
+        line2_vectors.append(vec)
+        line2_norms.append(norm)
+    
+    # Find intersections with optimized checks
+    for i, seg1 in enumerate(line1_segments):
+        seg1_bounds = seg1.bounds
+        
+        for j, seg2 in enumerate(line2_segments):
+            # Quick bounding box check first
+            seg2_bounds = seg2.bounds
+            if (seg1_bounds[0] > seg2_bounds[2] or seg1_bounds[2] < seg2_bounds[0] or
+                seg1_bounds[1] > seg2_bounds[3] or seg1_bounds[3] < seg2_bounds[1]):
+                continue  # No intersection possible, skip to next segment
             
             if seg1.intersects(seg2):
                 intersection = seg1.intersection(seg2)
@@ -562,15 +677,11 @@ def _find_intersections(
                 if isinstance(intersection, Point):
                     ip_coords = (intersection.x, intersection.y)
                     
-                    # Calculate segment vectors
-                    vec1 = np.array([line1_coords[i+1][0] - line1_coords[i][0], 
-                                    line1_coords[i+1][1] - line1_coords[i][1]])
-                    vec2 = np.array([line2_coords[j+1][0] - line2_coords[j][0],
-                                    line2_coords[j+1][1] - line2_coords[j][1]])
-                    
-                    # Calculate angle between segments
-                    norm1 = np.linalg.norm(vec1)
-                    norm2 = np.linalg.norm(vec2)
+                    # Use precomputed vectors and norms
+                    vec1 = line1_vectors[i]
+                    vec2 = line2_vectors[j]
+                    norm1 = line1_norms[i]
+                    norm2 = line2_norms[j]
                     
                     if norm1 > 0 and norm2 > 0:
                         cos_angle = np.dot(vec1, vec2) / (norm1 * norm2)
@@ -584,11 +695,12 @@ def _find_intersections(
                         # Only keep intersections where segments are NOT parallel
                         if not is_parallel:
                             # Calculate distance along each line
-                            dist1 = gt_trace.project(Point(ip_coords))
-                            dist2 = perturbed_trace.project(Point(ip_coords))
+                            point = Point(ip_coords)
+                            dist1 = gt_trace.project(point)
+                            dist2 = perturbed_trace.project(point)
                             
                             significant_intersections.append({
-                                'point': Point(ip_coords),
+                                'point': point,
                                 'location': (ip_coords[1], ip_coords[0]),  # (lat, lon)
                                 'segments': (i, j),
                                 'angle': angle,
@@ -612,6 +724,11 @@ def _find_intersections(
     return significant_intersections
 
 
+# Define reverse_coords once to avoid redundant function definitions
+def _reverse_coords(coords):
+    return [(lat, lon) for (lon, lat) in coords]
+
+
 def _calculate_areas(
     gt_trace: LineString,
     perturbed_trace: LineString,
@@ -625,7 +742,6 @@ def _calculate_areas(
         gt_trace: Ground truth trace LineString
         perturbed_trace: Perturbed trace LineString
         significant_intersections: List of intersection points
-        area_threshold: Minimum area in square meters to consider
         m: Folium map to add polygons to (optional)
         
     Returns:
@@ -633,12 +749,16 @@ def _calculate_areas(
             - list of areas between divergent sections
             - total area between all divergent sections
     """
-    # Function to reverse coordinates for Folium
-    def reverse_coords(coords):
-        return [(lat, lon) for (lon, lat) in coords]
-    
     areas = []
     total_area = 0
+    
+    # Cache math functions to reduce lookup overhead
+    sin = math.sin
+    cos = math.cos
+    radians = math.radians
+    
+    # Track the regions we've already covered to avoid counting overlaps
+    processed_regions = []
     
     # For each pair of consecutive intersections
     for i in range(len(significant_intersections) - 1):
@@ -659,7 +779,6 @@ def _calculate_areas(
             
             # We need to create a polygon from the two segments
             # To do this, we need to ensure the points are in the correct order
-            # Start with segment1 from start to end, then segment2 from end to start
             segment1_coords = list(segment1.coords)
             segment2_coords = list(segment2.coords)
             segment2_coords.reverse()  # Reverse to close the polygon
@@ -669,17 +788,32 @@ def _calculate_areas(
             if len(polygon_coords) >= 3:  # Need at least 3 points for a polygon
                 polygon = Polygon(polygon_coords)
                 
+                # Check if this polygon overlaps with any previously processed regions
+                is_overlapping = False
+                for processed_polygon in processed_regions:
+                    if polygon.intersects(processed_polygon):
+                        # If there's an overlap, subtract the already processed area
+                        polygon = polygon.difference(processed_polygon)
+                        if polygon.is_empty or polygon.area == 0:
+                            is_overlapping = True
+                            break
+                
+                # Skip if the polygon is completely overlapping with previous regions
+                if is_overlapping:
+                    continue
+                
+                # Add this polygon to processed regions
+                processed_regions.append(polygon)
+                
                 # Calculate area in square degrees
                 area = polygon.area
                 
                 # Approximate conversion to square meters for lat/lon coordinates
                 avg_lat = (start_point['location'][0] + end_point['location'][0]) / 2
-                # Convert area in square degrees to square meters
-                # 1 degree of latitude is approximately 111,000 meters
-                # 1 degree of longitude varies with latitude
-                meters_per_degree_lon = 111000 * math.cos(math.radians(avg_lat))
+                # Precalculate radians conversion
+                avg_lat_rad = radians(avg_lat)
+                meters_per_degree_lon = 111000 * cos(avg_lat_rad)
                 area_in_sq_meters = area * 111000 * meters_per_degree_lon
-                
                 
                 areas.append({
                     'start_point': start_point['location'],
@@ -692,17 +826,32 @@ def _calculate_areas(
                     
                 # Add polygon to map if provided
                 if m is not None:
-                    folium.Polygon(
-                        locations=reverse_coords(polygon_coords),
-                        color='yellow',
-                        weight=1,
-                        fill=True,
-                        fill_color='yellow',
-                        fill_opacity=0.4,
-                        popup=f"Area: {area_in_sq_meters:.2f} sq meters"
-                    ).add_to(m)
+                    # Only add non-overlapping parts to the map
+                    if not isinstance(polygon, Polygon):
+                        # In case the polygon is now a GeometryCollection after difference operation
+                        for geom in polygon.geoms:
+                            if isinstance(geom, Polygon):
+                                folium.Polygon(
+                                    locations=_reverse_coords(list(geom.exterior.coords)),
+                                    color='yellow',
+                                    weight=1,
+                                    fill=True,
+                                    fill_color='yellow',
+                                    fill_opacity=0.4,
+                                    popup=f"Area: {geom.area * 111000 * meters_per_degree_lon:.2f} sq meters"
+                                ).add_to(m)
+                    else:
+                        folium.Polygon(
+                            locations=_reverse_coords(list(polygon.exterior.coords)),
+                            color='yellow',
+                            weight=1,
+                            fill=True,
+                            fill_color='yellow',
+                            fill_opacity=0.4,
+                            popup=f"Area: {area_in_sq_meters:.2f} sq meters"
+                        ).add_to(m)
         except Exception as e:
-            print(f"Error calculating area between points!!! {e}")
+            print(f"Error calculating area between points: {e}")
             pass
     
     return areas, total_area

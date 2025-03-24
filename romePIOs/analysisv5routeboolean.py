@@ -3,11 +3,16 @@ import numpy as np
 from sklearn.cluster import DBSCAN
 from geopy.distance import great_circle
 import folium
-import requests
-from joblib import Parallel, delayed
 import re
+from joblib import Parallel, delayed
 from tqdm import tqdm
 from datetime import timedelta
+import osmium
+import pyproj
+import rtree
+import os
+from shapely.geometry import Point
+import geopandas as gpd
 
 # Constants
 NOISE_THRESHOLD = 10  # meters
@@ -27,10 +32,148 @@ EXCLUDED_AMENITIES = {
 # Boolean to control full route mapping
 map_full_route = True  # Set to False to disable full route mapping
 
-def parse_point(point_str):
-    """Parse POINT(lat lon) into (latitude, longitude)."""
-    match = re.match(r'POINT\(([\d.]+) ([\d.]+)\)', point_str)
-    return (float(match.group(1)), float(match.group(2))) if match else (None, None)
+# Rome bounding box coordinates
+ROME_BOUNDS = {
+    'min_lat': 41.8,
+    'max_lat': 42.0,
+    'min_lon': 12.4,
+    'max_lon': 12.6
+}
+
+class AmenityHandler(osmium.SimpleHandler):
+    def __init__(self):
+        super(AmenityHandler, self).__init__()
+        self.amenities = []
+        
+    def node(self, n):
+        # Check if this node is within Rome's boundaries
+        if (ROME_BOUNDS['min_lat'] <= n.location.lat <= ROME_BOUNDS['max_lat'] and
+            ROME_BOUNDS['min_lon'] <= n.location.lon <= ROME_BOUNDS['max_lon']):
+            
+            # Check if this node has an amenity tag
+            if 'amenity' in n.tags:
+                amenity_type = n.tags.get('amenity')
+                name = n.tags.get('name', '')
+                
+                # Skip excluded amenities and those without names
+                if amenity_type in EXCLUDED_AMENITIES or not name:
+                    return
+                
+                self.amenities.append({
+                    'id': n.id,
+                    'lat': n.location.lat,
+                    'lon': n.location.lon,
+                    'type': amenity_type,
+                    'name': name,
+                    'original_type': amenity_type
+                })
+
+def download_rome_osm_data():
+    """Download OSM data for Rome once and save locally."""
+    import requests
+    
+    print("Downloading OSM data for Rome...")
+    overpass_url = "http://overpass-api.de/api/interpreter"
+    query = f"""
+    [out:xml];
+    (
+      node["amenity"]({ROME_BOUNDS['min_lat']},{ROME_BOUNDS['min_lon']},{ROME_BOUNDS['max_lat']},{ROME_BOUNDS['max_lon']});
+    );
+    out body;
+    """
+    
+    response = requests.post(overpass_url, data=query, timeout=120)
+    
+    if response.status_code == 200:
+        with open('rome_amenities.osm', 'wb') as f:
+            f.write(response.content)
+        print("Rome OSM data downloaded successfully.")
+    else:
+        print(f"Failed to download OSM data: {response.status_code}")
+        raise Exception("Failed to download OSM data")
+
+def process_osm_to_geopackage():
+    """Process the OSM file and save amenities to a GeoPackage."""
+    if not os.path.exists('rome_amenities.osm'):
+        download_rome_osm_data()
+    
+    print("Processing OSM data...")
+    handler = AmenityHandler()
+    handler.apply_file('rome_amenities.osm')
+    
+    if not handler.amenities:
+        print("No amenities found in the OSM data.")
+        return False
+    
+    # Convert to GeoDataFrame
+    gdf = gpd.GeoDataFrame(
+        handler.amenities, 
+        geometry=[Point(a['lon'], a['lat']) for a in handler.amenities],
+        crs="EPSG:4326"
+    )
+    
+    # Save to GeoPackage
+    gdf.to_file('rome_amenities.gpkg', driver='GPKG')
+    print(f"Processed {len(handler.amenities)} amenities and saved to GeoPackage.")
+    return True
+
+def build_spatial_index(gdf):
+    """Build a spatial index for quick proximity searches."""
+    idx = rtree.index.Index()
+    for i, geom in enumerate(gdf.geometry):
+        idx.insert(i, geom.bounds)
+    return idx
+
+def get_amenity_details_local(lat, lon, radius=100, gdf=None, spatial_idx=None):
+    """Get amenities with names from local data."""
+    if gdf is None:
+        # Load amenities from GeoPackage if not provided
+        try:
+            gdf = gpd.read_file('rome_amenities.gpkg')
+            spatial_idx = build_spatial_index(gdf)
+        except Exception as e:
+            print(f"Error loading amenities: {e}")
+            return []
+    
+    # Convert radius from meters to degrees (approximate)
+    radius_deg = radius / 111000  # ~111km per degree at the equator
+    
+    # Define search bounds
+    bounds = (
+        lon - radius_deg,  # min_x
+        lat - radius_deg,  # min_y
+        lon + radius_deg,  # max_x
+        lat + radius_deg   # max_y
+    )
+    
+    # Find candidates using spatial index
+    candidates_idx = list(spatial_idx.intersection(bounds))
+    
+    if not candidates_idx:
+        return []
+    
+    # Get candidate rows
+    candidates = gdf.iloc[candidates_idx]
+    
+    # Create a point for the search location
+    point = Point(lon, lat)
+    
+    # Calculate distances and filter by actual radius
+    amenities = []
+    for _, row in candidates.iterrows():
+        # Calculate actual distance in meters
+        distance = point.distance(row.geometry) * 111000  # approximate conversion
+        
+        if distance <= radius:
+            amenities.append({
+                'type': row['type'],
+                'name': row['name'],
+                'original_type': row['original_type']
+            })
+    
+    return amenities
+
+# No longer need parse_point function as coordinates are now directly provided in the CSV
 
 def process_taxi(taxi_group):
     """Detect stops with timestamps and point counts."""
@@ -106,39 +249,7 @@ def group_clusters_by_location(clusters):
     
     return grouped_clusters
 
-def get_amenity_details(lat, lon, radius=100):
-    """Get amenities with names and filter unwanted types."""
-    overpass_url = "http://overpass-api.de/api/interpreter"
-    query = f"""
-    [out:json];
-    node["amenity"](around:{radius},{lat},{lon});
-    out;
-    """
-    try:
-        response = requests.post(overpass_url, data=query, timeout=10)
-        elements = response.json().get('elements', [])
-        
-        amenities = []
-        for elem in elements:
-            amenity_type = elem['tags'].get('amenity', '')
-            name = elem['tags'].get('name', '').strip()
-            
-            if amenity_type in EXCLUDED_AMENITIES or not name:
-                continue
-                
-            amenities.append({
-                'type': amenity_type,
-                'name': name,
-                'original_type': amenity_type
-            })
-        
-        return amenities
-    
-    except Exception as e:
-        print(f"OSM query failed: {e}")
-        return []
-
-def create_popup_content(cluster_group):
+def create_popup_content(cluster_group, amenities_gdf, spatial_idx):
     """Create detailed popup with timing and point information for all sub-clusters."""
     time_format = "%Y-%m-%d %H:%M:%S"
     content = []
@@ -157,7 +268,13 @@ def create_popup_content(cluster_group):
             "<hr>"
         ])
     
-    amenities = get_amenity_details(cluster_group[0]['lat'], cluster_group[0]['lon'])
+    amenities = get_amenity_details_local(
+        cluster_group[0]['lat'], 
+        cluster_group[0]['lon'],
+        gdf=amenities_gdf,
+        spatial_idx=spatial_idx
+    )
+    
     if amenities:
         amenity_groups = {}
         for a in amenities:
@@ -208,13 +325,30 @@ def split_route_by_time_gaps(points):
     return segments
 
 def main():
-    # Read and preprocess data
-    print("Reading data...")
-    df = pd.read_csv('4.txt', sep=';', header=None, names=['id', 'timestamp', 'geom'])
-    df['lat'], df['lon'] = zip(*df['geom'].apply(parse_point))
+    # Check if we need to process OSM data
+    if not os.path.exists('rome_amenities.gpkg'):
+        if not process_osm_to_geopackage():
+            print("Failed to process OSM data. Exiting.")
+            return
+    
+    # Load amenities data and build spatial index
+    print("Loading amenities data...")
+    amenities_gdf = gpd.read_file('rome_amenities.gpkg')
+    spatial_idx = build_spatial_index(amenities_gdf)
+    print(f"Loaded {len(amenities_gdf)} amenities.")
+    
+    # Read and preprocess taxi data in the new format
+    print("Reading taxi data...")
+    df = pd.read_csv('taxi-2-rit-196.csv')  # Using default comma separator with headers
+    # Rename columns to match the rest of the code
+    df = df.rename(columns={
+        'ID': 'id',
+        'Timestamp': 'timestamp',
+        'Latitude': 'lat',
+        'Longitude': 'lon'
+    })
     df = df.dropna(subset=['lat', 'lon'])
     df['timestamp'] = pd.to_datetime(df['timestamp'])
-    #df = df.sort_values(['id', 'timestamp'])
     
     # Process data
     taxi_groups = [group for _, group in df.groupby('id')]
@@ -265,7 +399,7 @@ def main():
         avg_lat = np.mean([c['lat'] for c in cluster_group])
         avg_lon = np.mean([c['lon'] for c in cluster_group])
         
-        popup_content = create_popup_content(cluster_group)
+        popup_content = create_popup_content(cluster_group, amenities_gdf, spatial_idx)
         popup = folium.Popup(popup_content, max_width=450)
         
         folium.Marker(
@@ -276,8 +410,8 @@ def main():
     
     # Add full route if enabled
     if map_full_route:
-        print("adding traces")
-        df = df.head(10000) # Limit to 5000 points to prevent crashes
+        print("Adding traces...")
+        df = df.head(10000)  # Limit to 10000 points to prevent crashes
         
         for _, group in df.groupby('id'):
             points = group[['lat', 'lon', 'timestamp']].to_dict('records')
@@ -303,8 +437,8 @@ def main():
                         popup=f"Timestamp: {point['timestamp']}"
                     ).add_to(map_rome)
     
-    map_rome.save('taxi_stopsSTACKED10000.html')
-    print("Map saved to taxi_stopsSTACKED10000.html")
+    map_rome.save('taxi_stops_local_data.html')
+    print("Map saved to taxi_stops_local_data.html")
 
 if __name__ == '__main__':
     main()
